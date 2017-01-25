@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
+
 import Login from './Login';
+import Dashboard from './Dashboard';
+
 import './App.css';
 
 class App extends Component {
@@ -8,17 +11,17 @@ class App extends Component {
     super(props);
 
     this.state = {
-
+      loggedIn: false
     };
   }
 
 
   render() {
+    let logged = null;
+    this.state.loggedIn ? logged = <Dashboard /> : <Login />;
 
     return (
-      <div>
-        <Login />
-      </div>
+      {logged}
     );
   }
 }
