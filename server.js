@@ -9,6 +9,13 @@ const app = express();
 const server = require('http').createServer(app);
 const port = 9000;
 
+//for passport middleware
+app.use(express.cookieParser());
+app.use(express.session({ secret: 'keyboard cat' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(app.router);
+
 app.use(express.static(__dirname + 'client/build'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

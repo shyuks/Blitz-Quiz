@@ -34,4 +34,8 @@ var test = () => {
 
 };
 
-module.exports.test = test;
+// module.exports.test = test;
+
+module.exports = {test: test,
+									sequilize: sequelize
+									}	
