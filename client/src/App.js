@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import Login from './Login';
 import './App.css';
 
 class App extends Component {
@@ -17,7 +17,7 @@ class App extends Component {
 
     return (
       <div>
-        Start here!
+        <Login />
       </div>
     );
   }
