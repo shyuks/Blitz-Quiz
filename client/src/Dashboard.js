@@ -23,7 +23,8 @@ class Dashboard extends Component {
 
     this.state = {
       docked: false,
-      open: false
+      open: false,
+      selectedClass: {name: 'Biology 100'}
     };
   }
 
@@ -59,7 +60,9 @@ class Dashboard extends Component {
     const contentHeader = (
       <span>
         {!this.state.docked &&
-         <a onClick={this.toggleOpen.bind(this)} href="#" style={styles.contentHeaderMenuLink}>=</a>}
+         <a onClick={this.toggleOpen.bind(this)} 
+            href="#" 
+            style={styles.contentHeaderMenuLink}>=</a>}
         <span> React Sidebar</span>
       </span>);
 
@@ -70,11 +73,10 @@ class Dashboard extends Component {
       onSetOpen: this.onSetOpen.bind(this)
     };
 
-    const sidebarContent = <b>Sidebar Content</b>;
-
     return (
       <Sidebar {...sidebarProps}>
-        <SidebarTopArea title={contentHeader}>
+        <SidebarTopArea title={contentHeader}
+                        class={this.state.selectedClass}>
           <div style={styles.content}>
             This is the body area!
           </div>

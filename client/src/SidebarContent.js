@@ -1,6 +1,9 @@
 import React from 'react';
+import {Glyphicon} from 'react-bootstrap';
 
 import SidebarPersonal from './SidebarPersonal';
+
+import './App.css';
 
 const styles = {
   sidebar: {
@@ -11,6 +14,7 @@ const styles = {
     display: 'block',
     padding: '16px 0px',
     color: '#757575',
+    fontSize: '1.2em',
     textDecoration: 'none',
   },
   divider: {
@@ -31,10 +35,16 @@ const SidebarContent = (props) => {
   return (
     <SidebarPersonal style={style}>
       <div style={styles.content}>
-        <a href="#" style={styles.sidebarLink}>Home</a>
-        <a href="#" style={styles.sidebarLink}>Responsive Example</a>
+        <a href="#" style={styles.sidebarLink}>
+        <Glyphicon className="icon" glyph="dashboard" /> Dashboard
+        </a>
+        <a href="#" style={styles.sidebarLink}>
+        <Glyphicon className="icon" glyph="education" /> Students
+        </a>
         <div style={styles.divider} />
-          <a href="#" style={styles.sidebarLink}>Mock menu item 1</a>
+          <a href="#" style={styles.sidebarLink}>
+        <Glyphicon className="icon" glyph="log-out" /> Logout
+        </a>
       </div>
     </SidebarPersonal>
   );
