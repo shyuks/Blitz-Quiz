@@ -23,13 +23,7 @@ class Dashboard extends Component {
 
     this.state = {
       docked: false,
-      open: false,
-      transitions: true,
-      touch: true,
-      shadow: true,
-      pullRight: false,
-      touchHandleWidth: 20,
-      dragToggleDistance: 30,
+      open: false
     };
   }
 
@@ -37,9 +31,26 @@ class Dashboard extends Component {
     this.setState({open: open});
   }
 
-  menuButtonClick(ev) {
-    ev.preventDefault();
-    this.onSetOpen(!this.state.open);
+  mediaQueryChanged() {
+    this.setState({docked: this.state.mql.matches});
+  }
+
+  toggleOpen(e) {
+    this.setState({open: !this.state.open});
+
+    if (e) {
+      e.preventDefault();
+    }
+  }
+
+  componentWillMount() {
+    const mql = window.matchMedia(`(min-width: 800px)`);
+    mql.addListener(this.mediaQueryChanged.bind(this));
+    this.setState({mql: mql, docked: mql.matches});
+  }
+
+  componentWillUnmount() {
+    this.state.mql.removeListener(this.mediaQueryChanged.bind(this));
   }
 
   render() {
@@ -48,22 +59,15 @@ class Dashboard extends Component {
     const contentHeader = (
       <span>
         {!this.state.docked &&
-         <a onClick={this.menuButtonClick.bind(this)} href="#" style={styles.contentHeaderMenuLink}>=</a>}
+         <a onClick={this.toggleOpen.bind(this)} href="#" style={styles.contentHeaderMenuLink}>=</a>}
         <span> React Sidebar</span>
       </span>);
 
     const sidebarProps = {
       sidebar: sidebar,
       docked: this.state.docked,
-      sidebarClassName: 'custom-sidebar-class',
       open: this.state.open,
-      touch: this.state.touch,
-      shadow: this.state.shadow,
-      pullRight: this.state.pullRight,
-      touchHandleWidth: this.state.touchHandleWidth,
-      dragToggleDistance: this.state.dragToggleDistance,
-      transitions: this.state.transitions,
-      onSetOpen: this.onSetOpen.bind(this),
+      onSetOpen: this.onSetOpen.bind(this)
     };
 
     const sidebarContent = <b>Sidebar Content</b>;
