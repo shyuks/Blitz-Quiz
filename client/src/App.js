@@ -15,7 +15,6 @@ class App extends Component {
     };
   }
 
-
   render() {
     let logged = null;
     this.state.loggedIn ? logged = <Dashboard /> : <Login />;
