@@ -11,16 +11,19 @@ class App extends Component {
     super(props);
 
     this.state = {
-      loggedIn: false
+      loggedIn: true
     };
   }
 
   render() {
     let logged = null;
-    this.state.loggedIn ? logged = <Dashboard /> : <Login />;
+    this.state.loggedIn ? logged = <Dashboard /> : logged = <Login />;
 
     return (
-      {logged}
+      <div>
+        {logged}
+      </div>
+      
     );
   }
 }
