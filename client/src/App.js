@@ -17,6 +17,7 @@ class App extends Component {
     // });
 
     this.state = {
+      isStudent: true,
       loggedIn: true
     };
   }

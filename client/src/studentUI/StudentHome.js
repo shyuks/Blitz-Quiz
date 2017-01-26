@@ -5,7 +5,13 @@ class StudentHome extends Component {
     super(props);
 
     this.state = {
-      
+      firstName: '',
+      lastName: '',
+      image: '',
+      questions: [],
+      answers: [],
+      testName: '',
+      type: ''
     };
   }
 
