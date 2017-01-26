@@ -3,7 +3,7 @@ import {Glyphicon} from 'react-bootstrap';
 
 import SidebarPersonal from './SidebarPersonal';
 
-import './App.css';
+import './../App.css';
 
 const styles = {
   sidebar: {
