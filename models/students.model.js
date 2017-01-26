@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = require('../db/config').sequelize;
+const sequelize = require('../db/config').sequilize;
 
 const Students = sequelize.define('Students', {
   firstName: Sequelize.STRING,
