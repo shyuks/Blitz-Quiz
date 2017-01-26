@@ -8,6 +8,13 @@ var PUBLIC_DIR = path.resolve(__dirname, 'client/public');
 var BUILD_DIR = path.resolve(__dirname, 'client/build');
 
 module.exports = {
+  // added this node property to resolve error consoles
+  node: {
+      fs: "empty",
+      dgram: "empty",
+      child_process: "empty",
+      module: "empty"
+    },
   entry: path.resolve(SRC_DIR, 'index.js'),
   output: {
     path: BUILD_DIR,
@@ -35,6 +42,10 @@ module.exports = {
         test: /\.css$/,
         loader: "style-loader!css-loader"
       },
+      {
+        test: /\.json$/,
+        loader: "json-loader"
+      },            
       {
         test: /\.png$/,
         loader: "url-loader?limit=100000"
