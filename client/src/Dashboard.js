@@ -4,7 +4,6 @@ import Sidebar from 'react-sidebar';
 import SidebarContent from './SidebarContent';
 import SidebarPersonal from './SidebarPersonal';
 import SidebarTopArea from './SidebarTopArea';
-import Body from './Body';
 
 
 const styles = {
@@ -79,8 +78,7 @@ class Dashboard extends Component {
         <SidebarTopArea title={contentHeader}
                         class={this.state.selectedClass}>
           <div style={styles.content}>
-            <Body class={this.state.selectedClass}>
-            </Body>
+            This is the body area!
           </div>
         </SidebarTopArea>
       </Sidebar>
