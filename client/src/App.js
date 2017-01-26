@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import io from 'socket.io-client';
 
 import Login from './Login';
 import Dashboard from './Dashboard';
@@ -10,8 +11,13 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    var socket = io('http://localhost:9000');
+    socket.on('connect', () => {
+      console.log('connected at client');
+    });
+
     this.state = {
-      loggedIn: true
+      loggedIn: false
     };
   }
 

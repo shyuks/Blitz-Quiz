@@ -8,7 +8,9 @@
   "homepage": "https://github.com/hrla12-Team-Awesome/Blitz-Quiz#readme",
   "scripts": {
     "webpack": "webpack --progress --colors",
-    "start": "node ./server.js",
+    "prestart": "webpack --progress --colors",
+    "watch": "webpack --watch",
+    "start": "nodemon ./server.js",
     "dev": "webpack-dev-server --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -34,7 +36,9 @@
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",
     "react-sidebar": "^2.2.1",
-    "sequelize": "^3.29.0"
+    "sequelize": "^3.29.0",
+    "socket.io": "^1.7.2",
+    "socket.io-client": "^1.7.2"
   },
   "devDependencies": {
     "babel-core": "^6.1.21",
