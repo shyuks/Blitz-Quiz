@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const session = require('express-session')
 
 const app = express();
 const port = 9000;
@@ -10,22 +11,12 @@ const io = require('socket.io')(http);
 
 const handleSocket = require('./sockets');
 
-//for passport middleware
-<<<<<<< HEAD
-
 app.use(session({
 	secret: 'keyboard cat',
 	resave: false,
-	saveUnitialized: true,
+	saveUninitialized: true,
 	cookie: {secure: true}
 	}));
-=======
-app.use(express.cookieParser());
-app.use(express.session({ secret: 'keyboard cat' }));
->>>>>>> parent of 3eeef6e... Merge pull request #11 from fbslee/feat/dashboardBody
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(app.router);
 
 app.use(express.static('client/build'));
 app.use(bodyParser.urlencoded({ extended: false }));
