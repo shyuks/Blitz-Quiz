@@ -16,6 +16,7 @@ module.exports = {
   devServer: {
     contentBase: BUILD_DIR,
   },
+  watch: true,
   module: {
     loaders: [
       {
