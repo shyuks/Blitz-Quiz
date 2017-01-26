@@ -13,6 +13,7 @@ const Answer = sequelize.define('answers', {
 });
 
 Students.hasMany(Answer);
+
 Question.hasMany(Answer);
 
 module.exports = Answer;
