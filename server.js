@@ -1,6 +1,9 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const passport = require('passport');
+
 
 const app = express();
 const port = 9000;
@@ -11,10 +14,16 @@ const io = require('socket.io')(http);
 const handleSocket = require('./sockets');
 
 //for passport middleware
-//app.use(express.session({ secret: 'keyboard cat' }));
-//app.use(passport.initialize());
-//app.use(passport.session());
-//app.use(app.router);
+
+app.use(session({
+	secret: 'keyboard cat',
+	resave: false,
+	saveUnitialized: true,
+	cookie: {secure: true}
+	}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use(express.static('client/build'));
 app.use(bodyParser.urlencoded({ extended: false }));
