@@ -12,7 +12,8 @@ const Answer = sequelize.define('answers', {
   answerTime: Sequelize.DATE
 });
 
-Students.hasOne(Answer);
+Students.hasMany(Answer);
+
 Question.hasMany(Answer);
 
 module.exports = Answer;
