@@ -1,5 +1,4 @@
 const loginController = {}
-let request = require('request-promise')
 
 //passport authentication
 loginController.CHECK_USER = (req, res) => {
