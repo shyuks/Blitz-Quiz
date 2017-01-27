@@ -38,9 +38,10 @@
 // export default QuestionsBodyComponents;
 
 import React from 'react';
-import {ListGroup} from 'react-bootstrap';
+import {ListGroup, ListGroupItem, Panel} from 'react-bootstrap';
 
 import QuestionHeader from './QuestionHeader';
+import QuestionComponents from './QuestionComponents';
 
 const QuestionsBodyComponents = (props) => {
   return (
@@ -49,6 +50,7 @@ const QuestionsBodyComponents = (props) => {
         <QuestionHeader lecture={props.lecture}
           handleDeselectLecture={props.handleDeselectLecture}/>
       </ListGroup>
+      <QuestionComponents questions={props.questions} />
     </div>
   );
 };
