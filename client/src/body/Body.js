@@ -9,30 +9,37 @@ class Body extends Component {
 
     this.state = {
       currentClass: 'Biology',
-      teacher: 'Sara H.',
-      studentView: true
+      teacher: 'Sara H.'
     };
   }
 
 
   render() {
-    if(this.state.studentView) {
-      return (
+    let navigator = null;
+
+    if(this.props.navigation === ''){
+      navigator = null;
+    } else if (this.props.navigation === 'Students') {
+      navigator = (
         <div>
           <ImportedStudents />
           <AvailableStudents />
         </div>
-      )
-    } else {
-      return (
-    	  <div>
+      );
+    } else if (this.props.navigation === 'Lectures') {
+      navigator = (
+        <div>
           <Lecture teacher={this.state.teacher} />
     	  </div>
       );
     }
+
+    return (
+      <div>
+        {navigator}
+      </div>
+    );
   }
-
-
 }
 
 export default Body;

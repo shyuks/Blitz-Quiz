@@ -24,8 +24,19 @@ class Dashboard extends Component {
     this.state = {
       docked: false,
       open: false,
-      selectedClass: {name: 'Biology 100'}
+      selectedClass: {name: 'Biology 100'},
+      navigation: 'Lectures'
     };
+
+    this.handleSideNav = this.handleSideNav.bind(this);
+  }
+
+  handleSideNav(e, location) {
+    e.preventDefault();
+
+    this.setState({
+      navigation: location
+    });
   }
 
   onSetOpen(open) {
@@ -55,7 +66,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const sidebar = <SidebarContent />;
+    const sidebar = <SidebarContent handleSideNav={this.handleSideNav} />;
 
     const contentHeader = (
       <span>
@@ -76,10 +87,8 @@ class Dashboard extends Component {
     return (
       <Sidebar {...sidebarProps}>
         <SidebarTopArea title={contentHeader}
-                        class={this.state.selectedClass}>
-
-          <Body />
-
+          class={this.state.selectedClass}>
+          <Body navigation={this.state.navigation}/>
         </SidebarTopArea>
       </Sidebar>
     );
