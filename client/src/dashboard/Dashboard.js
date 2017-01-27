@@ -4,7 +4,7 @@ import Sidebar from 'react-sidebar';
 import SidebarContent from './SidebarContent';
 import SidebarPersonal from './SidebarPersonal';
 import SidebarTopArea from './SidebarTopArea';
-
+import Body from '../body/Body';
 
 const styles = {
   contentHeaderMenuLink: {
@@ -77,9 +77,10 @@ class Dashboard extends Component {
       <Sidebar {...sidebarProps}>
         <SidebarTopArea title={contentHeader}
                         class={this.state.selectedClass}>
-          <div style={styles.content}>
 
-          </div>
+          <Body>
+          </Body>
+
         </SidebarTopArea>
       </Sidebar>
     );
