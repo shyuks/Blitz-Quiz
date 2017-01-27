@@ -12,7 +12,7 @@ class Lecture extends Component {
       currentClass: 'Biology 100',
       teacher: props.teacher,
       topic: 'Ants',
-      finished: true
+      finished: false
     };
   }
 

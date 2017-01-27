@@ -48,6 +48,9 @@ const SidebarContent = (props) => {
       </div>
     </SidebarPersonal>
   );
+
+  
+
 };
 
 export default SidebarContent;
