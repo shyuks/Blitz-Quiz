@@ -9,7 +9,7 @@ const initDatabase = () => {
 		const Student = require('./../models/students.model');
 		const Teacher = require('./../models/teachers.model');
 		const Test = require('./../models/tests.model');
-
+		
 		Teacher.hasMany(Class, {
 			foreignKey: 'Teacher_id'
 		});
@@ -53,7 +53,7 @@ const initDatabase = () => {
 			through: 'class_student',
 			foreignKey: 'Student_id'
 		});
-
+		
 		sequelize.sync({/*force: true*/}).then(err => {
 			resolve();
 		});

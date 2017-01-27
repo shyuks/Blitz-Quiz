@@ -3,6 +3,7 @@ const sequelize = require('./../db/config');
 
 const Teacher = require('./../models/teachers.model');
 
+//This is a test method!
 const addTeacher = () => {
   Teacher.create({
     firstName: 'Mary',
