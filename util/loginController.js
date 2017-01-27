@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./../db/config');
 
-const Teachers = require('./../models/teachers.model');
+const Teacher = require('./../models/teachers.model');
 
 const addTeacher = () => {
-  Teachers.create({
+  Teacher.create({
     firstName: 'Mary',
     lastName: 'Jane',
     password: '12234'

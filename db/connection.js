@@ -6,6 +6,12 @@ const sequelize = new Sequelize(connection, {
   dialect: 'postgres',
   port: 5432
 });
-console.log('1');
+
+sequelize.authenticate()
+  .then(function(err) {
+    console.log('Connection has been established successfully.');
+  }).catch(function (err) {
+    console.log('Unable to connect to the database:', err);
+  });
 
 module.exports = sequelize;

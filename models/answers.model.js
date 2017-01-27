@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./../db/connection');
 
-const Answers = sequelize.define('Answers', {
+const Answer = sequelize.define('answer', {
   answerBody: Sequelize.STRING,
   isCorrect: Sequelize.STRING
 });
 
-module.exports = Answers;
+module.exports = Answer;

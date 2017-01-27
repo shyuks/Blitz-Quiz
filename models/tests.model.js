@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./../db/connection');
 
-const Tests = sequelize.define('Tests', {
+const Test = sequelize.define('test', {
   testName: Sequelize.STRING,
   type: Sequelize.STRING,
   minutesAllowed: Sequelize.INTEGER
 });
 
-module.exports = Tests;
+module.exports = Test;

@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./../db/connection');
 
-const Classes = sequelize.define('Classes', {
+const Class = sequelize.define('class', {
   className: Sequelize.STRING
 });
 
-module.exports = Classes;
+module.exports = Class;
