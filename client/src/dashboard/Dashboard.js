@@ -24,7 +24,7 @@ class Dashboard extends Component {
     this.state = {
       docked: false,
       open: false,
-      selectedClass: {name: 'Biology 100'},
+      selectedClass: {id: 4, className: 'Biology 100'},
       navigation: 'Lectures'
     };
 

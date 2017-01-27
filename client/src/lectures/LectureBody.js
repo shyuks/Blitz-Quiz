@@ -25,6 +25,7 @@ class LectureBody extends Component {
     this.handleDeselectLecture = this.handleDeselectLecture.bind(this);
     this.handleAddQuestion = this.handleAddQuestion.bind(this);
     this.handleSubmitNewQuestion = this.handleSubmitNewQuestion.bind(this);
+    this.handleAddLecture = this.handleAddLecture.bind(this);
   }
 
 //=========================================
@@ -74,6 +75,10 @@ class LectureBody extends Component {
     this.setState({selectedLecture: null, selectedQuestions: []});
   }
 
+  handleAddLecture(e) {
+    e.preventDefault();
+  }
+
 //=========================================
 //            Render
 //=========================================
@@ -81,7 +86,8 @@ class LectureBody extends Component {
     let item = null;
     if(this.state.selectedLecture === null) {
       item = <LectureBodyComponents tests={this.state.tests} 
-        selectLectureHandler={this.selectLectureHandler} />;
+        selectLectureHandler={this.selectLectureHandler} 
+        handleAddLecture = {this.handleAddLecture}/>;
     } else {
       item = <QuestionsBodyComponents questions={this.state.selectedQuestions}
         lecture={this.state.selectedLecture}

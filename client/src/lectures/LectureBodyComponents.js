@@ -21,7 +21,7 @@ class LectureBodyComponents extends Component {
     return(
       <div>
         <ListGroup>
-          <LectureAdd />
+          <LectureAdd handleAddLecture={this.props.handleAddLecture} />
         </ListGroup>
         <LectureComponents tests={this.props.tests}
           selectLectureHandler={this.props.selectLectureHandler}/>
