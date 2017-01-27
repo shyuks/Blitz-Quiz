@@ -1,10 +1,10 @@
-// const Sequelize = require('sequelize');
-// const sequelize = require('../db/config');
+const Sequelize = require('sequelize');
+const sequelize = require('./../db/connection');
 
-// const Test = sequelize.define('tests', {
-//   testName: Sequelize.STRING,
-//   type: Sequelize.STRING,
-//   timeAllowed: Sequelize.INTEGER
-// });
+const Tests = sequelize.define('Tests', {
+  testName: Sequelize.STRING,
+  type: Sequelize.STRING,
+  minutesAllowed: Sequelize.INTEGER
+});
 
-// module.exports = Test;
+module.exports = Tests;

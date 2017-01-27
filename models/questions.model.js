@@ -1,11 +1,11 @@
-// const Sequelize = require('sequelize');
-// const sequelize = require('../db/config');
+const Sequelize = require('sequelize');
+const sequelize = require('./../db/connection');
 
-// const Question = sequelize.define('questions', {
-//   type: Sequelize.STRING,
-//   body: Sequelize.STRING,
-//   answer: Sequelize.STRING,
-//   startTime: Sequelize.DATE
-// });
+const Questions = sequelize.define('Questions', {
+  type: Sequelize.STRING,
+  body: Sequelize.STRING,
+  answer: Sequelize.STRING,
+  timeLimit: Sequelize.INTEGER
+});
 
-// module.exports = Question;
+module.exports = Questions;

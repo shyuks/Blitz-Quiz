@@ -1,8 +1,8 @@
-// const Sequelize = require('sequelize');
-// const sequelize = require('../db/config');
+const Sequelize = require('sequelize');
+const sequelize = require('./../db/connection');
 
-// const Class = sequelize.define('classes', {
-//   className: Sequelize.STRING
-// });
+const Classes = sequelize.define('Classes', {
+  className: Sequelize.STRING
+});
 
-// module.exports = Class;
+module.exports = Classes;
