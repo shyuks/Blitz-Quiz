@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 
 
 import LectureBody from './../lectures/LectureBody';
-import AvailableStudents from './AvailableStudents';
-import ImportedStudents from './ImportedStudents';
-import Lecture from './Lecture';
 import StudentList from './StudentList';
+
+
 
 
 class Body extends Component {
