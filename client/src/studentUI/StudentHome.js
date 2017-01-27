@@ -20,9 +20,7 @@ class StudentHome extends Component {
       testName: '',
       type: ''
     };
-
   }
-
 
   handleAnswer(answerBody, qId) {
     let answer = {
@@ -34,11 +32,19 @@ class StudentHome extends Component {
     //send socket answer
 
     let newQuestions = this.state.questions.slice(1);
-    console.log(newQuestions);
     this.setState({questions: newQuestions});
   }
 
   render() {
+    let question = null;
+
+    if(this.state.questions.length > 0) {
+      question = (
+        <QuestionArea question={this.state.questions[0]}
+          handleAnswer={this.handleAnswer.bind(this)}/>
+      );
+    }
+
     return (
       <div>
       <Grid fluid={true}>
@@ -47,8 +53,7 @@ class StudentHome extends Component {
             <StudentSidebar questions={this.state.questions}/>
           </Col>
           <Col xs={8} sm={8} md={8} lg={9}>
-            <QuestionArea question={this.state.questions[0]}
-              handleAnswer={this.handleAnswer.bind(this)}/>
+            {question}
           </Col>
         </Row>
       </Grid>
