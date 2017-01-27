@@ -3,8 +3,7 @@ const sequelize = require('../db/config');
 
 const Answer = sequelize.define('answers', {
   answerBody: Sequelize.STRING,
-  isCorrect: Sequelize.STRING,
-  answerTime: Sequelize.DATE
+  isCorrect: Sequelize.STRING
 });
 
 module.exports = Answer;

@@ -1,20 +1,18 @@
-const Sequelize = require('sequelize');
-const keys = require('./../keys.js');
+const Promise = require('bluebird');
+const sequelize = require('./connection');
 
-const connection = 'postgres://' + keys.USER_SQL + ':'+ keys.PASS_SQL + keys.SERVER_SQL;
-const sequelize = new Sequelize(connection, {
-  dialect: 'postgres',
-  port: 5432
-});
+const initDatabase = () => {
+	return new Promise((resolve, reject) => {
+		const Teachers = require('./../models/teachers.model');
 
-//This should wrap the server instantiation
-sequelize.sync({force: true}).then((err) => {
-    //force:true
+		sequelize.sync({
+			//force: true
+		})
+		.then(err => {
+			resolve();
+		});
 
-    //IF YOU UNCOMMENT ABOVE IT WILL DELETE EVERYTHING IN THE DATABASE AND
-    //DROP ALL TABLES!!!!!!!! 
-		console.log('Sync Done!');
-});
-console.log('Hello!');
+	});
+};
 
-module.exports = 'Hello!';
+module.exports = initDatabase;

@@ -6,5 +6,6 @@ const sequelize = new Sequelize(connection, {
   dialect: 'postgres',
   port: 5432
 });
+console.log('1');
 
 module.exports = sequelize;
