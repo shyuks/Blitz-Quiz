@@ -25,7 +25,7 @@ class App extends Component {
 
   render() {
     let logged = null;
-    this.state.loggedIn ? logged = <StudentHome /> : logged = <Login />;
+    this.state.loggedIn ? logged = <Dashboard /> : logged = <Login />;
 
     return (
       <div>
