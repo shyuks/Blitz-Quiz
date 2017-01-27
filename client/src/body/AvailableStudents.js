@@ -12,8 +12,8 @@ const rowGetter = rowNumber => data[rowNumber];
 
 
 class AvailableStudents extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
 
