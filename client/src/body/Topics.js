@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TopicEntry from './TopicEntry'
+import NewTopic from './NewTopic'
 
 class Topics extends Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class Topics extends Component {
             <div>
                 <TopicEntry listOfTopics={this.state.listOfTopics}>
                 </TopicEntry>
+                <NewTopic>
+                </NewTopic>
             </div>
       )
   }

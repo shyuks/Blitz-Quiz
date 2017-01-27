@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import NewQuestion from './NewQuestion'
 import QuestionEntry from './QuestionEntry';
 
 class Questions extends Component {
@@ -17,6 +18,8 @@ class Questions extends Component {
         <div>
             <QuestionEntry listOfQuestions={this.state.listOfQuestions}>
             </QuestionEntry>
+            <NewQuestion>
+            </NewQuestion>
         </div>
       )
   }
