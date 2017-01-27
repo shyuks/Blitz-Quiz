@@ -55,6 +55,9 @@ initDatabase().then(() => {
   });
 });
 
+const router = require('./router/router')(app);
+
+module.exports = app;
 
 
 
