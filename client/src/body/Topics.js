@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import TopicEntry from './TopicEntry'
 import NewTopic from './NewTopic'
 
+//need to make axios call to populate list of topics = testnames in database (get request on /topic)
+//need to make axios call to add a new topic = testname in database (post request on /topic)
+
 class Topics extends Component {
   constructor(props) {
     super(props);
