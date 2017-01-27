@@ -13,17 +13,14 @@ var User = sequelize.define('User', {
   password: Sequelize.STRING
 });
 
+//This should wrap the server instantiation
 sequelize.sync({force: true}).then((err) => {
     //force:true      
     //IF YOU UNCOMMENT ABOVE IT WILL DELETE EVERYTHING IN THE DATABASE AND
     //DROP ALL TABLES!!!!!!!! 
 		console.log('Sync Complete!');
-	});
+});
 
-
-/**
- * THIS IS A TEST METHOD!!!!! BE SURE TO DELETE
- */
 var test = () => {
 	User.create({
   	username: 'john-doe',
@@ -34,8 +31,4 @@ var test = () => {
 
 };
 
-// module.exports.test = test;
-
-module.exports = {test: test,
-									sequilize: sequelize
-									}	
+module.exports = sequelize;

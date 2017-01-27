@@ -1,8 +1,5 @@
 const Sequelize = require('sequelize');
-
-const sequelize = require('../db/config').sequelize;
-
-const Test = require('/tests.model');
+const sequelize = require('../db/config');
 
 const Question = sequelize.define('questions', {
   type: Sequelize.STRING,
@@ -10,7 +7,5 @@ const Question = sequelize.define('questions', {
   answer: Sequelize.STRING,
   startTime: Sequelize.DATE
 });
-
-Test.hasMany(Question);
 
 module.exports = Question;
