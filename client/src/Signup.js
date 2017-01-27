@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 import './App.css';
-const axios = require('axios');
-const loginController = require('../../controllers/signup.controller')
 
 class Signup extends Component {
 
@@ -14,6 +13,10 @@ class Signup extends Component {
         lastName: '',
         password: ''
     };
+  }
+
+  makeCallToServer() {
+      
   }
 
 

@@ -13,8 +13,6 @@ class Lecture extends Component {
       teacher: props.teacher,
       topic: 'Ants',
       finished: false
-
-
     };
   }
 

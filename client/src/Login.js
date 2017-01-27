@@ -2,9 +2,6 @@ import React, {Component} from 'react';
 
 import './App.css';
 import Signup from './Signup';
-const axios = require('axios');
-const loginController = require('../../controllers/login.controller')
-
 
 class Login extends Component {
 
