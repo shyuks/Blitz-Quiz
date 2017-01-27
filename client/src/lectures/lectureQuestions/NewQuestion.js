@@ -29,6 +29,9 @@ class NewQuestion extends Component {
     this.sendQuestion = this.sendQuestion.bind(this);
   }
 
+//=========================================
+//            Begin Methods
+//=========================================
   handleQuestionChange(e) {
     this.setState({ body: e.target.value });
   }
@@ -42,6 +45,9 @@ class NewQuestion extends Component {
     this.props.handleSubmitNewQuestion(this.state.type, this.state.body, this.state.answer);
   }
 
+//=========================================
+//            Render
+//=========================================
   render() {
     let header = 'Question ' + (this.props.number + 1);
     let types = ['Short Answer', 'Multiple Choice', 'True False']
@@ -57,15 +63,15 @@ class NewQuestion extends Component {
     return (
       <div>
         <Panel>
-            <span>
+          <span>
             {header}
           </span>
           <span className="status">
-              <DropdownButton
-                title={this.state.type} 
-                id="dropdown-size-medium" >
-                {menus}
-              </DropdownButton>
+            <DropdownButton
+              title={this.state.type} 
+              id="dropdown-size-medium" >
+              {menus}
+            </DropdownButton>
             </span>
             <div className="questionInput">
               <Form>
@@ -79,19 +85,19 @@ class NewQuestion extends Component {
                 <FormGroup>
                   <ControlLabel>Answer</ControlLabel>
                   <FormControl type="text" 
-                  label="Answer"
-                  value={this.state.answer}
-                  onChange={this.handleAnswerChange} />
-                </FormGroup>
-                <FormGroup>
-                  <Button type="button"
-                    onClick={(e) => this.props.handleSubmitNewQuestion(e, this.state.type, this.state.body, this.state.answer)}>
-                    Add Question
-                  </Button>
-                </FormGroup>
-              </Form>
-            </div>
-          </Panel>
+                    label="Answer"
+                    value={this.state.answer}
+                    onChange={this.handleAnswerChange} />
+              </FormGroup>
+              <FormGroup>
+                <Button type="button"
+                  onClick={(e) => this.props.handleSubmitNewQuestion(e, this.state.type, this.state.body, this.state.answer)}>
+                  Add Question
+                </Button>
+              </FormGroup>
+            </Form>
+          </div>
+        </Panel>
       </div>
     );
   }

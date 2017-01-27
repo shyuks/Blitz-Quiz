@@ -31,6 +31,9 @@ class Dashboard extends Component {
     this.handleSideNav = this.handleSideNav.bind(this);
   }
 
+//=========================================
+//            Begin Methods
+//=========================================
   handleSideNav(e, location) {
     e.preventDefault();
 
@@ -65,6 +68,9 @@ class Dashboard extends Component {
     this.state.mql.removeListener(this.mediaQueryChanged.bind(this));
   }
 
+//=========================================
+//            Render
+//=========================================
   render() {
     const sidebar = <SidebarContent handleSideNav={this.handleSideNav} />;
 

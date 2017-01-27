@@ -7,6 +7,7 @@ import LectureComponents from './LectureComponents';
 //need to make axios call to populate list of topics = testnames in database (get request on /topic)
 //need to make axios call to add a new topic = testname in database (post request on /topic)
 
+//RESTRUCTURE TO SCC
 class LectureBodyComponents extends Component {
   constructor(props) {
     super(props);
