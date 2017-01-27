@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import Lecture from './Lecture';
+
+import LectureBody from './../lectures/LectureBody';
 import AvailableStudents from './AvailableStudents';
 import ImportedStudents from './ImportedStudents';
 
@@ -29,7 +30,7 @@ class Body extends Component {
     } else if (this.props.navigation === 'Lectures') {
       navigator = (
         <div>
-          <Lecture teacher={this.state.teacher} />
+          <LectureBody teacher={this.state.teacher} />
     	  </div>
       );
     }
