@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 
 import Login from './Login';
 import Dashboard from './dashboard/Dashboard';
+import StudentHome from './studentUI/StudentHome';
 
 import './App.css';
 
@@ -17,13 +18,14 @@ class App extends Component {
     // });
 
     this.state = {
+      isStudent: true,
       loggedIn: true
     };
   }
 
   render() {
     let logged = null;
-    this.state.loggedIn ? logged = <Dashboard /> : logged = <Login />;
+    this.state.loggedIn ? logged = <StudentHome /> : logged = <Login />;
 
     return (
       <div>
