@@ -35,11 +35,20 @@ const SidebarContent = (props) => {
   return (
     <SidebarPersonal style={style}>
       <div style={styles.content}>
-        <a href="#" style={styles.sidebarLink}>
+        <a href="#" 
+          style={styles.sidebarLink}
+          onClick={(e) => props.handleSideNav(e, '')}>
         <Glyphicon className="icon" glyph="dashboard" /> Dashboard
         </a>
-        <a href="#" style={styles.sidebarLink}>
+        <a href="#" 
+          style={styles.sidebarLink}
+          onClick={(e) => props.handleSideNav(e, 'Students')}>
         <Glyphicon className="icon" glyph="education" /> Students
+        </a>
+        <a href="#" 
+          style={styles.sidebarLink}
+          onClick={(e) => props.handleSideNav(e, 'Lectures')}>
+        <Glyphicon className="icon" glyph="book" /> Lectures
         </a>
         <div style={styles.divider} />
           <a href="#" style={styles.sidebarLink}>
