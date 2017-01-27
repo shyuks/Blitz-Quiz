@@ -1,11 +1,19 @@
 import React from 'react';
-import {ListGroup} from 'react-bootstrap';
+import {Accordion, PanelGroup} from 'react-bootstrap';
+
+import StudentBadge from './StudentBadge';
+import StudentQuestionBar from './StudentQuestionBar';
+
+import './../App.css';
 
 const StudentSidebar = (props) => {
   return (
-    <ListGroup>
-      
-    </ListGroup>
+    <div>
+      <PanelGroup className="studentBar">
+        <StudentBadge /> 
+        <StudentQuestionBar questions={props.questions}/>
+      </PanelGroup>
+    </div>
   );
 };
 
