@@ -1,16 +1,11 @@
 const Sequelize = require('sequelize');
+const sequelize = require('./../db/connection');
 
-const sequelize = require('../db/config').sequelize;
-
-const Test = require('/tests.model');
-
-const Question = sequelize.define('questions', {
+const Question = sequelize.define('question', {
   type: Sequelize.STRING,
   body: Sequelize.STRING,
   answer: Sequelize.STRING,
-  startTime: Sequelize.DATE
+  timeLimit: Sequelize.INTEGER
 });
-
-Test.hasMany(Question);
 
 module.exports = Question;

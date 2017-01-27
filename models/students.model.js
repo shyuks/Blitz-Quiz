@@ -1,11 +1,10 @@
 const Sequelize = require('sequelize');
+const sequelize = require('./../db/connection');
 
-const sequelize = require('../db/config').sequelize;
-
-const Students = sequelize.define('Students', {
+const Student = sequelize.define('student', {
   firstName: Sequelize.STRING,
   lastName: Sequelize.STRING,
   password: Sequelize.STRING
 });
 
-module.exports = Students;
+module.exports = Student;
