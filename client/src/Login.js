@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-const path = require('path');
 
 import './App.css';
+import Signup from './Signup';
 const axios = require('axios');
 const loginController = require('../../controllers/login.controller')
+
 
 class Login extends Component {
 
@@ -11,47 +12,62 @@ class Login extends Component {
     super(props);
 
     this.state = {
-        teacherName: '',
+        teacherID: '',
         teacherPassword: '',
-        studentName: '',
-        studentPassword: ''
+        studentID: '',
+        studentPassword: '',
+        signupPage: false
     };
   }
 
 
   render() {
-
+    if (this.state.signupPage) {
+        return (
+            <div>
+                {<Signup signupView={this.signupView.bind(this)}/>}
+            </div>
+        )
+    }
     return (
-        <div className="row">
-            <form action="/login" method="post" onSubmit={this.handleSubmitTeacher.bind(this)} className="col-sm-5 col-sm-offset-1">
-                <h3> Teacher Login </h3>
-                <div>
-                    <label>Username:</label>
-                    <input name="teacherName" type="text" value={this.state.teacherName} onChange={this.handleChangeTeacher.bind(this)} />
+        <div>
+            <div className="row">
+                <nav className="navbar navbar-default">
+                    <div className="container-fluid">
+                        <div className="modal-header">
+                            <h3> BlitzQuiz</h3>
+                            <button type="submit" value="Register" className="login loginmodal-submit btn btn-primary" onClick={this.signupView.bind(this)} > Register </button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div id="login-modal" role="dialog" aria-labelledby="myModalLabel">
+                <div className="modal-dialog">
+                    <div className ="loginmodal-container ">
+                        <h1 className="text-center"> Teacher Login </h1>
+                        <form onSubmit={this.handleSubmitTeacher.bind(this)}>
+                            <input name="teacherID" type="text" value={this.state.teacherID} onChange={this.handleChangeTeacher.bind(this)} placeholder="UserID"/>
+                            <input name="teacherPassword" type="password" value={this.state.teacherPassword} onChange={this.handleChangeTeacher.bind(this)} placeholder="Password"/>
+                            <input type="submit" value="Login" className="login loginmodal-submit btn btn-primary"/>
+                        </form>
+                    </div>
                 </div>
-                <div>
-                    <label>Password:</label>
-                    <input name="teacherPassword" type="password" value={this.state.teacherPassword} onChange={this.handleChangeTeacher.bind(this)}/>
+            </div>
+            <div id="login-modal" role="dialog" aria-labelledby="myModalLabel">
+                <div className="modal-dialog">
+                    <div className ="loginmodal-container">
+                        <h1 className="text-center"> Student Login </h1>
+                        <form onSubmit={this.handleSubmitStudent.bind(this)}>
+                            <input name="studentID" type="text" value={this.state.studentID} onChange={this.handleChangeStudent.bind(this)} placeholder="UserID" />
+                            <input name="studentPassword" type="password" value={this.state.studentPassword} onChange={this.handleChangeStudent.bind(this)} placeholder="Password" />
+                            <input type="submit" value="Login" className="login loginmodal-submit btn btn-primary" />
+                        </form>
+                    </div>    
                 </div>
-                <div>
-                    <input type="submit" value="Log In" />
-                </div>
-            </form>
-            <form action="/login" method="post" onSubmit={this.handleSubmitStudent.bind(this)} className="col-sm-5 col-sm-offset-1">
-                <h3> Student Login </h3>
-                <div>
-                    <label>Username:</label>
-                    <input name="studentName" type="text" value={this.state.studentName} onChange={this.handleChangeStudent.bind(this)} />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input name="studentPassword" type="password" value={this.state.studentPassword} onChange={this.handleChangeStudent.bind(this)} />
-                </div>
-                <div>
-                    <input type="submit" value="Log In" />
-                </div>
-            </form>
-        </div>    
+            </div>
+        </div>
+
+      
     );
   }
 
@@ -73,21 +89,48 @@ class Login extends Component {
         });
   }
 
-//   handleSubmitTeacher(event) {  
-//     console.log("teacher submitted with: ", this.state.teacherName)
-//     return axios.post('/login/teacher')
-//         .then (function (response) {
-//             console.log("does this work?")
-//             // return loginController.CHECK_TEACHER()
-//         })
-//         .catch (function (error) {
-//             console.error(error);
-//         })
-//     }
+  handleSubmitTeacher(event) {  
+    axios.post('/login/Teacher', {
+        params: {
+            ID: this.state.teacherID
+        }
+    })
+    .then(function (response) {
+        this.setState({
+            teacherID: '',
+            teacherPassword: ''
+        })
+        console.log(response);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });    
+  }
 
 
- handleSubmitStudent(e) {
+  handleSubmitStudent(event) {  
+    axios.post('/login/Student', {
+        params: {
+            ID: this.state.studentID
+        }
+    })
+    .then(function (response) {
+        this.setState({
+            teacherID: '',
+            teacherPassword: ''
+        })
+        console.log(response);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });    
   }  
+
+  signupView () {
+      this.setState({
+          signupPage: !this.state.signupPage
+      })
+  }
 
 
 
