@@ -25,8 +25,6 @@ const LectureComponent = (props) => {
         </ListGroupItem>
       );
     }
-
-  
 };
 
 export default LectureComponent;

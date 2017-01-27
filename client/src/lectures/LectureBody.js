@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {ListGroup, ListGroupItem} from 'react-bootstrap';
 
 import LectureBodyComponents from './LectureBodyComponents';
+import QuestionsBodyComponents from './lectureQuestions/QuestionsBodyComponents';
 
 class LectureBody extends Component {
   constructor(props) {
@@ -16,19 +17,28 @@ class LectureBody extends Component {
         {id: 3, testName: 'Mammals', type: 'Lecture', isComplete: true}
       ],
       selectedLecture: null,
-      selectedQuestions: []
+      selectedQuestions: [
+        {id: 5, type: 'Short Answer', body: 'How many legs do ants have?', answer: 'Six legs', status: 'complete'}, 
+        {id: 6, type: 'Short Answer', body: 'What is the role of the Queen Ant?', answer: 'Lead their colony', status: 'current'},
+        {id: 7, type: 'Short Answer', body: 'What is the best Ant?', answer: 'Spicyboi', status: 'incomplete'}
+        ]
     };
     this.selectLectureHandler = this.selectLectureHandler.bind(this);
+    this.handleDeselectLecture = this.handleDeselectLecture.bind(this);
   }
 
   selectLectureHandler (e, id) {
     e.preventDefault();
     for (let test of this.state.tests) {
-      console.log(test);
       if (test.id === id) {
         this.setState({selectedLecture: test});
       }
     }
+  }
+
+  handleDeselectLecture (e) {
+    e.preventDefault();
+    this.setState({selectedLecture: null, selectedQuestions: []});
   }
 
   render() {
@@ -36,7 +46,12 @@ class LectureBody extends Component {
     if(this.state.selectedLecture === null) {
       item = <LectureBodyComponents tests={this.state.tests} 
               selectLectureHandler={this.selectLectureHandler} />;
+    } else {
+      item = <QuestionsBodyComponents questions={this.state.selectedQuestions}
+                lecture={this.state.selectedLecture}
+                handleDeselectLecture={this.handleDeselectLecture}/>
     }
+
     return (
       <div>
         {item}
