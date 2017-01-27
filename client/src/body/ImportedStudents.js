@@ -1,37 +1,47 @@
 import React, {Component} from 'react';
-import ReactDataGrid from 'react-data-grid';
+import {AgGridReact} from 'ag-grid-react';
+import 'ag-grid-root/dist/styles/ag-grid.css';
+import 'ag-grid-root/dist/styles/theme-fresh.css';
 
-const data = [
-  { id: '1', firstName: 'david', lastName: 'kim'},
-  { id: '2', firstName: 'Andrew', lastName: 'Tran'}
-]
-
-const columns = [{ key: 'id', name: 'ID' }, { key: 'firstName', name: 'First Name' }, { key: 'lastName', name: 'Last Name' }];
-const rowGetter = rowNumber => data[rowNumber];
-
-
+const columns = [{ headerName: 'ID', field: 'ID' }, { headerName: 'First Name', field: 'First Name' }, { headerName: 'Last Name', field: 'Last Name' }];
+const styles = {
+    height: 300,
+}
 
 class ImportedStudents extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    };
-  }
-
-
-  render() {
-    return (
-        <div>
-            <ReactDataGrid
-                columns={columns}
-                rowGetter={rowGetter}
-                rowsCount={data.length}
-                minHeight={500} />
+  render() { 
+      return (
+        <div id="myGrid" className="ag-fresh" style={styles}>
+          <AgGridReact
+              onGridReady = {this.onGridReady.bind(this)}
+              onSelectionChanged={this.onSelectionChanged.bind(this, this.props.data)}
+              columnDefs={columns}
+              rowData={this.props.data}
+              rowSelection="single"
+              enableSorting="true"
+              enableFilter="true"
+              rowHeight="22"
+          />
         </div>
     )
   }
+
+  onGridReady(params) {
+    this.api = params.api;
+    this.columnApi = params.columnApi;
+  }
+
+  onSelectionChanged(row) {
+    let selectedRows = this.api.getSelectedRows();
+    let temp;
+    selectedRows.forEach( function(selectedRow, index) {
+        temp = row.indexOf(selectedRows[0])
+    });
+    this.props.updateTables(temp, selectedRows[0])
+    // this.api.setRowData(this.props.data);
+  }
+
+
 
 }
 

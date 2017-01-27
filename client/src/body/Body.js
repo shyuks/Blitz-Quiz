@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
 
+
 import LectureBody from './../lectures/LectureBody';
 import AvailableStudents from './AvailableStudents';
 import ImportedStudents from './ImportedStudents';
+import Lecture from './Lecture';
+import StudentList from './StudentList';
+
 
 class Body extends Component {
   constructor(props) {
@@ -23,8 +27,7 @@ class Body extends Component {
     } else if (this.props.navigation === 'Students') {
       navigator = (
         <div>
-          <ImportedStudents />
-          <AvailableStudents />
+          <StudentList />
         </div>
       );
     } else if (this.props.navigation === 'Lectures') {
