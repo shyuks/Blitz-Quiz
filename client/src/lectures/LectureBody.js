@@ -9,6 +9,7 @@ class LectureBody extends Component {
     super(props);
 
     this.state = {
+      toggler: true,
       currentClass: 'Biology 100',
       teacher: props.teacher,
       tests: [
@@ -17,10 +18,13 @@ class LectureBody extends Component {
         {id: 3, testName: 'Mammals', type: 'Lecture', isComplete: true}
       ],
       selectedLecture: null,
-      selectedQuestions: []
+      selectedQuestions: [],
+      newQuestions: []
     };
     this.selectLectureHandler = this.selectLectureHandler.bind(this);
     this.handleDeselectLecture = this.handleDeselectLecture.bind(this);
+    this.handleAddQuestion = this.handleAddQuestion.bind(this);
+    this.handleSubmitNewQuestion = this.handleSubmitNewQuestion.bind(this);
   }
 
   //Needs to go to base questions and get the selectedQuestions
@@ -40,7 +44,29 @@ class LectureBody extends Component {
     });
   }
 
-  handleDeselectLecture (e) {
+  handleAddQuestion (e) {
+    e.preventDefault();
+    let questions = this.state.newQuestions.slice();
+    questions.push({type: 'Short Answer', body: '', answer: '', status: 'new'});
+
+    this.setState({
+      newQuestions: questions
+    });
+  }
+
+  handleSubmitNewQuestion (e, type, body, answer) {
+    e.preventDefault();
+    let obj = {type: type, body: body, answer: answer, status: 'incomplete'};
+    let arr = this.state.selectedQuestions.concat([obj]); 
+    this.setState((prevState, props) => {
+      return {
+        selectedQuestions: arr,
+        newQuestions: []
+      };
+    });
+  }
+
+  handleDeselectLecture(e) {
     e.preventDefault();
     this.setState({selectedLecture: null, selectedQuestions: []});
   }
@@ -53,7 +79,10 @@ class LectureBody extends Component {
     } else {
       item = <QuestionsBodyComponents questions={this.state.selectedQuestions}
                 lecture={this.state.selectedLecture}
-                handleDeselectLecture={this.handleDeselectLecture}/>
+                newQuestions={this.state.newQuestions}
+                handleDeselectLecture={this.handleDeselectLecture}
+                handleAddQuestion={this.handleAddQuestion} 
+                handleSubmitNewQuestion={this.handleSubmitNewQuestion}/>
     }
 
     return (

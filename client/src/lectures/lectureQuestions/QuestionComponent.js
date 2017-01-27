@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {ListGroupItem, Panel, Media, Button} from 'react-bootstrap';
 
+import NewQuestion from './NewQuestion';
+
 import './../../App.css';
 
 class QuestionComponent extends Component {
@@ -31,12 +33,12 @@ class QuestionComponent extends Component {
       component = (
         <div>
           <ListGroupItem bsStyle="success">
-          <span>
-            {header}
-          </span>
-          <span className="status">
-            COMPLETE
-          </span>
+            <span>
+              {header}
+            </span>
+            <span className="status">
+              COMPLETE
+            </span>
           </ListGroupItem>
           <Panel collapsible expanded={false}></Panel>
         </div>
@@ -83,9 +85,13 @@ class QuestionComponent extends Component {
             </Media>
           </Panel>
         </div>
-      );
-      
+      );  
+    } else if (this.state.status === 'new') {
+      component = <NewQuestion number={this.props.number}
+                     question={this.props.question}
+                     handleSubmitNewQuestion={this.props.handleSubmitNewQuestion}/> ;
     }
+
     return (
       <div>
         {component}
