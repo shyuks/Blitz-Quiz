@@ -16,7 +16,7 @@ class Body extends Component {
 
     return (
     	<div>
-            <Lecture>
+            <Lecture teacher={this.state.teacher}>
             </Lecture>
     	</div>
     );
