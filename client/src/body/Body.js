@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Lecture from './Lecture';
+import AvailableStudents from './AvailableStudents';
+import ImportedStudents from './ImportedStudents';
 
 class Body extends Component {
   constructor(props) {
@@ -7,20 +9,30 @@ class Body extends Component {
 
     this.state = {
       currentClass: 'Biology',
-      teacher: 'Sara H.'
+      teacher: 'Sara H.',
+      studentView: true
     };
   }
 
 
   render() {
-
-    return (
-    	<div>
-            <Lecture teacher={this.state.teacher}>
-            </Lecture>
-    	</div>
-    );
+    if(this.state.studentView) {
+      return (
+        <div>
+          <ImportedStudents />
+          <AvailableStudents />
+        </div>
+      )
+    } else {
+      return (
+    	  <div>
+          <Lecture teacher={this.state.teacher} />
+    	  </div>
+      );
+    }
   }
+
+
 }
 
 export default Body;

@@ -78,8 +78,7 @@ class Dashboard extends Component {
         <SidebarTopArea title={contentHeader}
                         class={this.state.selectedClass}>
 
-          <Body>
-          </Body>
+          <Body />
 
         </SidebarTopArea>
       </Sidebar>
