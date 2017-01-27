@@ -17,16 +17,13 @@ class LectureBody extends Component {
         {id: 3, testName: 'Mammals', type: 'Lecture', isComplete: true}
       ],
       selectedLecture: null,
-      selectedQuestions: [
-        {id: 5, type: 'Short Answer', body: 'How many legs do ants have?', answer: 'Six legs', status: 'complete'}, 
-        {id: 6, type: 'Short Answer', body: 'What is the role of the Queen Ant?', answer: 'Lead their colony', status: 'current'},
-        {id: 7, type: 'Short Answer', body: 'What is the best Ant?', answer: 'Spicyboi', status: 'incomplete'}
-        ]
+      selectedQuestions: []
     };
     this.selectLectureHandler = this.selectLectureHandler.bind(this);
     this.handleDeselectLecture = this.handleDeselectLecture.bind(this);
   }
 
+  //Needs to go to base questions and get the selectedQuestions
   selectLectureHandler (e, id) {
     e.preventDefault();
     for (let test of this.state.tests) {
@@ -34,6 +31,13 @@ class LectureBody extends Component {
         this.setState({selectedLecture: test});
       }
     }
+    this.setState({
+      selectedQuestions: [
+        {id: 5, type: 'Short Answer', body: 'How many legs do ants have?', answer: 'Six legs', status: 'complete'}, 
+        {id: 6, type: 'Short Answer', body: 'What is the role of the Queen Ant?', answer: 'Lead their colony', status: 'incomplete'},
+        {id: 7, type: 'Short Answer', body: 'What is the best Ant?', answer: 'Spicyboi', status: 'incomplete'}
+        ]
+    });
   }
 
   handleDeselectLecture (e) {
