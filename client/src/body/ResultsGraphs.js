@@ -1,5 +1,5 @@
 import React from 'react';
-import {Bar} from 'react-chartjs-2';;
+import {Bar} from 'react-chartjs-2';
 
 
 const ResultsGraphs = (props) => {
@@ -35,7 +35,8 @@ const ResultsGraphs = (props) => {
                     beginAtZero:true
                 }
             }]
-        }
+        },
+        maintainAspectRatio: true
     }
   return (
    <Bar

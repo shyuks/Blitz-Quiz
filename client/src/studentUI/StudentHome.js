@@ -21,7 +21,7 @@ class StudentHome extends Component {
       type: ''
     };
   }
-
+//aa
   handleAnswer(answerBody, qId) {
     let answer = {
       StudentsId: this.state.id,

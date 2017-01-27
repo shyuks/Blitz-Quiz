@@ -10,9 +10,10 @@ class Lecture extends Component {
 
     this.state = {
       currentClass: 'Biology 100',
-      teacher: 'Jill Summers',
+      teacher: props.teacher,
       topic: 'Ants',
       finished: true
+
     };
   }
 
