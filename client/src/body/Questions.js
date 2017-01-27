@@ -3,6 +3,9 @@ import React, {Component} from 'react';
 import NewQuestion from './NewQuestion'
 import QuestionEntry from './QuestionEntry';
 
+//need to make axios call to populate list of questions in database (get request on /question)
+//need to make axios call to add a new question in database (post request on /question)
+
 class Questions extends Component {
   constructor(props) {
     super(props);
