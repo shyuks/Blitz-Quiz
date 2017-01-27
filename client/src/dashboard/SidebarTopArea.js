@@ -22,9 +22,8 @@ const SidebarTopArea = (props) => {
     <div style={rootStyle}>
       <div style={styles.header}>
         <DropdownButton title={props.class.name}
-                        bsSize="large"
-                        key="1"
-                        id="dropdown-size-large">
+          bsSize="large"
+          id="dropdown-size-large">
           <MenuItem eventKey="1" active>Biology 100</MenuItem>
           <MenuItem eventKey="2">Physics 100</MenuItem>
         </DropdownButton>
