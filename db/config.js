@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-
 const keys = require('./../keys.js');
 
 const connection = 'postgres://' + keys.USER_SQL + ':'+ keys.PASS_SQL + keys.SERVER_SQL;
@@ -8,27 +7,14 @@ const sequelize = new Sequelize(connection, {
   port: 5432
 });
 
-var User = sequelize.define('User', {
-  username: Sequelize.STRING,
-  password: Sequelize.STRING
-});
-
 //This should wrap the server instantiation
 sequelize.sync({force: true}).then((err) => {
-    //force:true      
+    //force:true
+
     //IF YOU UNCOMMENT ABOVE IT WILL DELETE EVERYTHING IN THE DATABASE AND
     //DROP ALL TABLES!!!!!!!! 
-		console.log('Sync Complete!');
+		console.log('Sync Done!');
 });
+console.log('Hello!');
 
-var test = () => {
-	User.create({
-  	username: 'john-doe',
-  	password: '12345'
-	}).then(function(user) {
-  	console.log(user + ' has been created!');
-	});
-
-};
-
-module.exports = sequelize;
+module.exports = 'Hello!';

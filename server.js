@@ -12,6 +12,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 const handleSocket = require('./sockets');
+const addTeacher = require('./controllers/login.controller');
 
 app.use(session({
   secret: 'keyboard cat',
@@ -27,6 +28,11 @@ app.use(bodyParser.json());
 
 
 app.get('/', (req, res) => {
+  res.status(200).send('Hello World!');
+});
+
+app.get('/test', (req, res) => {
+  addTeacher();
   res.status(200).send('Hello World!');
 });
 
