@@ -33,10 +33,12 @@ class NewQuestion extends Component {
 //            Begin Methods
 //=========================================
   handleQuestionChange(e) {
+    e.preventDefault();
     this.setState({ body: e.target.value });
   }
 
   handleAnswerChange(e) {
+    e.preventDefault();
     this.setState({ answer: e.target.value });
   }
 

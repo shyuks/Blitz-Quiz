@@ -75,8 +75,11 @@ class LectureBody extends Component {
     this.setState({selectedLecture: null, selectedQuestions: []});
   }
 
-  handleAddLecture(e) {
-    e.preventDefault();
+  handleAddLecture(testName) {
+    console.log('Hello!')
+    let arr = this.state.tests.slice();
+    arr.unshift({id: 4, testName: testName, type: 'Lecture', isComplete: false});
+    this.setState({tests: arr});
   }
 
 //=========================================
