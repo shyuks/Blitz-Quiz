@@ -4,6 +4,14 @@ import './App.css';
 import Signup from './Signup';
 import axios from 'axios'
 
+const Style = {
+    backgroundImage: 'url(http://mrsbarkerscs5.files.wordpress.com/2012/10/cropped-cropped-chalkboard-background-e1350959846138.jpg)',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    top: '0px',
+    left: '0px'
+};
+
 class Login extends Component {
 
   constructor(props) {
@@ -14,12 +22,13 @@ class Login extends Component {
         teacherPassword: '',
         studentID: '',
         studentPassword: '',
-        signupPage: false
+        signupPage: false,
     };
   }
 
 
   render() {
+    const { errors } = this.state
     if (this.state.signupPage) {
         return (
             <div>
@@ -28,7 +37,7 @@ class Login extends Component {
         )
     }
     return (
-        <div>
+        <div style = {Style}>
             <div className="row">
                 <nav className="navbar navbar-default">
                     <div className="container-fluid">
@@ -87,14 +96,16 @@ class Login extends Component {
         });
   }
 
-  handleSubmitTeacher(event) {  
+  handleSubmitTeacher(event) {
+    event.preventDefault();
+    let stateContext = this;  
     axios.post('/login/Teacher', {
         params: {
             ID: this.state.teacherID
         }
     })
     .then(function (response) {
-        this.setState({
+        stateContext.setState({
             teacherID: '',
             teacherPassword: ''
         })
@@ -107,15 +118,17 @@ class Login extends Component {
 
 
   handleSubmitStudent(event) {  
+    event.preventDefault();
+    let stateContext = this;  
     axios.post('/login/Student', {
         params: {
             ID: this.state.studentID
         }
     })
     .then(function (response) {
-        this.setState({
+        stateContext.setState({
             teacherID: '',
-            teacherPassword: ''
+            teacherPassword: '',
         })
         console.log(response);
     })
