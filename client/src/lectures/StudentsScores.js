@@ -3,11 +3,18 @@ import {Bar} from 'react-chartjs-2';;
 
 
 const StudentsScores = (props) => {
+    let studentData = props.studentData;
+    let names = [];
+    let perCentage = [];
+    for(var i = 0; i < studentData.length; i++){
+        names.push(studentData[i].name);
+        perCentage.push(studentData[i].perCentage);
+    }
   let chartData =  {
-        labels: ["Tommy", "Jimmy", "John", "EJ", "Bong"],
+        labels: names,
         datasets: [{
             label: '% of correct answers by student',
-            data: [65, 85, 70, 95, 100],
+            data: perCentage,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

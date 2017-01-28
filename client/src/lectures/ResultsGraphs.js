@@ -3,11 +3,18 @@ import {Bar} from 'react-chartjs-2';
 
 
 const ResultsGraphs = (props) => {
+    let questionData = props.questionData;
+    let index = [];
+    let perCentage = [];
+    for(var i = 0; i < questionData.length; i++){
+        index.push(questionData[i].index);
+        perCentage.push(questionData[i].perCentage);
+    }
   let chartData =  {
-        labels: ["#1", "#2", "#3", "#4", "#5"],
+        labels: index,
         datasets: [{
             label: '% of correct answers by question',
-            data: [100, 90, 80, 85, 75],
+            data: perCentage,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -41,8 +48,6 @@ const ResultsGraphs = (props) => {
   return (
    <Bar
     data={chartData}
-    width={100}
-    height={50}
     options={chartOptions}
 />
   );
