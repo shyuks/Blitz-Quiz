@@ -7,24 +7,14 @@ const QuestionsStats = (props) => {
     questionsInDescendingOrder.sort(function(a,b) {return (a.perCentage > b.perCentage) ? 1 : ((b.perCentage > a.perCentage) ? -1 : 0);} ); 
 
   return (
-<<<<<<< HEAD
-    <table>
-    <tbody>
-      {questionsInDescendingOrder.map((question) => (        
-        <tr>
-          <td>{question.question}</td>
-          <td>{question.perCentage}</td>
-        </tr>
-=======
-    <ListGroup>
+      <ListGroup>
       {questionsInDescendingOrder.map((question, i) => (   
         <ListGroupItem key={i}>
         <strong key={i}>#{question.index} {question.question}<br key={i} />
         {question.perCentage}%</strong> of the students got this answer correct
         </ListGroupItem>
->>>>>>> [refactor]results
       ))}
-      </ListGroup>
+      </ListGroup>   
   );
 };
 
