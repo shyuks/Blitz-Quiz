@@ -3,12 +3,25 @@ import {AgGridReact} from 'ag-grid-react';
 import 'ag-grid-root/dist/styles/ag-grid.css';
 import 'ag-grid-root/dist/styles/theme-fresh.css';
 
-const columns = [{ headerName: 'ID', field: 'ID' }, { headerName: 'First Name', field: 'First Name' }, { headerName: 'Last Name', field: 'Last Name' }];
+const columns = [{
+                    headerName: "Classroom Students", 
+                    children: [
+                      { headerName: 'ID', field: 'ID', width: 100 }, 
+                      { headerName: 'First Name', field: 'First Name', width: 300 },
+                      { headerName: 'Last Name', field: 'Last Name', width: 300 }
+                   ]
+                  }]
 const styles = {
-    height: 300,
+    height: 350,
+    width: 700
 }
 
 class ImportedStudents extends Component {
+
+  componentWillReceiveProps(props) {    
+    this.api.setRowData(this.props.data)
+  }
+
   render() { 
       return (
         <div id="myGrid" className="ag-fresh" style={styles}>
@@ -20,6 +33,8 @@ class ImportedStudents extends Component {
               rowSelection="single"
               enableSorting="true"
               enableFilter="true"
+              enableColResize ="true"
+              debug = "true"
               rowHeight="22"
           />
         </div>
@@ -37,8 +52,7 @@ class ImportedStudents extends Component {
     selectedRows.forEach( function(selectedRow, index) {
         temp = row.indexOf(selectedRows[0])
     });
-    this.props.updateTables(temp, selectedRows[0])
-    // this.api.setRowData(this.props.data);
+    this.props.removeStudents(temp, selectedRows[0])
   }
 
 
