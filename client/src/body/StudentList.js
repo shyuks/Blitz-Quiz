@@ -23,16 +23,17 @@ class StudentList extends Component {
     };
   }
 
+
   render() {
     return (
         <div>
-            <ImportedStudents data={this.state.importedStudents} updateTables={this.updateTables.bind(this)}/>
-            <AvailableStudents data={this.state.availableStudents} updateTables={this.updateTables.bind(this)}/>
+            <ImportedStudents data={this.state.importedStudents} removeStudents={this.removeStudents.bind(this)}/>
+            <AvailableStudents data={this.state.availableStudents} addStudents={this.addStudents.bind(this)}/>
         </div>
     )
   }
 
-  updateTables (index, row) {
+  addStudents (index, row) {
     console.log("state is currently ", this.state.availableStudents)
     this.state.availableStudents.splice(index, 1)
     this.state.importedStudents.push(row)
@@ -43,7 +44,16 @@ class StudentList extends Component {
     console.log("state is now ", this.state.availableStudents)
   }
 
-
+  removeStudents (index, row) {
+    console.log("state is currently ", this.state.availableStudents)
+    this.state.availableStudents.push(row)
+    this.state.importedStudents.splice(index, 1)
+    this.setState({
+      importedStudents: this.state.importedStudents,
+      availableStudents: this.state.availableStudents
+    })
+    console.log("state is now ", this.state.availableStudents)
+  }
 }
 
 export default StudentList;
