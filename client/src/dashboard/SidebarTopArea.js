@@ -1,7 +1,9 @@
 import React from 'react';
-
 import {DropdownButton, MenuItem} from 'react-bootstrap';
 
+//=========================================
+//            Styles
+//=========================================
 const styles = {
   root: {
     fontFamily: '"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif',
@@ -16,12 +18,13 @@ const styles = {
   },
 };
 
+
 const SidebarTopArea = (props) => {
   const rootStyle = styles.root;
   return (
     <div style={rootStyle}>
       <div style={styles.header}>
-        <DropdownButton title={props.class.name}
+        <DropdownButton title={props.class.className}
           bsSize="large"
           id="dropdown-size-large">
           <MenuItem eventKey="1" active>Biology 100</MenuItem>

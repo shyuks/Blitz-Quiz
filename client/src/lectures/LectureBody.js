@@ -25,8 +25,12 @@ class LectureBody extends Component {
     this.handleDeselectLecture = this.handleDeselectLecture.bind(this);
     this.handleAddQuestion = this.handleAddQuestion.bind(this);
     this.handleSubmitNewQuestion = this.handleSubmitNewQuestion.bind(this);
+    this.handleAddLecture = this.handleAddLecture.bind(this);
   }
 
+//=========================================
+//            Begin Methods
+//=========================================
   //Needs to go to base questions and get the selectedQuestions
   selectLectureHandler (e, id) {
     e.preventDefault();
@@ -71,20 +75,30 @@ class LectureBody extends Component {
     this.setState({selectedLecture: null, selectedQuestions: []});
   }
 
+  handleAddLecture(testName) {
+    console.log('Hello!')
+    let arr = this.state.tests.slice();
+    arr.unshift({id: 4, testName: testName, type: 'Lecture', isComplete: false});
+    this.setState({tests: arr});
+  }
+
+//=========================================
+//            Render
+//=========================================
   render() {
     let item = null;
     if(this.state.selectedLecture === null) {
       item = <LectureBodyComponents tests={this.state.tests} 
-              selectLectureHandler={this.selectLectureHandler} />;
+        selectLectureHandler={this.selectLectureHandler} 
+        handleAddLecture = {this.handleAddLecture}/>;
     } else {
       item = <QuestionsBodyComponents questions={this.state.selectedQuestions}
-                lecture={this.state.selectedLecture}
-                newQuestions={this.state.newQuestions}
-                handleDeselectLecture={this.handleDeselectLecture}
-                handleAddQuestion={this.handleAddQuestion} 
-                handleSubmitNewQuestion={this.handleSubmitNewQuestion}/>
-    }
-
+        lecture={this.state.selectedLecture}
+        newQuestions={this.state.newQuestions}
+        handleDeselectLecture={this.handleDeselectLecture}
+        handleAddQuestion={this.handleAddQuestion} 
+        handleSubmitNewQuestion={this.handleSubmitNewQuestion}/>
+}
     return (
       <div>
         {item}

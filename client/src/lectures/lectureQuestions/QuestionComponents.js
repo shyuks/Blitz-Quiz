@@ -4,6 +4,7 @@ import QuestionComponent from './QuestionComponent';
 import QuestionAddButton from './QuestionAddButton';
 
 const QuestionComponents = (props) => {
+
   const components = props.questions.map((question, i) => {
     return (
        <QuestionComponent question={question}
@@ -20,7 +21,6 @@ const QuestionComponents = (props) => {
         key={i} />
     )});
   
-
   return (
     <div>
       {components}

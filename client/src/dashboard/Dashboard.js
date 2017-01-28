@@ -24,13 +24,16 @@ class Dashboard extends Component {
     this.state = {
       docked: false,
       open: false,
-      selectedClass: {name: 'Biology 100'},
+      selectedClass: {id: 4, className: 'Biology 100'},
       navigation: 'Lectures'
     };
 
     this.handleSideNav = this.handleSideNav.bind(this);
   }
 
+//=========================================
+//            Begin Methods
+//=========================================
   handleSideNav(e, location) {
     e.preventDefault();
 
@@ -65,6 +68,9 @@ class Dashboard extends Component {
     this.state.mql.removeListener(this.mediaQueryChanged.bind(this));
   }
 
+//=========================================
+//            Render
+//=========================================
   render() {
     const sidebar = <SidebarContent handleSideNav={this.handleSideNav} />;
 

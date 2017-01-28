@@ -5,6 +5,9 @@ import SidebarPersonal from './SidebarPersonal';
 
 import './../App.css';
 
+//=========================================
+//            Styles
+//=========================================
 const styles = {
   sidebar: {
     width: 256,
@@ -28,6 +31,7 @@ const styles = {
     backgroundColor: 'white',
   }
 };
+
 
 const SidebarContent = (props) => {
   const style = styles.sidebar;
@@ -57,9 +61,6 @@ const SidebarContent = (props) => {
       </div>
     </SidebarPersonal>
   );
-
-  
-
 };
 
 export default SidebarContent;

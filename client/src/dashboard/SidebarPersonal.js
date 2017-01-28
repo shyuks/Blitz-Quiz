@@ -1,6 +1,9 @@
 import React from 'react';
 import {Media, Image} from 'react-bootstrap';
 
+//=========================================
+//            Styles
+//=========================================
 const styles = {
   root: {
     fontFamily: '"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif',
@@ -14,6 +17,7 @@ const styles = {
     width: '260px'
   },
 };
+
 
 const SidebarPersonal = (props) => {
   const rootStyle = styles.root;
