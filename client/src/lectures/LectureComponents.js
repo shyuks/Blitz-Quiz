@@ -9,7 +9,6 @@ const LectureComponents = (props) => {
       selectLectureHandler={props.selectLectureHandler}
       key={i} />
   );
-
   return (
     <ListGroup>
       {components}

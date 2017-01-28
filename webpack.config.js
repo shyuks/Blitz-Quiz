@@ -13,6 +13,11 @@ module.exports = {
     path: BUILD_DIR,
     filename: 'bundle.js'
   },
+  resolve:{
+    alias: {
+    "ag-grid-root" : __dirname + "/node_modules/ag-grid"
+    }
+  },
   devServer: {
     contentBase: BUILD_DIR,
   },

@@ -14,6 +14,9 @@ class QuestionComponent extends Component {
     }
   }
 
+//=========================================
+//            Begin Methods
+//=========================================
   handleClickQuestion (e) {
     e.preventDefault();
     if(this.state.status === 'current') {
@@ -25,6 +28,9 @@ class QuestionComponent extends Component {
     
   }
 
+//=========================================
+//            Render
+//=========================================
   render() {
     let header = 'Question ' + (this.props.number + 1);
     let component = null;
@@ -88,8 +94,8 @@ class QuestionComponent extends Component {
       );  
     } else if (this.state.status === 'new') {
       component = <NewQuestion number={this.props.number}
-                     question={this.props.question}
-                     handleSubmitNewQuestion={this.props.handleSubmitNewQuestion}/> ;
+        question={this.props.question}
+        handleSubmitNewQuestion={this.props.handleSubmitNewQuestion}/> ;
     }
 
     return (

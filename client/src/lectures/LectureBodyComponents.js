@@ -3,24 +3,38 @@ import {ListGroup} from 'react-bootstrap';
 
 import LectureAdd from './LectureAdd';
 import LectureComponents from './LectureComponents';
-
-//need to make axios call to populate list of topics = testnames in database (get request on /topic)
-//need to make axios call to add a new topic = testname in database (post request on /topic)
+import InsertLectureText from './InsertLectureText';
 
 class LectureBodyComponents extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentClass: 'Biology 100'
+      renderAdd: true
     };
+    this.handleNewClick = this.handleNewClick.bind(this);
+    this.revertButton = this.revertButton.bind(this);
+  }
+
+  handleNewClick(e) {
+    e.preventDefault();
+    this.setState({renderAdd: false});
+  }
+
+  revertButton() {
+    this.setState({renderAdd: !(this.state.renderAdd)});
   }
 
   render() {
+    let button = <LectureAdd handleNewClick={this.handleNewClick}/>;
+    let txtBox = <InsertLectureText handleAddLecture={this.props.handleAddLecture}
+                   revertButton={this.revertButton}/>
+    let component = (this.state.renderAdd) ? button : txtBox; 
+
     return(
       <div>
         <ListGroup>
-          <LectureAdd />
+          {component}
         </ListGroup>
         <LectureComponents tests={this.props.tests}
           selectLectureHandler={this.props.selectLectureHandler}/>

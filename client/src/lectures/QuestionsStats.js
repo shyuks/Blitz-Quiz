@@ -7,8 +7,8 @@ const QuestionsStats = (props) => {
     <tbody>
       {questionsInDescendingOrder.map((question) => (        
         <tr>
-        <td>{question.question}</td>
-        <td>{question.perCentage}</td>
+          <td>{question.question}</td>
+          <td>{question.perCentage}</td>
         </tr>
       ))}
     </tbody>
