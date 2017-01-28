@@ -1,0 +1,301 @@
+module.exports.testSeed = [{
+  "id": 1,
+  "testName": "Training",
+  "type": "Lecture",
+  "timeAllowed": 26,
+  "Class_id": 5
+}, {
+  "id": 2,
+  "testName": "Legal",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 9
+}, {
+  "id": 3,
+  "testName": "Business Development",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 14
+}, {
+  "id": 4,
+  "testName": "Sales",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 11
+}, {
+  "id": 5,
+  "testName": "Human Resources",
+  "type": "Lecture",
+  "timeAllowed": 22,
+  "Class_id": 8
+}, {
+  "id": 6,
+  "testName": "Engineering",
+  "type": "Lecture",
+  "timeAllowed": 9,
+  "Class_id": 10
+}, {
+  "id": 7,
+  "testName": "Support",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 8
+}, {
+  "id": 8,
+  "testName": "Marketing",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 9
+}, {
+  "id": 9,
+  "testName": "Training",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 13
+}, {
+  "id": 10,
+  "testName": "Legal",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 14
+}, {
+  "id": 11,
+  "testName": "Marketing",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 11
+}, {
+  "id": 12,
+  "testName": "Human Resources",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 14
+}, {
+  "id": 13,
+  "testName": "Marketing",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 8
+}, {
+  "id": 14,
+  "testName": "Sales",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 7
+}, {
+  "id": 15,
+  "testName": "Support",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 14
+}, {
+  "id": 16,
+  "testName": "Sales",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 8
+}, {
+  "id": 17,
+  "testName": "Sales",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 9
+}, {
+  "id": 18,
+  "testName": "Training",
+  "type": "Lecture",
+  "timeAllowed": 16,
+  "Class_id": 10
+}, {
+  "id": 19,
+  "testName": "Product Management",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 6
+}, {
+  "id": 20,
+  "testName": "Business Development",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 13
+}, {
+  "id": 21,
+  "testName": "Legal",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 7
+}, {
+  "id": 22,
+  "testName": "Support",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 9
+}, {
+  "id": 23,
+  "testName": "Training",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 6
+}, {
+  "id": 24,
+  "testName": "Accounting",
+  "type": "Lecture",
+  "timeAllowed": 20,
+  "Class_id": 13
+}, {
+  "id": 25,
+  "testName": "Human Resources",
+  "type": "Lecture",
+  "timeAllowed": 29,
+  "Class_id": 13
+}, {
+  "id": 26,
+  "testName": "Sales",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 12
+}, {
+  "id": 27,
+  "testName": "Research and Development",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 12
+}, {
+  "id": 28,
+  "testName": "Accounting",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 13
+}, {
+  "id": 29,
+  "testName": "Business Development",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 15
+}, {
+  "id": 30,
+  "testName": "Product Management",
+  "type": "Lecture",
+  "timeAllowed": 4,
+  "Class_id": 13
+}, {
+  "id": 31,
+  "testName": "Marketing",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 5
+}, {
+  "id": 32,
+  "testName": "Sales",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 8
+}, {
+  "id": 33,
+  "testName": "Accounting",
+  "type": "Lecture",
+  "timeAllowed": 5,
+  "Class_id": 15
+}, {
+  "id": 34,
+  "testName": "Marketing",
+  "type": "Lecture",
+  "timeAllowed": 2,
+  "Class_id": 7
+}, {
+  "id": 35,
+  "testName": "Accounting",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 14
+}, {
+  "id": 36,
+  "testName": "Support",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 11
+}, {
+  "id": 37,
+  "testName": "Training",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 9
+}, {
+  "id": 38,
+  "testName": "Engineering",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 8
+}, {
+  "id": 39,
+  "testName": "Engineering",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 6
+}, {
+  "id": 40,
+  "testName": "Product Management",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 13
+}, {
+  "id": 41,
+  "testName": "Accounting",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 7
+}, {
+  "id": 42,
+  "testName": "Support",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 9
+}, {
+  "id": 43,
+  "testName": "Product Management",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 14
+}, {
+  "id": 44,
+  "testName": "Support",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 11
+}, {
+  "id": 45,
+  "testName": "Human Resources",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 13
+}, {
+  "id": 46,
+  "testName": "Legal",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 12
+}, {
+  "id": 47,
+  "testName": "Marketing",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 13
+}, {
+  "id": 48,
+  "testName": "Accounting",
+  "type": "Lecture",
+  "timeAllowed": null,
+  "Class_id": 12
+}, {
+  "id": 49,
+  "testName": "Services",
+  "type": "Lecture",
+  "timeAllowed": 10,
+  "Class_id": 8
+}, {
+  "id": 50,
+  "testName": "Services",
+  "type": "Lecture",
+  "timeAllowed": 19,
+  "Class_id": 13
+}];

@@ -1,0 +1,121 @@
+module.exports.teacherSeed = [{
+  "id": 1,
+  "firstName": "Brandon",
+  "lastName": "Watkins",
+  "password": "lydE5GF",
+  "photo": "http://dummyimage.com/150x150.jpg/5fa2dd/ffffff"
+}, {
+  "id": 2,
+  "firstName": "Arthur",
+  "lastName": "Spencer",
+  "password": "iGOP0OcV",
+  "photo": "http://dummyimage.com/150x150.jpg/ff4444/ffffff"
+}, {
+  "id": 3,
+  "firstName": "Brian",
+  "lastName": "Perez",
+  "password": "CrEDth4",
+  "photo": "http://dummyimage.com/150x150.png/ff4444/ffffff"
+}, {
+  "id": 4,
+  "firstName": "Andrew",
+  "lastName": "Mcdonald",
+  "password": "X9EOVez7",
+  "photo": "http://dummyimage.com/150x150.bmp/ff4444/ffffff"
+}, {
+  "id": 5,
+  "firstName": "Norma",
+  "lastName": "Wagner",
+  "password": "XrKCuHE",
+  "photo": "http://dummyimage.com/150x150.png/5fa2dd/ffffff"
+}, {
+  "id": 6,
+  "firstName": "Amanda",
+  "lastName": "Lawrence",
+  "password": "lfbWzWmxTk",
+  "photo": "http://dummyimage.com/150x150.jpg/5fa2dd/ffffff"
+}, {
+  "id": 7,
+  "firstName": "Matthew",
+  "lastName": "Ward",
+  "password": "1s27ZSDF7gMO",
+  "photo": "http://dummyimage.com/150x150.png/dddddd/000000"
+}, {
+  "id": 8,
+  "firstName": "Peter",
+  "lastName": "Simmons",
+  "password": "GNPNzq2PVL",
+  "photo": "http://dummyimage.com/150x150.jpg/cc0000/ffffff"
+}, {
+  "id": 9,
+  "firstName": "Anna",
+  "lastName": "Peterson",
+  "password": "tiFX4ks",
+  "photo": "http://dummyimage.com/150x150.bmp/cc0000/ffffff"
+}, {
+  "id": 10,
+  "firstName": "Walter",
+  "lastName": "Jones",
+  "password": "B5ur3j",
+  "photo": "http://dummyimage.com/150x150.png/dddddd/000000"
+}, {
+  "id": 11,
+  "firstName": "Joe",
+  "lastName": "Hernandez",
+  "password": "WbVJegzdH",
+  "photo": "http://dummyimage.com/150x150.jpg/ff4444/ffffff"
+}, {
+  "id": 12,
+  "firstName": "Alice",
+  "lastName": "Wells",
+  "password": "uS0Juc",
+  "photo": "http://dummyimage.com/150x150.bmp/5fa2dd/ffffff"
+}, {
+  "id": 13,
+  "firstName": "Bobby",
+  "lastName": "Lewis",
+  "password": "r5Ey8EniIP",
+  "photo": "http://dummyimage.com/150x150.png/cc0000/ffffff"
+}, {
+  "id": 14,
+  "firstName": "Clarence",
+  "lastName": "Burns",
+  "password": "az0lVW",
+  "photo": "http://dummyimage.com/150x150.bmp/ff4444/ffffff"
+}, {
+  "id": 15,
+  "firstName": "Ryan",
+  "lastName": "Bryant",
+  "password": "nSnC7hsjFEdO",
+  "photo": "http://dummyimage.com/150x150.png/5fa2dd/ffffff"
+}, {
+  "id": 16,
+  "firstName": "Todd",
+  "lastName": "Sanders",
+  "password": "DdfEJ0NuN",
+  "photo": "http://dummyimage.com/150x150.jpg/cc0000/ffffff"
+}, {
+  "id": 17,
+  "firstName": "Julie",
+  "lastName": "Black",
+  "password": "vsLaQDK1ZQqJ",
+  "photo": "http://dummyimage.com/150x150.png/dddddd/000000"
+}, {
+  "id": 18,
+  "firstName": "Aaron",
+  "lastName": "Montgomery",
+  "password": "GoZBQ9m8",
+  "photo": "http://dummyimage.com/150x150.bmp/cc0000/ffffff"
+}, {
+  "id": 19,
+  "firstName": "Maria",
+  "lastName": "Carter",
+  "password": "UoxNwF98w",
+  "photo": "http://dummyimage.com/150x150.bmp/dddddd/000000"
+}, {
+  "id": 20,
+  "firstName": "Aaron",
+  "lastName": "Bennett",
+  "password": "y9LcAccFmAv7",
+  "photo": "http://dummyimage.com/150x150.png/ff4444/ffffff"
+}];
