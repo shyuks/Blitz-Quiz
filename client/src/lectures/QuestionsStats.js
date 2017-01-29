@@ -4,7 +4,9 @@ import {ListGroupItem} from 'react-bootstrap';
 
 const QuestionsStats = (props) => {
     let questionsInDescendingOrder = props.questionData;
-    questionsInDescendingOrder.sort(function(a,b) {return (a.perCentage > b.perCentage) ? 1 : ((b.perCentage > a.perCentage) ? -1 : 0);} ); 
+    questionsInDescendingOrder.sort(function(a,b){
+      return (a.perCentage > b.perCentage) ? 1 : ((b.perCentage > a.perCentage) ? -1 : 0);
+    } ); 
 
   return (
       <ListGroup>

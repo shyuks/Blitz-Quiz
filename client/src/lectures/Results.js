@@ -17,7 +17,7 @@ class Results extends Component {
       {name: 'Billy Kid', perCentage: 70},
       {name: 'EJ Mason', perCentage: 100},
       {name: 'Bong Chon', perCentage: 100}],
-      questionData: [{question: "What's the role of the queen ant?", index: 1, perCentage: 80},
+      questionData: [{question: "What's the role of the queen ant?", index: 1, perCentage: 85},
       {question: 'How many legs does the ant have?', index: 2, perCentage: 100},
       {question: "What's the coolest ant around?", index: 3, perCentage: 90},
       {question: "How big is a colony of ants?", index: 4, perCentage: 85},
