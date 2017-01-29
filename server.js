@@ -6,7 +6,8 @@ const passport = require('passport');
 
 const handleSocket = require('./sockets');
 const initDatabase = require('./db/config');
-const addTeacher = require('./util/loginController');
+
+const seeder = require('./db/seedData/seedMethods');
 
 const app = express();
 const port = 9000;
@@ -37,7 +38,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
-  addTeacher();
+  seeder();
   res.status(200).send('Hello World!');
 });
 
