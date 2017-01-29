@@ -1,10 +1,15 @@
 const Sequelize = require('sequelize');
 const keys = require('./../keys.js');
 
-const connection = 'postgres://' + keys.USER_SQL + ':'+ keys.PASS_SQL + keys.SERVER_SQL;
-const sequelize = new Sequelize(connection, {
+const connection = 'blitz-quiz.cxcxj7rsgusu.us-west-2.rds.amazonaws.com:3306';
+const sequelize = new Sequelize(keys.DB_CONNSTR, {
   dialect: 'postgres',
-  port: 5432
+  ssl: true,
+  dialectOptions: {
+      ssl: {
+         require: true
+      }
+   }
 });
 
 sequelize.authenticate()
