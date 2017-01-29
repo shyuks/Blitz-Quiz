@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const teacherLoginController = require('../../util/teacherLoginController')
 
-router.post('/teacher', (req, res) => {
-  console.log('new teacher route working!');
-  res.status(200).send('new teacher route is working!');
-});
-
+router.post('/teacher', teacherLoginController);
 
 module.exports = router;

@@ -6,9 +6,9 @@ import 'ag-grid-root/dist/styles/theme-fresh.css';
 const columns = [{
                     headerName: "Classroom Students", 
                     children: [
-                      { headerName: 'ID', field: 'ID', width: 100 }, 
-                      { headerName: 'First Name', field: 'First Name', width: 300 },
-                      { headerName: 'Last Name', field: 'Last Name', width: 300 }
+                      { headerName: 'id', field: 'id', width: 100 }, 
+                      { headerName: 'firstName', field: 'firstName', width: 300 },
+                      { headerName: 'lastName', field: 'lastName', width: 300 }
                    ]
                   }]
 const styles = {

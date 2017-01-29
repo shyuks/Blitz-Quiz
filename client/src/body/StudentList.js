@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
 import ImportedStudents from './ImportedStudents';
 import AvailableStudents from './AvailableStudents';
+import axios from 'axios'
+let arr;
+let criteria = false;
 
 const dataImportedStudents = [
-  { ID: '1', 'First Name': 'Hu', 'Last Name': 'Bobson'},
-  { ID: '2', 'First Name': 'John', 'Last Name': 'Kim'}
-]
-
-const dataAvailableStudents = [
-  { ID: '1', 'First Name': 'John', 'Last Name': 'Bobson'},
-  { ID: '2', 'First Name': 'Bob', 'Last Name': 'Mclaren'}
+  { 'firstName': 'Hu', 'lastName': 'Bobson', id: 1 },
+  { id: 2, 'firstName': 'John', 'lastName': 'Kim'}
 ]
 
 class StudentList extends Component {
@@ -19,10 +17,31 @@ class StudentList extends Component {
     this.state = {
         class: 'Biology 100',
         importedStudents: dataImportedStudents,
-        availableStudents: dataAvailableStudents
+        availableStudents: null
     };
   }
 
+  componentDidMount() {
+    var _this = this;
+    this.serverRequest = 
+    axios.get('/api/students')
+    .then(function (data) {
+      arr = data.data.map(function(student, index){
+        return  {    
+                  id: student.id, 
+                  firstName: student.firstName,
+                  lastName: student.lastName
+                };
+      })
+      criteria = true;
+      _this.setState({
+        availableStudents: arr
+      })
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   render() {
     return (

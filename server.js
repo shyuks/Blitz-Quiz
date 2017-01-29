@@ -2,8 +2,9 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 const passport = require('passport');
-
+const conn = require('./db/connection')
 const handleSocket = require('./sockets');
 const initDatabase = require('./db/config');
 
@@ -22,7 +23,10 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { secure: true },
+  store: new pgSession({
+    // conString: conn   
+  })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
