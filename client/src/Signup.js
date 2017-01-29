@@ -87,7 +87,7 @@ class Signup extends Component {
             password: '',
             confirmPassword: ''
         })
-        console.log(response);
+        stateContext.loginView()
     })
     .catch(function (error) {
         console.log(error);

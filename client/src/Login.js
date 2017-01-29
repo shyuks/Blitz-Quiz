@@ -12,7 +12,7 @@ const Style = {
     left: '0px'
 };
 
-class Login extends Component {
+class Login extends Component {  
 
   constructor(props) {
     super(props);
@@ -101,7 +101,8 @@ class Login extends Component {
     let stateContext = this;  
     axios.post('/login/Teacher', {
         params: {
-            ID: this.state.teacherID
+            Id: this.state.teacherID,
+            password: this.state.teacherPassword
         }
     })
     .then(function (response) {
@@ -109,7 +110,8 @@ class Login extends Component {
             teacherID: '',
             teacherPassword: ''
         })
-        console.log(response);
+        console.log(response)
+        stateContext.dashboardViewTeacher(response)
     })
     .catch(function (error) {
         console.log(error);
@@ -122,15 +124,16 @@ class Login extends Component {
     let stateContext = this;  
     axios.post('/login/Student', {
         params: {
-            ID: this.state.studentID
+            ID: this.state.studentID,
+            password: this.state.studentPassword
         }
     })
     .then(function (response) {
         stateContext.setState({
-            teacherID: '',
-            teacherPassword: '',
+            studentID: '',
+            studentPassword: '',
         })
-        console.log(response);
+        stateContext.dashboardViewStudent()
     })
     .catch(function (error) {
         console.log(error);
@@ -141,6 +144,14 @@ class Login extends Component {
       this.setState({
           signupPage: !this.state.signupPage
       })
+  }
+
+  dashboardViewTeacher (response) {
+    this.props.teacherAuth(response)
+  }
+
+  dashboardViewStudent () {
+      this.props.studentAuth()
   }
 
 

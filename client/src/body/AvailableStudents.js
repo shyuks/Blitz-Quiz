@@ -6,9 +6,9 @@ import 'ag-grid-root/dist/styles/theme-fresh.css';
 const columns = [{
                     headerName: "Student Database", 
                     children: [
-                      { headerName: 'ID', field: 'ID', width: 100 }, 
-                      { headerName: 'First Name', field: 'First Name', width: 300 },
-                      { headerName: 'Last Name', field: 'Last Name', width: 300 }
+                      { headerName: 'id', field: 'id', width: 100 }, 
+                      { headerName: 'firstName', field: 'firstName', width: 300 },
+                      { headerName: 'lastName', field: 'lastName', width: 300 }
                    ]
                   }]
 
@@ -28,7 +28,7 @@ class AvailableStudents extends Component {
         <div id="myGrid" className="ag-fresh" style={styles}>
           <AgGridReact
               onGridReady = {this.onGridReady.bind(this)}
-              onSelectionChanged={this.onSelectionChanged.bind(this, this.props.data)}
+              onRowDoubleClicked={this.onRowDoubleClicked.bind(this, this.props.data)}
               columnDefs={columns}
               rowData={this.props.data}
               rowSelection="single"
@@ -47,7 +47,7 @@ class AvailableStudents extends Component {
     this.columnApi = params.columnApi;
   }
 
-  onSelectionChanged(row) {
+  onRowDoubleClicked(row) {
     let selectedRows = this.api.getSelectedRows();
     let temp;
     selectedRows.forEach( function(selectedRow, index) {

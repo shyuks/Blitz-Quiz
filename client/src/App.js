@@ -6,7 +6,8 @@ import Dashboard from './dashboard/Dashboard';
 import StudentHome from './studentUI/StudentHome';
 
 import './App.css';
-
+let userSession;
+console.log(userSession)
 class App extends Component {
 
   constructor(props) {
@@ -19,13 +20,13 @@ class App extends Component {
 
     this.state = {
       isStudent: true,
-      loggedIn: false
+      loggedIn: userSession ? true : false
     };
   }
 
   render() {
     let logged = null;
-    this.state.loggedIn ? logged = <Dashboard /> : logged = <Login />;
+    this.state.loggedIn ? logged = <Dashboard /> : logged = <Login teacherAuth = {this.teacherAuth.bind(this)} studentAuth = {this.studentAuth.bind(this)} />;
 
     return (
       <div>
@@ -34,6 +35,26 @@ class App extends Component {
       
     );
   }
+
+  teacherAuth (response) {
+    this.setState({
+      isStudent: false,
+      loggedIn: true
+    })
+    console.log(response)
+    userSession = response.data
+    console.log(userSession)
+  }
+
+  studentAuth () {
+    this.setState({
+      isStudent: true,
+      loggedIn: true
+    })
+  }
+
+
+
 }
 
 export default App;
