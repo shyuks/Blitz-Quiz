@@ -1,60 +1,40 @@
 const Promise = require('bluebird');
 const sequelize = require('./connection');
 
+const seeder = require('./seedData/seedMethods');
+
 const initDatabase = () => {
 	return new Promise((resolve, reject) => {
-		const Answer = require('./../models/answers.model');
-		const Class = require('./../models/classes.model');
-		const Question = require('./../models/questions.model');
-		const Student = require('./../models/students.model');
-		const Teacher = require('./../models/teachers.model');
-		const Test = require('./../models/tests.model');
+		var Answer = require('./../models/answers.model');
+		var Class = require('./../models/classes.model');
+		var Question = require('./../models/questions.model');
+		var Student = require('./../models/students.model');
+		var Teacher = require('./../models/teachers.model');
+		var Test = require('./../models/tests.model');
 		
-		Teacher.hasMany(Class, {
-			foreignKey: 'Teacher_id'
-		});
-		Class.belongsTo(Teacher, {
-			foreignKey: 'Teacher_id'
-		});
+		Teacher.hasMany(Class);
+		Class.belongsTo(Teacher);
 
-		Class.hasMany(Test, {
-			foreignKey: 'Class_id'
-		});
-		Test.belongsTo(Class, {
-			foreignKey: 'Class_id'
-		});
+		Class.hasMany(Test);
+		Test.belongsTo(Class);
 
-		Test.hasMany(Question, {
-			foreignKey: 'Test_id'
-		});
-		Question.belongsTo(Test, {
-			foreignKey: 'Test_id'
-		});
+		Test.hasMany(Question);
+		Question.belongsTo(Test);
 
-		Question.hasMany(Answer, {
-			foreignKey: 'Question_id'
-		});
-		Answer.belongsTo(Question, {
-			foreignKey: 'Question_id'
-		});
+		Question.hasMany(Answer);
+		Answer.belongsTo(Question);
 
-		Student.hasMany(Answer, {
-			foreignKey: 'Student_id'
-		});
-		Answer.belongsTo(Student, {
-			foreignKey: 'Student_id'
-		});
+		Student.hasMany(Answer);
+		Answer.belongsTo(Student);
 
 		Class.belongsToMany(Student, {
-			through: 'class_student',
-			foreignKey: 'Class_id'
+			through: 'class_student'
 		});
 		Student.belongsToMany(Class, {
-			through: 'class_student',
-			foreignKey: 'Student_id'
+			through: 'class_student'
 		});
 		
-		sequelize.sync({/*force: true*/}).then(err => {
+		sequelize.sync(/*{force: true}*/).then(err => {
 			resolve();
 		});
 	});

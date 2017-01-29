@@ -1,18 +1,20 @@
 import React from 'react';
+import {ListGroup} from 'react-bootstrap';
+import {ListGroupItem} from 'react-bootstrap';
 
 const QuestionsStats = (props) => {
-    let questionsInDescendingOrder = [{question: "What's the role of the queen ant?", perCentage: 80}, {question: 'How many legs does the ant have?', perCentage: 100}]
+    let questionsInDescendingOrder = props.questionData;
+    questionsInDescendingOrder.sort(function(a,b) {return (a.perCentage > b.perCentage) ? 1 : ((b.perCentage > a.perCentage) ? -1 : 0);} ); 
+
   return (
-    <table>
-    <tbody>
-      {questionsInDescendingOrder.map((question) => (        
-        <tr>
-          <td>{question.question}</td>
-          <td>{question.perCentage}</td>
-        </tr>
+      <ListGroup>
+      {questionsInDescendingOrder.map((question, i) => (   
+        <ListGroupItem key={i}>
+        <strong key={i}>#{question.index} {question.question}<br key={i} />
+        {question.perCentage}%</strong> of the students got this answer correct
+        </ListGroupItem>
       ))}
-    </tbody>
-  </table>
+      </ListGroup>   
   );
 };
 
