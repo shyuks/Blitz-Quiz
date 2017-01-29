@@ -38,7 +38,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
-  seeder();
   res.status(200).send('Hello World!');
 });
 
