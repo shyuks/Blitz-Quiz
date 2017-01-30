@@ -1,6 +1,5 @@
 import React from 'react';
-import {ListGroup} from 'react-bootstrap';
-import {ListGroupItem} from 'react-bootstrap';
+import {ListGroup, ListGroupItem} from 'react-bootstrap';
 
 
 const StudentHelp = (props) => {
@@ -16,7 +15,7 @@ const StudentHelp = (props) => {
         return(
             <ListGroup>
                 {strugglingStudents.map((student, i) => (
-                <ListGroupItem key={i}>
+                <ListGroupItem style={{fontSize:16}} key={i}>
                 <strong style={{color:'red'}}>{student.name}</strong> got a {student.perCentage} in this test.
                 </ListGroupItem> 
         ))}
