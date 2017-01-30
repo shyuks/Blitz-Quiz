@@ -48,6 +48,11 @@ app.get('/', (req, res) => {
 app.get('/test', (req, res) => {
   tester(1053).then(item => {
     console.log(item);
+    for (thingy of item.classes[2].tests[0].answers) {
+      console.log('-----------------------------------------')
+      console.log('-----------------------------------------')
+      console.log(thingy)
+    }
     res.status(200).send('Hello World!');
   });
   

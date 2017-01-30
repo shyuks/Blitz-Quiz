@@ -23,6 +23,9 @@ const createInitialObject = (teacherId) => {
   });
 };
 
+//=============================================
+//        Helper Methods
+//=============================================
 const getTeacher = id => {
   return new Promise((resolve, reject) => {
     Teacher.findById(id).then(teacher => {
@@ -39,21 +42,28 @@ const getClasses = teacher => {
   });
 };
 
-const cleanClasses = (raw) => {
+const cleanClasses = rawClasses => {
   return new Promise((resolve, reject) => {
     let all = [];
-    let promises = [];
-    for (let item of raw) {
-      promises.push(cleanStudents(item));
+    let pStudents = [];
+    let pTests = [];
+
+    for (let item of rawClasses) {
+      pStudents.push(cleanStudents(item));
+      pTests.push(cleanTests(item));
     }
-    Promise.all(promises).then(cleanStudents => {
-      cleanStudents.forEach((students, i) => {
-        all.push({
-          className: raw[i].className,
-          students
-        })
+
+    Promise.all(pStudents).then(students => {
+      Promise.all(pTests).then(tests => {
+        rawClasses.forEach((rClass, idx) => {
+          all.push({
+            className: rClass.className,
+            students: students[idx],
+            tests: tests[idx]
+          });
+        });
+        resolve(all);
       });
-      resolve(all);
     });
   });
 };
@@ -75,5 +85,88 @@ const cleanStudents = clss => {
   });
 };
 
+const cleanTests = clss => {
+  return new Promise ((resolve, reject) => {
+    let all = [];
+    clss.getTests().then(tests => {
+      Promise.all(tests.map(cleanQuestions)).then(cQuestions => {
+        Promise.all(tests.map(cleanAnswers)).then(cAnswers => {
+          tests.forEach((test, idx) => {
+            all.push({
+              testName: test.testName,
+              type: test.type,
+              timeAllowed: test.timeAllowed,
+              questions: cQuestions[idx],
+              answers: cAnswers[idx]
+            });
+          });
+          resolve(all);
+        });
+      });
+    });
+  });
+};
+
+const cleanQuestions = test => {
+  return new Promise ((resolve, reject) => {
+    let all = [];
+    test.getQuestions().then(q => {
+      for (let item of q) {
+        all.push({
+          id: item.id,
+          type: item.type,
+          body: item.body,
+          timer: item.timer,
+          a: item.a,
+          b: item.b,
+          c: item.c,
+          d: item.d,
+          isComplete: item.isComplete
+        });
+      }
+      resolve(all);
+    });
+  });
+};
+
+const cleanAnswers = (test) => {
+  return new Promise((resolve, reject) => {
+    let allAnswers = [];
+    test.getQuestions().then(questions => {
+      Promise.all(questions.map(getAnswers)).then(answers => {
+        processAnswers(answers).then(cAnswers => {
+          resolve(cAnswers);
+        });
+      });
+    });
+  });
+};
+
+const getAnswers = (question) => {
+  return new Promise((resolve, reject) => {
+    question.getAnswers().then(answers => {
+      resolve(answers);
+    });
+  });
+};
+
+const processAnswers = (answersArr) => {
+  return new Promise((resolve, reject) => {
+    let allAnswers = [];
+    for (let item of answersArr) {
+      for (let a of item) {
+        allAnswers.push({
+          studentId: a.studentId,
+          questionId: a.questionId,
+          answerBody: a.answerBody,
+          isCorrect: a.isCorrect
+        });
+      };
+    };
+    resolve(allAnswers);
+  });
+};
+
+
+
 module.exports = createInitialObject;
-//first needs to find the teacher
