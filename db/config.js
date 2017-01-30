@@ -18,7 +18,7 @@ const initDatabase = () => {
 		Class.hasMany(Test);
 		Test.belongsTo(Class);
 
-		Test.hasMany(Question);
+			Test.hasMany(Question);
 		Question.belongsTo(Test);
 
 		Question.hasMany(Answer);
