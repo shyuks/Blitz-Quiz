@@ -68,7 +68,6 @@ app.post('/test', (req, res) => {
 io.on('connection', (socket) => {
   console.log('a user connected');
   console.log(Object.keys(io.sockets.connected));
-  socket.emit('bird', 'YOYOYOYO');
 	handleSocket(socket);
   
 });

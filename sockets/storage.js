@@ -15,10 +15,8 @@ class SocketStorage {
   }
 
   findStudentClasses(classes) {
-    for (let cls of classes){
-      console.log('=======================');
-      console.log(classes);
-    }
+    console.log('HEYYYYYYYYY')
+    console.log(this.classrooms)
   }
 }
 

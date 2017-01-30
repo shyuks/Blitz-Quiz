@@ -6,9 +6,14 @@ import axios from 'axios';
 import StudentSidebar from './StudentSidebar';
 import QuestionArea from './QuestionArea';
 
+ var socket = io('http://localhost:9000', {'forceNew':true });
+
 class StudentHome extends Component {
   constructor(props) {
     super(props);
+
+   
+    
 
     this.state = {
       id: 0,
@@ -39,15 +44,18 @@ class StudentHome extends Component {
   }
 
   componentDidMount() {
-    console.log('WE ARE HERE!!!!!')
+    axios.get('/api/info/22').then(resp => {
+      this.setState({
+        student: resp.data.student,
+        classes: resp.data.classes,
+        id: this.props.sId,
+        socket
+      });
+      socket.emit('findClasses', {classes: resp.data.classes});
+    });
     // axios.get('/api/' + this.props.sId).then(response => {
     //   // var socket = io('http://localhost:9000', {'forceNew':true });
-    //   this.setState({
-    //     student: response.data.student,
-    //     classes: response.data.classes,
-    //     id: this.props.sId,
-    //     socket
-    //   });
+
     //   // socket.on('connect', () => {
     //   //   socket.emit('findClasses', {classes: this.state.classes});
     //   // });
