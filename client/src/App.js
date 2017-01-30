@@ -46,11 +46,7 @@ class App extends Component {
     if(this.state.loggedIn && !this.state.isStudent) {
       return (
           <div>
-<<<<<<< HEAD
-            <Dashboard tId={this.state.tId}/>
-=======
-            <Dashboard data={this.state.loggedIn} logout={this.logout.bind(this)}/>
->>>>>>> [feat]signout and images for dashboard
+            <Dashboard tId={this.state.tId} data={this.state.loggedIn} logout={this.logout.bind(this)}/>
           </div>
         );
     } else if(this.state.loggedIn && this.state.isStudent) {
