@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {ListGroup, ListGroupItem} from 'react-bootstrap';
 import axios from 'axios';
+import io from 'socket.io-client';
 
 import LectureBodyComponents from './LectureBodyComponents';
 import QuestionsBodyComponents from './lectureQuestions/QuestionsBodyComponents';
@@ -8,8 +9,12 @@ import QuestionsBodyComponents from './lectureQuestions/QuestionsBodyComponents'
 class LectureBody extends Component {
   constructor(props) {
     super(props);
-    console.log('PROPS!!!!')
-    console.log(props)
+
+    var socket = io('http://localhost:9000');
+    socket.on('connect', () => {
+      console.log('connected at client');
+    });
+
     this.state = {
       toggler: true,
       tests: this.props.tests || [],

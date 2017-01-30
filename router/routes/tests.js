@@ -26,10 +26,6 @@ router.post('/new', (req, res) => {
 router.post('/question', (req, res) => {
   console.log('POST request at /test/question')
   let a = req.body;
-  console.log('======================================');
-  console.log(a.type);
-  console.log(a.body);
-  console.log(a.answer);
   Test.find({
     where: { id: a.testId }, 
     include: [ { model : Question }] 

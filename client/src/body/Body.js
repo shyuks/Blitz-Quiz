@@ -34,12 +34,6 @@ class Body extends Component {
     });
   }
 
-  // componentDidUpdate() {       
-  //     console.log('======================================');
-  //     console.log('TIME FOR A RERENDER!!!!!!');
-  //     console.log('======================================');
-  // }
-
   render() {
     let navigator = null;
 

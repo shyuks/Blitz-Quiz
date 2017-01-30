@@ -7,6 +7,7 @@ import SidebarPersonal from './SidebarPersonal';
 import SidebarTopArea from './SidebarTopArea';
 import Body from '../body/Body';
 
+
 const styles = {
   contentHeaderMenuLink: {
     textDecoration: 'none',
@@ -55,7 +56,6 @@ class Dashboard extends Component {
 
   toggleOpen(e) {
     this.setState({open: !this.state.open});
-
     if (e) {
       e.preventDefault();
     }

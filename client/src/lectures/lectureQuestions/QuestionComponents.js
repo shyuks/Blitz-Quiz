@@ -4,11 +4,7 @@ import QuestionComponent from './QuestionComponent';
 import QuestionAddButton from './QuestionAddButton';
 
 const QuestionComponents = (props) => {
-  console.log('WE MADE IT TO QBODYCOMPONENTS: ');
-  console.log(props);
   const components = props.questions.map((question, i) => {
-    console.log('-----------------')
-    console.log(question)
     return (
        <QuestionComponent question={question}
         handleSubmitNewQuestion={props.handleSubmitNewQuestion}
