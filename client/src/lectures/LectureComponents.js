@@ -4,6 +4,7 @@ import {ListGroup} from 'react-bootstrap';
 import LectureComponent from './LectureComponent';
 
 const LectureComponents = (props) => {
+  console.log(props)
   const components = props.tests.map((test, i) => 
     <LectureComponent test={test}
       selectLectureHandler={props.selectLectureHandler}

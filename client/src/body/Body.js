@@ -1,17 +1,38 @@
 import React, {Component} from 'react';
-
+import axios from 'axios';
 
 import LectureBody from './../lectures/LectureBody';
 import StudentList from './StudentList';
+
 
 class Body extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentClass: this.props.selectedClass.className,
-      teacher: 'Sara H.'
+      tests: this.props.selTests || [],
+      students: this.props.selStudents || [],
+      currentClass: 'Biology 100'
     };
+    this.addLecture = this.addLecture.bind(this);
+    this.addQuestions = this.addQuestions.bind(this);
+  }
+
+  addLecture(arr) {
+    this.setState({tests: arr});
+  }
+
+  addQuestions() {
+    axios.get('/test/1053').then(res => {
+      console.log('HERE!')
+      for(let obj of res.data.classes){
+        if(obj.id === this.props.classId){
+          this.setState({
+            tests: obj.tests
+          });
+        }
+      }
+    });
   }
 
   render() {
@@ -26,16 +47,17 @@ class Body extends Component {
         </div>
       );
     } else if (this.props.navigation === 'Lectures') {
-      console.log('BLAHBLAHBLAHBLAHHDJKASLDHFKDHFKDS')
-      console.log(this.props.selectedClass);
       navigator = (
         <div>
-          <LectureBody teacher={this.state.teacher}
-            selectedClass={this.props.selectedClass} />
+          <LectureBody selectedTest={this.state.selectedTest}
+            tests={this.state.tests}
+            addLecture={this.addLecture}
+            classId={this.props.classId}
+            addQuestions={this.addQuestions} 
+            sock={this.props.sock}/>
     	  </div>
       );
     }
-
     return (
       <div>
         {navigator}

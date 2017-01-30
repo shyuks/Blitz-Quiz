@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Grid, Col, Row} from 'react-bootstrap';
+import io from 'socket.io-client';
+import axios from 'axios';
 
 import StudentSidebar from './StudentSidebar';
 import QuestionArea from './QuestionArea';
@@ -18,10 +20,11 @@ class StudentHome extends Component {
         {id:4, type: 'Short Answer', body: 'Who is the worst?', answer: 'Hitler'}],
       answers: [],
       testName: '',
-      type: ''
+      type: '',
+      room: ''
     };
   }
-//aa
+
   handleAnswer(answerBody, qId) {
     let answer = {
       StudentsId: this.state.id,
@@ -33,6 +36,22 @@ class StudentHome extends Component {
 
     let newQuestions = this.state.questions.slice(1);
     this.setState({questions: newQuestions});
+  }
+
+  componentDidMount() {
+    console.log('WE ARE HERE!!!!!')
+    // axios.get('/api/' + this.props.sId).then(response => {
+    //   // var socket = io('http://localhost:9000', {'forceNew':true });
+    //   this.setState({
+    //     student: response.data.student,
+    //     classes: response.data.classes,
+    //     id: this.props.sId,
+    //     socket
+    //   });
+    //   // socket.on('connect', () => {
+    //   //   socket.emit('findClasses', {classes: this.state.classes});
+    //   // });
+    // });
   }
 
   render() {

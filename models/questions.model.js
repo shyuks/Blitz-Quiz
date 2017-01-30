@@ -7,6 +7,7 @@ var Question = sequelize.define('question', {
   answer: Sequelize.STRING,
   timer: Sequelize.INTEGER,
   isComplete: Sequelize.BOOLEAN,
+  status: Sequelize.STRING,
   a: Sequelize.STRING,
   b: Sequelize.STRING,
   c: Sequelize.STRING,
