@@ -1,7 +1,7 @@
 const Promise = require('bluebird');
 const sequelize = require('./connection');
 
-const seeder = require('./seedData/seedMethods');
+const seeder = require('./seedData/_seedMethods');
 
 const initDatabase = () => {
 	return new Promise((resolve, reject) => {
@@ -18,7 +18,7 @@ const initDatabase = () => {
 		Class.hasMany(Test);
 		Test.belongsTo(Class);
 
-		Test.hasMany(Question);
+			Test.hasMany(Question);
 		Question.belongsTo(Test);
 
 		Question.hasMany(Answer);
@@ -34,7 +34,7 @@ const initDatabase = () => {
 			through: 'class_student'
 		});
 		
-		sequelize.sync(/*{force: true}*/).then(err => {
+		sequelize.sync({/*force: true*/}).then(err => {
 			resolve();
 		});
 	});

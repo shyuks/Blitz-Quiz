@@ -8,7 +8,11 @@ const conn = require('./db/connection')
 const handleSocket = require('./sockets');
 const initDatabase = require('./db/config');
 
-const seeder = require('./db/seedData/seedMethods');
+/**
+ * TO DELETE
+ */
+const seeder = require('./db/seedData/_seedMethods');
+const tester = require('./util/utility/loginInit');
 
 const app = express();
 const port = 9000;
@@ -42,8 +46,13 @@ app.get('/', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
-  res.status(200).send('Hello World!');
+  tester(1053).then(item => {
+    console.log(item);
+    res.status(200).send('Hello World!');
+  });
+  
 });
+
 
 io.on('connection', (socket) => {
   console.log('a user connected');

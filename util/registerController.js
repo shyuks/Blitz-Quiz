@@ -4,12 +4,13 @@ const sequelize = require('./../db/config');
 const Teacher = require('./../models/teachers.model');
 
 const addTeacher = (req, res) => {
-  if((req.body.params.password === req.body.params.confirmPassword) && req.body.params.firstName && req.body.params.lastName){
-    console.log(req.body.params.firstName, req.body.params.lastName, req.body.params.password)
+  const data = req.body.params;
+  if((data.password === data.confirmPassword) && data.firstName && data.lastName){
+    console.log(data.firstName, data.lastName, data.password)
     Teacher.create({
-      firstName: req.body.params.firstName,
-      lastName: req.body.params.lastName,
-      password: req.body.params.password,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      password: data.password,
       photo: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg'
     })
     .then((user) => {
@@ -20,7 +21,7 @@ const addTeacher = (req, res) => {
       console.log("this error: ", error)
     })
   } else {
-    console.log("Please make sure you have inputted your information correctly")
+    console.log("Please make sure you have input your information correctly")
   }
 }
 

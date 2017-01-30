@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
-import './App.css';
 import Signup from './Signup';
-import axios from 'axios'
+import './App.css';
 
 const Style = {
     backgroundImage: 'url(http://mrsbarkerscs5.files.wordpress.com/2012/10/cropped-cropped-chalkboard-background-e1350959846138.jpg)',
@@ -12,8 +12,8 @@ const Style = {
     left: '0px'
 };
 
-class Login extends Component {  
 
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -22,10 +22,82 @@ class Login extends Component {
         teacherPassword: '',
         studentID: '',
         studentPassword: '',
-        signupPage: false,
+        signupPage: false
     };
   }
 
+  handleChangeTeacher(event) {
+    let target = event.target;
+    let value = target.value;
+    let name = target.name;
+    this.setState({[name]: value});
+  }
+
+  handleChangeStudent(event) {
+    let target = event.target
+    let value = target.value
+    let name = target.name
+    this.setState({
+        [name]: value
+    });
+  }
+
+  handleSubmitTeacher(event) {
+    event.preventDefault();
+    let stateContext = this;  
+    axios.post('/login/Teacher', {
+        params: {
+            Id: this.state.teacherID,
+            password: this.state.teacherPassword
+        }
+    })
+    .then((response) => {
+        stateContext.setState({
+            teacherID: '',
+            teacherPassword: ''
+        })
+        console.log(response)
+        stateContext.dashboardViewTeacher(response)
+    })
+    .catch((error) => {
+        console.log(error);
+    });    
+  }
+
+  handleSubmitStudent(event) {  
+    event.preventDefault();
+    let stateContext = this;  
+    axios.post('/login/Student', {
+        params: {
+            ID: this.state.studentID,
+            password: this.state.studentPassword
+        }
+    })
+    .then(function (response) {
+        stateContext.setState({
+            studentID: '',
+            studentPassword: '',
+        })
+        stateContext.dashboardViewStudent()
+    })
+    .catch(function (error) {
+        console.log(error);
+    });    
+  }  
+
+  signupView () {
+      this.setState({
+          signupPage: !this.state.signupPage
+      })
+  }
+
+  dashboardViewTeacher (response) {
+    this.props.teacherAuth(response)
+  }
+
+  dashboardViewStudent () {
+      this.props.studentAuth()
+  }
 
   render() {
     const { errors } = this.state
@@ -73,89 +145,8 @@ class Login extends Component {
                 </div>
             </div>
         </div>
-
-      
     );
   }
-
-  handleChangeTeacher(event) {
-        let target = event.target
-        let value = target.value
-        let name = target.name
-        this.setState({
-            [name]: value
-        });
-  }
-
-    handleChangeStudent(event) {
-        let target = event.target
-        let value = target.value
-        let name = target.name
-        this.setState({
-            [name]: value
-        });
-  }
-
-  handleSubmitTeacher(event) {
-    event.preventDefault();
-    let stateContext = this;  
-    axios.post('/login/Teacher', {
-        params: {
-            Id: this.state.teacherID,
-            password: this.state.teacherPassword
-        }
-    })
-    .then(function (response) {
-        stateContext.setState({
-            teacherID: '',
-            teacherPassword: ''
-        })
-        console.log(response)
-        stateContext.dashboardViewTeacher(response)
-    })
-    .catch(function (error) {
-        console.log(error);
-    });    
-  }
-
-
-  handleSubmitStudent(event) {  
-    event.preventDefault();
-    let stateContext = this;  
-    axios.post('/login/Student', {
-        params: {
-            ID: this.state.studentID,
-            password: this.state.studentPassword
-        }
-    })
-    .then(function (response) {
-        stateContext.setState({
-            studentID: '',
-            studentPassword: '',
-        })
-        stateContext.dashboardViewStudent()
-    })
-    .catch(function (error) {
-        console.log(error);
-    });    
-  }  
-
-  signupView () {
-      this.setState({
-          signupPage: !this.state.signupPage
-      })
-  }
-
-  dashboardViewTeacher (response) {
-    this.props.teacherAuth(response)
-  }
-
-  dashboardViewStudent () {
-      this.props.studentAuth()
-  }
-
-
-
 }
 
 export default Login;
