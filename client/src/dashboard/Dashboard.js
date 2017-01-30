@@ -60,17 +60,17 @@ class Dashboard extends Component {
     }
   }
 
-  buildClasses(data) {
-    let all = [];
-    for (let obj of data) {
-      console.log(obj);
-      all.push({
-        id: obj.id,
-        className: obj.className
-      });
-    }
-    return all;
-  }
+  // buildClasses(data) {
+  //   let all = [];
+  //   for (let obj of data) {
+  //     console.log(obj);
+  //     all.push({
+  //       id: obj.id,
+  //       className: obj.className
+  //     });
+  //   }
+  //   return all;
+  // }
 
   componentWillMount() {
     const mql = window.matchMedia(`(min-width: 800px)`);
@@ -84,13 +84,11 @@ class Dashboard extends Component {
 
   componentDidMount() {
     axios.get('/test/1053').then(response => {
-        console.log('I GOT IT!');
-        console.log(response);
-        let all = this.buildClasses(response.data.classes);
-        console.log(all);
+      console.log('dajklsfdhjflhdjksafhdsalfhkafhdsakf___________')
+      console.log(response.data);
         this.setState({
-          allClasses: all,
-          selectedClass: all[0]
+          allClasses: response.data.classes,
+          selectedClass: response.data.classes[1]
         });
     });
   }
@@ -99,7 +97,7 @@ class Dashboard extends Component {
 //            Render
 //=========================================
   render() {
-    console.log('HERE IS THE STATE NOW');
+    console.log('HERE__________________________');
     console.log(this.state.selectedClass)
     const sidebar = <SidebarContent handleSideNav={this.handleSideNav} />;
 
@@ -123,7 +121,11 @@ class Dashboard extends Component {
       <Sidebar {...sidebarProps}>
         <SidebarTopArea title={contentHeader}
           class={this.state.selectedClass}>
-          <Body navigation={this.state.navigation} selectedClass={this.props}/>
+
+          <Body navigation={this.state.navigation}
+            selectedClass={this.state.selectedClass}
+            />
+
         </SidebarTopArea>
       </Sidebar>
     );

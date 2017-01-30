@@ -12,11 +12,12 @@ class LectureBody extends Component {
       toggler: true,
       currentClass: 'Biology 100',
       teacher: props.teacher,
-      tests: [
-        {id: 1, testName: 'Bugs', type: 'Lecture', isComplete: false},
-        {id: 2, testName: 'Horses', type: 'Lecture', isComplete: false},
-        {id: 3, testName: 'Mammals', type: 'Lecture', isComplete: true}
-      ],
+      // tests: [
+      //   {id: 1, testName: 'Bugs', type: 'Lecture', isComplete: false},
+      //   {id: 2, testName: 'Horses', type: 'Lecture', isComplete: false},
+      //   {id: 3, testName: 'Mammals', type: 'Lecture', isComplete: true}
+      // ],
+      tests: this.props.selectedClass.tests || [],
       selectedLecture: null,
       selectedQuestions: [],
       newQuestions: []
