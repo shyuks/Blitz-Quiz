@@ -12,7 +12,7 @@ class Body extends Component {
     super(props);
 
     this.state = {
-      currentClass: 'Biology',
+      currentClass: this.props.selectedClass.className,
       teacher: 'Sara H.'
     };
   }
@@ -26,7 +26,7 @@ class Body extends Component {
     } else if (this.props.navigation === 'Students') {
       navigator = (
         <div>
-          <StudentList />
+          <StudentList currentClass={this.state.currentClass}/>
         </div>
       );
     } else if (this.props.navigation === 'Lectures') {

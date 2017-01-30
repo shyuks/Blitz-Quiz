@@ -123,7 +123,7 @@ class Dashboard extends Component {
       <Sidebar {...sidebarProps}>
         <SidebarTopArea title={contentHeader}
           class={this.state.selectedClass}>
-          <Body navigation={this.state.navigation}/>
+          <Body navigation={this.state.navigation} selectedClass={this.props}/>
         </SidebarTopArea>
       </Sidebar>
     );
