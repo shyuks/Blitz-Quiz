@@ -20,18 +20,32 @@ const styles = {
 
 
 const SidebarTopArea = (props) => {
+  let currentClass = props.class;
+  let classes = props.classes;
+  let populateClasses = (someClass, i) => {
+   if(someClass === currentClass){
+    return(
+    <MenuItem eventKey={someClass.id} key={i} active> {someClass.className} </MenuItem>
+    );
+    } else {
+      return(
+        <MenuItem eventKey={someClass.id} key={i} onClick={() => {props.selectClass(someClass);}}> {someClass.className} </MenuItem>
+      )
+    }
+  }
   console.log('THIS IS THE SELECTED: ');
-  console.log(props.class);
+  console.log(currentClass);
   const rootStyle = styles.root;
   return (
     <div style={rootStyle}>
       <div style={styles.header}>
-        <DropdownButton title={props.class.className}
+        <DropdownButton title={currentClass.className}
           bsSize="large"
           id="dropdown-size-large">
 
-          <MenuItem eventKey="1" active>Biology 100</MenuItem>
-          <MenuItem eventKey="2">Physics 100</MenuItem>
+          {classes.map((someClass, i) => (
+           populateClasses(someClass, i)
+         ))}
           
         </DropdownButton>
       </div>
