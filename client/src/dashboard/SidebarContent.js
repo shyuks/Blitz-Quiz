@@ -37,7 +37,7 @@ const SidebarContent = (props) => {
   const style = styles.sidebar;
 
   return (
-    <SidebarPersonal style={style}>
+    <SidebarPersonal tId={props.tId} teacher={props.teacher} style={style}>
       <div style={styles.content}>
         <a href="#" 
           style={styles.sidebarLink}

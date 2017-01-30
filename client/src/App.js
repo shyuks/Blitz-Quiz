@@ -23,7 +23,8 @@ class App extends Component {
     teacherAuth (response) {
     this.setState({
       isStudent: false,
-      loggedIn: true
+      loggedIn: true,
+      tId: response.data
     });
   }
 
@@ -38,7 +39,7 @@ class App extends Component {
     if(this.state.loggedIn && !this.state.isStudent) {
       return (
           <div>
-            <Dashboard />
+            <Dashboard tId={this.state.tId}/>
           </div>
         );
     } else if(this.state.loggedIn && this.state.isStudent) {

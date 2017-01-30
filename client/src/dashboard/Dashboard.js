@@ -27,11 +27,12 @@ class Dashboard extends Component {
     this.state = {
       docked: false,
       open: false,
-      teacher: null,
+      teacher: {firstName: 'EJ', lastName: 'Mason', photo: "http://starcasm.net/wp-content/uploads/2015/08/Jared-Fogle-in-Subway-Ad.jpg"},
       allClasses: [],
       selectedClass: {id: 4, className: 'Biology 100'},
       navigation: '',
-      loaded: false
+      loaded: false,
+      tId: props.tId
     };
 
     this.handleSideNav = this.handleSideNav.bind(this);
@@ -74,7 +75,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    axios.get('/test/1053').then(response => {
+    axios.get('/test/' + this.state.tId).then(response => {
         var socket = io('http://localhost:9000', {'forceNew':true });
         this.setState({
           teacher: response.data.teacher,
@@ -103,7 +104,7 @@ class Dashboard extends Component {
 //            Render
 //=========================================
   render() {
-    const sidebar = <SidebarContent handleSideNav={this.handleSideNav} />;
+    const sidebar = <SidebarContent tId={this.state.tId} teacher={this.state.teacher} handleSideNav={this.handleSideNav} />;
     let min = this.state.selectedClass;
     const clssRoom = {
       id: min.id,
