@@ -7,6 +7,7 @@ const fetchStudents = (req, res) => {
     console.log("fetching students...")
     Student.findAll()
     .then((students) => {
+        console.log("students: ", students)
         res.send(students)
         })
     .catch((err) => {

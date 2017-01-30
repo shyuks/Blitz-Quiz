@@ -31,9 +31,6 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: { secure: true }
-  // store: new pgSession({
-  //   // conString: conn   
-  // })
 }));
 app.use(cors());
 app.use(passport.initialize());

@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import ImportedStudents from './ImportedStudents';
 import AvailableStudents from './AvailableStudents';
+import StudentPhoto from './StudentPhoto';
 import axios from 'axios'
+
 let arr;
 let criteria = false;
 
 const dataImportedStudents = [
-  { 'firstName': 'Hu', 'lastName': 'Bobson', id: 1 },
-  { id: 2, 'firstName': 'John', 'lastName': 'Kim'}
+  { 'firstName': 'Hu', 'lastName': 'Bobson', id: 1, photo: "http://dummyimage.com/150x150.png/cc0000/ffffff"},
+  { id: 2, 'firstName': 'John', 'lastName': 'Kim', photo: "http://dummyimage.com/150x150.png/cc0000/ffffff"}
 ]
 
 class StudentList extends Component {
@@ -15,9 +17,10 @@ class StudentList extends Component {
     super(props);
 
     this.state = {
-        class: 'Biology 100',
+        class: this.props.currentClass,
         importedStudents: dataImportedStudents,
-        availableStudents: null
+        availableStudents: null,
+        photo: null
     };
   }
 
@@ -30,7 +33,8 @@ class StudentList extends Component {
         return  {    
                   id: student.id, 
                   firstName: student.firstName,
-                  lastName: student.lastName
+                  lastName: student.lastName,
+                  photo: student.photo
                 };
       })
       criteria = true;
@@ -45,34 +49,45 @@ class StudentList extends Component {
 
   render() {
     return (
-        <div>
-            <ImportedStudents data={this.state.importedStudents} removeStudents={this.removeStudents.bind(this)}/>
-            <AvailableStudents data={this.state.availableStudents} addStudents={this.addStudents.bind(this)}/>
+        <div className= "row">
+          <div className="col-sm-8">
+            <ImportedStudents data={this.state.importedStudents} removeStudents={this.removeStudents.bind(this)} changePhoto ={this.changePhoto.bind(this)}/>
+            <AvailableStudents data={this.state.availableStudents} addStudents={this.addStudents.bind(this)} changePhoto ={this.changePhoto.bind(this)}/>
+          </div>
+          <div className="col-sm-4">
+            <StudentPhoto photo= {this.state.photo} />
+          </div>
         </div>
     )
   }
 
   addStudents (index, row) {
-    console.log("state is currently ", this.state.availableStudents)
     this.state.availableStudents.splice(index, 1)
     this.state.importedStudents.push(row)
     this.setState({
       importedStudents: this.state.importedStudents,
       availableStudents: this.state.availableStudents
     })
-    console.log("state is now ", this.state.availableStudents)
   }
 
   removeStudents (index, row) {
-    console.log("state is currently ", this.state.availableStudents)
     this.state.availableStudents.push(row)
     this.state.importedStudents.splice(index, 1)
     this.setState({
       importedStudents: this.state.importedStudents,
       availableStudents: this.state.availableStudents
     })
-    console.log("state is now ", this.state.availableStudents)
   }
+
+  changePhoto (newPhoto) {
+    this.setState({
+      photo: newPhoto
+    })
+    console.log(this.state.photo)
+  }
+
+
+
 }
 
 export default StudentList;
