@@ -93,6 +93,10 @@ class Dashboard extends Component {
     });
   }
 
+  selectClass(someClass) {
+     this.setState({selectedClass: someClass})
+  }
+
 //=========================================
 //            Render
 //=========================================
@@ -120,7 +124,9 @@ class Dashboard extends Component {
     return (
       <Sidebar {...sidebarProps}>
         <SidebarTopArea title={contentHeader}
-          class={this.state.selectedClass}>
+          class={this.state.selectedClass}
+          classes={this.state.allClasses}
+          selectClass={this.selectClass.bind(this)}>>
 
           <Body navigation={this.state.navigation}
             selectedClass={this.state.selectedClass}
