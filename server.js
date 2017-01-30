@@ -46,16 +46,23 @@ app.get('/', (req, res) => {
   res.status(200).send('Hello World!');
 });
 
-// app.param('user_id', (req, res, next, user_id) => {
-//   console.log(user_id);
-//   next();
-// });
-
 app.get('/test/:userid', (req, res) => {
     let userId = req.params.userid;
     getInitData(userId).then(data =>{
       res.status(200).send(data);
     });
+});
+
+// app.get('/test', (req, res) => {
+//     seeder();
+//     res.status(200).send('hello');
+    
+// });
+
+app.post('/test', (req, res) => {
+    console.log(req.body);
+    res.status(200).send('hello');
+    
 });
 
 

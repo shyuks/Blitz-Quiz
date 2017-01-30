@@ -6,6 +6,7 @@ import SidebarContent from './SidebarContent';
 import SidebarPersonal from './SidebarPersonal';
 import SidebarTopArea from './SidebarTopArea';
 import Body from '../body/Body';
+import dataStore from './../store/lectures';
 
 const styles = {
   contentHeaderMenuLink: {
@@ -27,7 +28,7 @@ class Dashboard extends Component {
       open: false,
       allClasses: [],
       selectedClass: {id: 4, className: 'Biology 100'},
-      navigation: 'Lectures'
+      navigation: ''
     };
 
     this.handleSideNav = this.handleSideNav.bind(this);
@@ -60,18 +61,6 @@ class Dashboard extends Component {
     }
   }
 
-  // buildClasses(data) {
-  //   let all = [];
-  //   for (let obj of data) {
-  //     console.log(obj);
-  //     all.push({
-  //       id: obj.id,
-  //       className: obj.className
-  //     });
-  //   }
-  //   return all;
-  // }
-
   componentWillMount() {
     const mql = window.matchMedia(`(min-width: 800px)`);
     mql.addListener(this.mediaQueryChanged.bind(this));
@@ -84,11 +73,10 @@ class Dashboard extends Component {
 
   componentDidMount() {
     axios.get('/test/1053').then(response => {
-      console.log('dajklsfdhjflhdjksafhdsalfhkafhdsakf___________')
-      console.log(response.data);
+        dataStore = response.data;
         this.setState({
           allClasses: response.data.classes,
-          selectedClass: response.data.classes[1]
+          selectedClass: response.data.classes[2]
         });
     });
   }
@@ -101,8 +89,6 @@ class Dashboard extends Component {
 //            Render
 //=========================================
   render() {
-    console.log('HERE__________________________');
-    console.log(this.state.selectedClass)
     const sidebar = <SidebarContent handleSideNav={this.handleSideNav} />;
 
     const contentHeader = (
@@ -129,8 +115,7 @@ class Dashboard extends Component {
           selectClass={this.selectClass.bind(this)}>>
 
           <Body navigation={this.state.navigation}
-            selectedClass={this.state.selectedClass}
-            />
+            selectedClass={this.state.selectedClass} />
 
         </SidebarTopArea>
       </Sidebar>

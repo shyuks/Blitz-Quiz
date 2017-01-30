@@ -119,6 +119,7 @@ const cleanQuestions = test => {
           type: item.type,
           body: item.body,
           timer: item.timer,
+          status: item.status,
           a: item.a,
           b: item.b,
           c: item.c,

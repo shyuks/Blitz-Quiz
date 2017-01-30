@@ -4,6 +4,9 @@ import React, {Component} from 'react';
 import LectureBody from './../lectures/LectureBody';
 import StudentList from './StudentList';
 
+/**
+ * NEED TO MAKE THIS STATELESS!!!!!
+ */
 class Body extends Component {
   constructor(props) {
     super(props);
@@ -26,8 +29,6 @@ class Body extends Component {
         </div>
       );
     } else if (this.props.navigation === 'Lectures') {
-      console.log('BLAHBLAHBLAHBLAHHDJKASLDHFKDHFKDS')
-      console.log(this.props.selectedClass);
       navigator = (
         <div>
           <LectureBody teacher={this.state.teacher}
