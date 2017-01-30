@@ -57,6 +57,7 @@ const cleanClasses = rawClasses => {
       Promise.all(pTests).then(tests => {
         rawClasses.forEach((rClass, idx) => {
           all.push({
+            id:rClass.id,
             className: rClass.className,
             students: students[idx],
             tests: tests[idx]

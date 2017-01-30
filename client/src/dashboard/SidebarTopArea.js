@@ -20,6 +20,8 @@ const styles = {
 
 
 const SidebarTopArea = (props) => {
+  console.log('THIS IS THE SELECTED: ');
+  console.log(props.class);
   const rootStyle = styles.root;
   return (
     <div style={rootStyle}>

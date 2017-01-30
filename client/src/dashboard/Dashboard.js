@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Sidebar from 'react-sidebar';
+import axios from 'axios';
 
 import SidebarContent from './SidebarContent';
 import SidebarPersonal from './SidebarPersonal';
@@ -24,6 +25,7 @@ class Dashboard extends Component {
     this.state = {
       docked: false,
       open: false,
+      allClasses: [],
       selectedClass: {id: 4, className: 'Biology 100'},
       navigation: 'Lectures'
     };
@@ -58,6 +60,18 @@ class Dashboard extends Component {
     }
   }
 
+  buildClasses(data) {
+    let all = [];
+    for (let obj of data) {
+      console.log(obj);
+      all.push({
+        id: obj.id,
+        className: obj.className
+      });
+    }
+    return all;
+  }
+
   componentWillMount() {
     const mql = window.matchMedia(`(min-width: 800px)`);
     mql.addListener(this.mediaQueryChanged.bind(this));
@@ -68,10 +82,25 @@ class Dashboard extends Component {
     this.state.mql.removeListener(this.mediaQueryChanged.bind(this));
   }
 
+  componentDidMount() {
+    axios.get('/test/1053').then(response => {
+        console.log('I GOT IT!');
+        console.log(response);
+        let all = this.buildClasses(response.data.classes);
+        console.log(all);
+        this.setState({
+          allClasses: all,
+          selectedClass: all[0]
+        });
+    });
+  }
+
 //=========================================
 //            Render
 //=========================================
   render() {
+    console.log('HERE IS THE STATE NOW');
+    console.log(this.state.selectedClass)
     const sidebar = <SidebarContent handleSideNav={this.handleSideNav} />;
 
     const contentHeader = (
