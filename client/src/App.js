@@ -6,8 +6,7 @@ import Dashboard from './dashboard/Dashboard';
 import StudentHome from './studentUI/StudentHome';
 
 import './App.css';
-let userSession;
-console.log(userSession)
+
 class App extends Component {
 
   constructor(props) {
@@ -19,21 +18,27 @@ class App extends Component {
     // });
 
     this.state = {
-      isStudent: true,
-      loggedIn: userSession ? true : false
+      isTeacher: true,
+      //loggedIn: userSession ? true : false
+      loggedIn: true
     };
   }
 
   render() {
-    let logged = null;
-    this.state.loggedIn ? logged = <Dashboard /> : logged = <Login teacherAuth = {this.teacherAuth.bind(this)} studentAuth = {this.studentAuth.bind(this)} />;
-
-    return (
-      <div>
-        {logged}
-      </div>
-      
-    );
+    if(this.state.loggedIn && this.state.isTeacher) {
+      return (
+          <div>
+            <Dashboard />
+          </div>
+        );
+    } else {
+      return (
+        <div>
+          <Login teacherAuth={this.teacherAuth.bind(this)} 
+            studentAuth={this.studentAuth.bind(this)} />
+        </div>
+      );
+    }
   }
 
   teacherAuth (response) {

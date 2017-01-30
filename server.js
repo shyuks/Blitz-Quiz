@@ -4,15 +4,18 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const passport = require('passport');
+const cors = require('cors');
+
 const conn = require('./db/connection')
 const handleSocket = require('./sockets');
 const initDatabase = require('./db/config');
+const getInitData = require('./util/utility/loginInit');
 
 /**
  * TO DELETE
  */
 const seeder = require('./db/seedData/_seedMethods');
-const tester = require('./util/utility/loginInit');
+
 
 const app = express();
 const port = 9000;
@@ -27,11 +30,12 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true },
-  store: new pgSession({
-    // conString: conn   
-  })
+  cookie: { secure: true }
+  // store: new pgSession({
+  //   // conString: conn   
+  // })
 }));
+app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static('client/build'));
@@ -45,17 +49,16 @@ app.get('/', (req, res) => {
   res.status(200).send('Hello World!');
 });
 
-app.get('/test', (req, res) => {
-  tester(1053).then(item => {
-    console.log(item);
-    for (thingy of item.classes[2].tests[0].answers) {
-      console.log('-----------------------------------------')
-      console.log('-----------------------------------------')
-      console.log(thingy)
-    }
-    res.status(200).send('Hello World!');
-  });
-  
+// app.param('user_id', (req, res, next, user_id) => {
+//   console.log(user_id);
+//   next();
+// });
+
+app.get('/test/:userid', (req, res) => {
+    let userId = req.params.userid;
+    getInitData(userId).then(data =>{
+      res.status(200).send(data);
+    });
 });
 
 
