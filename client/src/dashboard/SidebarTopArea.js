@@ -33,8 +33,6 @@ const SidebarTopArea = (props) => {
       )
     }
   }
-  console.log('THIS IS THE SELECTED: ');
-  console.log(currentClass);
   const rootStyle = styles.root;
   return (
     <div style={rootStyle}>

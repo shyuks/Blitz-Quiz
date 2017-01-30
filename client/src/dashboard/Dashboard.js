@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import Sidebar from 'react-sidebar';
 import axios from 'axios';
+import io from 'socket.io-client';
 
 import SidebarContent from './SidebarContent';
 import SidebarPersonal from './SidebarPersonal';
 import SidebarTopArea from './SidebarTopArea';
 import Body from '../body/Body';
-import dataStore from './../store/lectures';
+
 
 const styles = {
   contentHeaderMenuLink: {
@@ -26,9 +27,11 @@ class Dashboard extends Component {
     this.state = {
       docked: false,
       open: false,
+      teacher: null,
       allClasses: [],
       selectedClass: {id: 4, className: 'Biology 100'},
-      navigation: ''
+      navigation: '',
+      loaded: false
     };
 
     this.handleSideNav = this.handleSideNav.bind(this);
@@ -55,7 +58,6 @@ class Dashboard extends Component {
 
   toggleOpen(e) {
     this.setState({open: !this.state.open});
-
     if (e) {
       e.preventDefault();
     }
@@ -73,16 +75,28 @@ class Dashboard extends Component {
 
   componentDidMount() {
     axios.get('/test/1053').then(response => {
-        dataStore = response.data;
+        var socket = io('http://localhost:9000', {'forceNew':true });
         this.setState({
+          teacher: response.data.teacher,
           allClasses: response.data.classes,
-          selectedClass: response.data.classes[2]
+          selectedClass: response.data.classes[2],
+          loaded: true,
+          socket: socket
         });
+        socket.on('connect', () => {
+          console.log('Building classroom');
+          let min = this.state.selectedClass;
+          socket.emit('t_createClass', {
+            id: min.id,
+            className: min.className,
+            teacher: this.state.teacher
+        });
+      });
     });
   }
 
   selectClass(someClass) {
-     this.setState({selectedClass: someClass})
+     this.setState({selectedClass: someClass, navigation: ''});
   }
 
 //=========================================
@@ -90,6 +104,12 @@ class Dashboard extends Component {
 //=========================================
   render() {
     const sidebar = <SidebarContent handleSideNav={this.handleSideNav} />;
+    let min = this.state.selectedClass;
+    const clssRoom = {
+      id: min.id,
+      className: min.className,
+      teacher: this.state.teacher
+    }
 
     const contentHeader = (
       <span>
@@ -107,15 +127,23 @@ class Dashboard extends Component {
       onSetOpen: this.onSetOpen.bind(this)
     };
 
+    let loadItem = null;
+    if(this.state.loaded) {
+      loadItem = <Body navigation={this.state.navigation}
+            selTests={this.state.selectedClass.tests}
+            selStudents={this.state.selectedClass.students}
+            classId={this.state.selectedClass.id} 
+            sock={clssRoom}/>
+    } 
+
     return (
       <Sidebar {...sidebarProps}>
         <SidebarTopArea title={contentHeader}
           class={this.state.selectedClass}
           classes={this.state.allClasses}
-          selectClass={this.selectClass.bind(this)}>>
+          selectClass={this.selectClass.bind(this)}>
 
-          <Body navigation={this.state.navigation}
-            selectedClass={this.state.selectedClass} />
+          {loadItem}
 
         </SidebarTopArea>
       </Sidebar>

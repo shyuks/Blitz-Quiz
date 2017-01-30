@@ -1,22 +1,26 @@
 import React, {Component} from 'react';
 import {ListGroup, ListGroupItem} from 'react-bootstrap';
 import axios from 'axios';
+import io from 'socket.io-client';
 
 import LectureBodyComponents from './LectureBodyComponents';
 import QuestionsBodyComponents from './lectureQuestions/QuestionsBodyComponents';
-import lectures from './../store/lectures';
+
+
 
 class LectureBody extends Component {
   constructor(props) {
     super(props);
+    
+    console.log(props);
+    let conn = props.sock.teacher.lastName + props.sock.id;
+    
 
     this.state = {
       toggler: true,
-      currentClass: 'Biology 100',
-      teacher: props.teacher,
-      tests: this.props.selectedClass.tests || [],
-      selectedLecture: null,
-      selectedQuestions: this.props.selectedClass,
+      tests: this.props.tests || [],
+      selectedTest: null,
+      selectedQuestions: [],
       newQuestions: []
     };
     this.selectLectureHandler = this.selectLectureHandler.bind(this);
@@ -32,18 +36,16 @@ class LectureBody extends Component {
   //Needs to go to base questions and get the selectedQuestions
   selectLectureHandler (e, id) {
     e.preventDefault();
-    console.log('IN HERE!');
-    console.log('the id: ', id);
     let foundTest = null;
     for (let test of this.state.tests) {
+      console.log('found');
+      console.log(test);
       if (test.id === id) {
-        console.log('FOUND: ');
-        console.log(test);
         foundTest = test;
       }
     }
     this.setState({
-      selectedLecture: foundTest,
+      selectedTest: foundTest,
       selectedQuestions: foundTest.questions
     });
   }
@@ -51,8 +53,7 @@ class LectureBody extends Component {
   handleAddQuestion (e) {
     e.preventDefault();
     let questions = this.state.newQuestions.slice();
-    questions.push({type: 'Short Answer', body: '', answer: '', status: 'new'});
-
+    questions.push({type: 'Short Answer', body: '', answer: '', status: 'new', isComplete: false});
     this.setState({
       newQuestions: questions
     });
@@ -60,8 +61,19 @@ class LectureBody extends Component {
 
   handleSubmitNewQuestion (e, type, body, answer) {
     e.preventDefault();
-    let obj = {type: type, body: body, answer: answer, status: 'incomplete'};
-    let arr = this.state.selectedQuestions.concat([obj]); 
+    let obj = {
+      type: type, 
+      body: body, 
+      answer: answer, 
+      status: 'incomplete', 
+      testId: this.state.selectedTest.id};
+    axios.post('/test/question', obj).then(res => {
+      this.props.addQuestions();
+    });
+    
+    let arr = this.state.selectedQuestions.concat([obj]);
+
+    // updateQuestions(arr); 
     this.setState((prevState, props) => {
       return {
         selectedQuestions: arr,
@@ -72,40 +84,53 @@ class LectureBody extends Component {
 
   handleDeselectLecture(e) {
     e.preventDefault();
-    this.setState({selectedLecture: null, selectedQuestions: []});
+    this.setState({selectedTest: null, selectedQuestions: []});
   }
 
   handleAddLecture(testName) {
-    console.log('Hello!')
+    var newTest = {
+      testName: testName,
+      type: 'Lecture',
+      classId: this.props.classId,
+      answers: [],
+      questions: []
+    };
+    axios.post('/test/new', newTest).then(res => {
+      console.log('New Lecture sent to server!');
+    });
     let arr = this.state.tests.slice();
-    arr.unshift({id: 4, testName: testName, type: 'Lecture', isComplete: false});
-    this.addLectureToServer(testName);
-    this.setState({tests: arr});
+    arr.unshift(newTest);
+    this.props.addLecture(arr);
+    this.setState({tests: arr, selectedTest: null, selectedQuestions: []});
   }
 
-  addLectureToServer(name) {
-      axios.post('/test', {
-      testName: name,
-      type: 'Lecture',
-      timeAllowed: 0,
-      classId: this.props.selectedClass.id
-    }).then(res => {
-      console.log(res);
-    });
+  componentDidUpdate() {       
+      console.log('======================================');
+      console.log('TIME FOR A RERENDER!!!!!!');
+      console.log(this.state.tests)
+      console.log('======================================');
   }
+
+  componentWillUnmount() {
+    console.log('here')
+    console.log(this.props.sock);
+  }
+
 
 //=========================================
 //            Render
 //=========================================
   render() {
+    console.log('HERE ARE THE TESTS!')
+    console.log(this.props.tests);
     let item = null;
-    if(this.state.selectedLecture === null) {
+    if(this.state.selectedTest === null) {
       item = <LectureBodyComponents tests={this.state.tests} 
         selectLectureHandler={this.selectLectureHandler} 
         handleAddLecture = {this.handleAddLecture}/>;
     } else {
       item = <QuestionsBodyComponents questions={this.state.selectedQuestions}
-        lecture={this.state.selectedLecture}
+        lecture={this.state.selectedTest}
         newQuestions={this.state.newQuestions}
         handleDeselectLecture={this.handleDeselectLecture}
         handleAddQuestion={this.handleAddQuestion} 

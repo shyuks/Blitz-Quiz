@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import io from 'socket.io-client';
 
 import Login from './Login';
 import Dashboard from './dashboard/Dashboard';
@@ -12,23 +11,40 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    // var socket = io('http://localhost:9000');
-    // socket.on('connect', () => {
-    //   console.log('connected at client');
-    // });
-
     this.state = {
-      isTeacher: true,
+      isStudent: true,
       //loggedIn: userSession ? true : false
-      loggedIn: true
+      loggedIn: false,
+      sId: '22',
+      tId: '1053'
     };
   }
 
+    teacherAuth (response) {
+    this.setState({
+      isStudent: false,
+      loggedIn: true
+    });
+  }
+
+  studentAuth () {
+    this.setState({
+      isStudent: true,
+      loggedIn: true
+    })
+  }
+
   render() {
-    if(this.state.loggedIn && this.state.isTeacher) {
+    if(this.state.loggedIn && !this.state.isStudent) {
       return (
           <div>
             <Dashboard />
+          </div>
+        );
+    } else if(this.state.loggedIn && this.state.isStudent) {
+      return (
+          <div>
+            <StudentHome sId={this.state.sId}/>
           </div>
         );
     } else {
@@ -40,26 +56,6 @@ class App extends Component {
       );
     }
   }
-
-  teacherAuth (response) {
-    this.setState({
-      isStudent: false,
-      loggedIn: true
-    })
-    console.log(response)
-    userSession = response.data
-    console.log(userSession)
-  }
-
-  studentAuth () {
-    this.setState({
-      isStudent: true,
-      loggedIn: true
-    })
-  }
-
-
-
 }
 
 export default App;
