@@ -12,7 +12,7 @@ const TeacherSeed = require('./TeacherSeed');
 const TestSeed = require('./TestSeed');
 
 const seeder = () => {
-    //console.log(TeacherSeed);
+
    Teacher.bulkCreate(TeacherSeed)
    .catch((errors) => {
        console.log(errors);
@@ -22,6 +22,24 @@ const seeder = () => {
    .catch((errors) => {
        console.log(errors);
     });
+
+    console.log('/n/n/n/nADDING CLASSES!!/n/n/n/n');
+    Class.bulkCreate(ClassSeed)
+    
+    .catch((errors) => {
+       console.log(errors);
+    });
+
+    // Test.bulkCreate(TestSeed)
+    // .catch((errors) => {
+    //    console.log(errors);
+    // });
+
+    // Question.bulkCreate(QuestionSeed)
+    // .catch((errors) => {
+    //    console.log(errors);
+    // });
+
 };
 
 
