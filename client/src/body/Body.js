@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import LectureBody from './../lectures/LectureBody';
 import StudentList from './StudentList';
+import Dashboard from './Dashboard/Main.js'
 
 
 class Body extends Component {
@@ -39,7 +40,11 @@ class Body extends Component {
     let navigator = null;
 
     if(this.props.navigation === ''){
-      navigator = null;
+      navigator = (
+        <div>
+          <Dashboard />
+        </div>
+      )
     } else if (this.props.navigation === 'Students') {
       navigator = (
         <div>
