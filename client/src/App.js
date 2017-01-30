@@ -35,11 +35,22 @@ class App extends Component {
     })
   }
 
+  logout () {
+    console.log("looogggin out")
+    this.setState({
+      loggedIn: false
+    })
+  }
+
   render() {
     if(this.state.loggedIn && !this.state.isStudent) {
       return (
           <div>
+<<<<<<< HEAD
             <Dashboard tId={this.state.tId}/>
+=======
+            <Dashboard data={this.state.loggedIn} logout={this.logout.bind(this)}/>
+>>>>>>> [feat]signout and images for dashboard
           </div>
         );
     } else if(this.state.loggedIn && this.state.isStudent) {

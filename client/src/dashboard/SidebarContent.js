@@ -55,7 +55,9 @@ const SidebarContent = (props) => {
         <Glyphicon className="icon" glyph="book" /> Lectures
         </a>
         <div style={styles.divider} />
-          <a href="#" style={styles.sidebarLink}>
+          <a href="#"
+           style={styles.sidebarLink}
+           onClick={() => props.backtoLogin()}>
         <Glyphicon className="icon" glyph="log-out" /> Logout
         </a>
       </div>

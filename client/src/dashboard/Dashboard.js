@@ -49,6 +49,10 @@ class Dashboard extends Component {
     });
   }
 
+  backtoLogin() {
+    this.props.logout();
+  }
+
   onSetOpen(open) {
     this.setState({open: open});
   }
@@ -104,7 +108,7 @@ class Dashboard extends Component {
 //            Render
 //=========================================
   render() {
-    const sidebar = <SidebarContent tId={this.state.tId} teacher={this.state.teacher} handleSideNav={this.handleSideNav} />;
+    const sidebar = <SidebarContent tId={this.state.tId} teacher={this.state.teacher} handleSideNav={this.handleSideNav} backtoLogin={this.backtoLogin.bind(this)}/>;
     let min = this.state.selectedClass;
     const clssRoom = {
       id: min.id,
@@ -145,7 +149,7 @@ class Dashboard extends Component {
           selectClass={this.selectClass.bind(this)}>
 
           {loadItem}
-
+          
         </SidebarTopArea>
       </Sidebar>
     );

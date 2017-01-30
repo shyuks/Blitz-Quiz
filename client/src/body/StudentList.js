@@ -7,10 +7,7 @@ import axios from 'axios'
 let arr;
 let criteria = false;
 
-const dataImportedStudents = [
-  { 'firstName': 'Hu', 'lastName': 'Bobson', id: 1, photo: "http://dummyimage.com/150x150.png/cc0000/ffffff"},
-  { id: 2, 'firstName': 'John', 'lastName': 'Kim', photo: "http://dummyimage.com/150x150.png/cc0000/ffffff"}
-]
+const dataImportedStudents = []
 
 class StudentList extends Component {
   constructor(props) {
