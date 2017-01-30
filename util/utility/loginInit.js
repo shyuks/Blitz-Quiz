@@ -93,6 +93,7 @@ const cleanTests = clss => {
       Promise.all(tests.map(cleanQuestions)).then(cQuestions => {
         Promise.all(tests.map(cleanAnswers)).then(cAnswers => {
           tests.forEach((test, idx) => {
+            console.log(test);
             all.push({
               id: test.id,
               testName: test.testName,

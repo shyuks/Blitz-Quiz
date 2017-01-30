@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import axios from 'axios';
 
 import LectureBody from './../lectures/LectureBody';
 import StudentList from './StudentList';
@@ -10,19 +10,35 @@ class Body extends Component {
     super(props);
 
     this.state = {
-      test: 'state 1',
-      currentClass: this.props.selectedClass.className,
-      teacher: 'Sara H.'
+      tests: this.props.selTests || [],
+      students: this.props.selStudents || [],
+      currentClass: 'Biology 100'
     };
-
-    this.testStateChange = this.testStateChange.bind(this);
+    this.addLecture = this.addLecture.bind(this);
+    this.addQuestions = this.addQuestions.bind(this);
   }
 
-  testStateChange() {
-    this.setState({
-      test: 'state 2'
+  addLecture(arr) {
+    this.setState({tests: arr});
+  }
+
+  addQuestions() {
+    axios.get('/test/1053').then(res => {
+      for(let obj of res.data.classes){
+        if(obj.id === this.props.classId){
+          this.setState({
+            tests: obj.tests
+          });
+        }
+      }
     });
   }
+
+  // componentDidUpdate() {       
+  //     console.log('======================================');
+  //     console.log('TIME FOR A RERENDER!!!!!!');
+  //     console.log('======================================');
+  // }
 
   render() {
     let navigator = null;
@@ -38,11 +54,14 @@ class Body extends Component {
     } else if (this.props.navigation === 'Lectures') {
       navigator = (
         <div>
-          <LectureBody selectedClass={this.props.selectedClass} />
+          <LectureBody selectedTest={this.state.selectedTest}
+            tests={this.state.tests}
+            addLecture={this.addLecture}
+            classId={this.props.classId}
+            addQuestions={this.addQuestions} />
     	  </div>
       );
     }
-
     return (
       <div>
         {navigator}

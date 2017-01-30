@@ -26,6 +26,7 @@ class LectureBodyComponents extends Component {
   }
 
   render() {
+    console.log(this.props.tests)
     let button = <LectureAdd handleNewClick={this.handleNewClick}/>;
     let txtBox = <InsertLectureText handleAddLecture={this.props.handleAddLecture}
                    revertButton={this.revertButton}/>

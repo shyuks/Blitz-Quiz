@@ -60,7 +60,7 @@ app.get('/test/:userid', (req, res) => {
 // });
 
 app.post('/test', (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
     res.status(200).send('hello');
     
 });

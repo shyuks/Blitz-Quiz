@@ -48,7 +48,6 @@ class StudentList extends Component {
   }
 
   render() {
-    console.log(this.props.currentS);
     return (
         <div className= "row">
           <div className="col-sm-8">

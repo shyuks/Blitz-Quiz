@@ -27,7 +27,8 @@ class Dashboard extends Component {
       open: false,
       allClasses: [],
       selectedClass: {id: 4, className: 'Biology 100'},
-      navigation: ''
+      navigation: '',
+      loaded: false
     };
 
     this.handleSideNav = this.handleSideNav.bind(this);
@@ -74,8 +75,9 @@ class Dashboard extends Component {
     axios.get('/test/1053').then(response => {
         this.setState({
           allClasses: response.data.classes,
-          selectedClass: response.data.classes[2]
-        });
+          selectedClass: response.data.classes[2],
+          loaded: true
+        })
     });
   }
 
@@ -105,6 +107,14 @@ class Dashboard extends Component {
       onSetOpen: this.onSetOpen.bind(this)
     };
 
+    let loadItem = null;
+    if(this.state.loaded) {
+      loadItem = <Body navigation={this.state.navigation}
+            selTests={this.state.selectedClass.tests}
+            selStudents={this.state.selectedClass.students}
+            classId={this.state.selectedClass.id} />
+    } 
+
     return (
       <Sidebar {...sidebarProps}>
         <SidebarTopArea title={contentHeader}
@@ -112,8 +122,7 @@ class Dashboard extends Component {
           classes={this.state.allClasses}
           selectClass={this.selectClass.bind(this)}>
 
-          <Body navigation={this.state.navigation}
-            selectedClass={this.state.selectedClass} />
+          {loadItem}
 
         </SidebarTopArea>
       </Sidebar>
