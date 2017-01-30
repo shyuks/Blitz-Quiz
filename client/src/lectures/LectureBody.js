@@ -6,14 +6,15 @@ import io from 'socket.io-client';
 import LectureBodyComponents from './LectureBodyComponents';
 import QuestionsBodyComponents from './lectureQuestions/QuestionsBodyComponents';
 
+
+
 class LectureBody extends Component {
   constructor(props) {
     super(props);
-
-    var socket = io('http://localhost:9000');
-    socket.on('connect', () => {
-      console.log('connected at client');
-    });
+    
+    console.log(props);
+    let conn = props.sock.teacher.lastName + props.sock.id;
+    
 
     this.state = {
       toggler: true,
@@ -108,6 +109,10 @@ class LectureBody extends Component {
       console.log('TIME FOR A RERENDER!!!!!!');
       console.log(this.state.tests)
       console.log('======================================');
+  }
+
+  componentWillUnmount() {
+    socket.disconnect();
   }
 
 

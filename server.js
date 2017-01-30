@@ -7,7 +7,7 @@ const passport = require('passport');
 const cors = require('cors');
 
 const conn = require('./db/connection')
-const handleSocket = require('./sockets');
+const handleSocket = require('./sockets/sockets');
 const initDatabase = require('./db/config');
 const getInitData = require('./util/utility/loginInit');
 
@@ -15,7 +15,6 @@ const getInitData = require('./util/utility/loginInit');
  * TO DELETE
  */
 const seeder = require('./db/seedData/_seedMethods');
-
 
 const app = express();
 const port = 9000;
@@ -68,7 +67,10 @@ app.post('/test', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+  console.log(Object.keys(io.sockets.connected));
+  socket.emit('bird', 'YOYOYOYO');
 	handleSocket(socket);
+  
 });
 
 //=========================================
@@ -76,6 +78,7 @@ io.on('connection', (socket) => {
 //=========================================
 initDatabase().then(() => {
   http.listen(port, () => {
+
 	  console.log("listening on port " + port);
   });
 });

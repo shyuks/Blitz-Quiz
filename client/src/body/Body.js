@@ -52,7 +52,8 @@ class Body extends Component {
             tests={this.state.tests}
             addLecture={this.addLecture}
             classId={this.props.classId}
-            addQuestions={this.addQuestions} />
+            addQuestions={this.addQuestions} 
+            sock={this.props.sock}/>
     	  </div>
       );
     }

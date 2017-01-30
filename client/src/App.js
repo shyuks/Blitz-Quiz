@@ -12,15 +12,17 @@ class App extends Component {
     super(props);
 
     this.state = {
-      isTeacher: true,
+      isStudent: true,
       //loggedIn: userSession ? true : false
-      loggedIn: false
+      loggedIn: false,
+      sId: '22',
+      tId: '1053'
     };
   }
 
     teacherAuth (response) {
     this.setState({
-      isStudent: true,
+      isStudent: false,
       loggedIn: true
     });
   }
@@ -33,16 +35,16 @@ class App extends Component {
   }
 
   render() {
-    if(this.state.loggedIn && this.state.isTeacher) {
+    if(this.state.loggedIn && !this.state.isStudent) {
       return (
           <div>
             <Dashboard />
           </div>
         );
-    } else if(this.state.loggedIn && !this.state.isTeacher) {
+    } else if(this.state.loggedIn && this.state.isStudent) {
       return (
           <div>
-            <StudentHome />
+            <StudentHome sId={this.state.sId}/>
           </div>
         );
     } else {

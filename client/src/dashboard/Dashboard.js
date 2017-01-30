@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Sidebar from 'react-sidebar';
 import axios from 'axios';
+import io from 'socket.io-client';
 
 import SidebarContent from './SidebarContent';
 import SidebarPersonal from './SidebarPersonal';
@@ -26,6 +27,7 @@ class Dashboard extends Component {
     this.state = {
       docked: false,
       open: false,
+      teacher: null,
       allClasses: [],
       selectedClass: {id: 4, className: 'Biology 100'},
       navigation: '',
@@ -73,11 +75,23 @@ class Dashboard extends Component {
 
   componentDidMount() {
     axios.get('/test/1053').then(response => {
+        var socket = io('http://localhost:9000', {'forceNew':true });
         this.setState({
+          teacher: response.data.teacher,
           allClasses: response.data.classes,
           selectedClass: response.data.classes[2],
-          loaded: true
-        })
+          loaded: true,
+          socket: socket
+        });
+        socket.on('connect', () => {
+          console.log('Building classroom');
+          let min = this.state.selectedClass;
+          socket.emit('t_createClass', {
+            id: min.id,
+            className: min.className,
+            teacher: this.state.teacher
+        });
+      });
     });
   }
 
@@ -90,6 +104,12 @@ class Dashboard extends Component {
 //=========================================
   render() {
     const sidebar = <SidebarContent handleSideNav={this.handleSideNav} />;
+    let min = this.state.selectedClass;
+    const clssRoom = {
+      id: min.id,
+      className: min.className,
+      teacher: this.state.teacher
+    }
 
     const contentHeader = (
       <span>
@@ -112,7 +132,8 @@ class Dashboard extends Component {
       loadItem = <Body navigation={this.state.navigation}
             selTests={this.state.selectedClass.tests}
             selStudents={this.state.selectedClass.students}
-            classId={this.state.selectedClass.id} />
+            classId={this.state.selectedClass.id} 
+            sock={clssRoom}/>
     } 
 
     return (
