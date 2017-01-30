@@ -13,6 +13,13 @@ class SocketStorage {
     }
     console.log(this.classrooms);
   }
+
+  findStudentClasses(classes) {
+    for (let cls of classes){
+      console.log('=======================');
+      console.log(classes);
+    }
+  }
 }
 
 module.exports = new SocketStorage();

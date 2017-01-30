@@ -112,7 +112,8 @@ class LectureBody extends Component {
   }
 
   componentWillUnmount() {
-    socket.disconnect();
+    console.log('here')
+    console.log(this.props.sock);
   }
 
 

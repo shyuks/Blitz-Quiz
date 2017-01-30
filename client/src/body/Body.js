@@ -24,6 +24,7 @@ class Body extends Component {
 
   addQuestions() {
     axios.get('/test/1053').then(res => {
+      console.log('HERE!')
       for(let obj of res.data.classes){
         if(obj.id === this.props.classId){
           this.setState({

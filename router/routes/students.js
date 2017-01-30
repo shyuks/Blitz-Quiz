@@ -12,7 +12,6 @@ var userId = req.params.id;
   Student.findById(userId).then(student => {
     student.getClasses().then(classes => {
       let obj = {student, classes};
-      
 
       res.status(200).send(obj);
     });

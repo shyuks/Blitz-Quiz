@@ -1,10 +1,8 @@
 const Storage = require('./storage');
+const room = require('./student');
 /**
  * Teacher sockets in LectureBody
  */
-
-
-const room = require('./room');
 
 module.exports = (client) => {
   client.on('t_createClass', room => {

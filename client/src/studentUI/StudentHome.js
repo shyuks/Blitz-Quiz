@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Grid, Col, Row} from 'react-bootstrap';
 import io from 'socket.io-client';
+import axios from 'axios';
 
 import StudentSidebar from './StudentSidebar';
 import QuestionArea from './QuestionArea';
@@ -38,18 +39,19 @@ class StudentHome extends Component {
   }
 
   componentDidMount() {
-    axios.get('/test/' + this.props.sId).then(response => {
-      var socket = io('http://localhost:9000', {'forceNew':true });
-      this.setState({
-        student: response.data.student,
-        classes: response.data.classes,
-        id: this.props.sId,
-        socket
-      });
-      socket.on('connect', () => {
-        socket.emit('findClasses', {classes: this.state.classes});
-      });
-    });
+    console.log('WE ARE HERE!!!!!')
+    // axios.get('/api/' + this.props.sId).then(response => {
+    //   // var socket = io('http://localhost:9000', {'forceNew':true });
+    //   this.setState({
+    //     student: response.data.student,
+    //     classes: response.data.classes,
+    //     id: this.props.sId,
+    //     socket
+    //   });
+    //   // socket.on('connect', () => {
+    //   //   socket.emit('findClasses', {classes: this.state.classes});
+    //   // });
+    // });
   }
 
   render() {
