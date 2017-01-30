@@ -47,6 +47,7 @@ app.get('/', (req, res) => {
 
 app.get('/test', (req, res) => {
   tester(1053).then(item => {
+    console.log(item);
     res.status(200).send('Hello World!');
   });
   

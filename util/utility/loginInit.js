@@ -73,33 +73,7 @@ const cleanStudents = clss => {
       resolve(all);
     });
   });
-
-
-
-  // let all = [];
-  // clss.getStudents().then(students => {
-  //   for (item of students ) {
-  //     all.push({
-  //       id: item.id,
-  //       firstName: item.firstName,
-  //       lastName: item.lastName,
-  //       photo: item.photo
-  //     });
-  //   }
-  //   return all;
-  // });
 };
-
-
-
-// const getClasses = id => {
-//   return new Promise((resolve, reject) => {
-//     Class.findAndCountAll({where: {TeachersId: id}}).then(classes => {
-//       resolve(classes);
-//     });
-//   });
-// };
-
 
 module.exports = createInitialObject;
 //first needs to find the teacher
