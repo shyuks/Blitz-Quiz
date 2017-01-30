@@ -6,7 +6,6 @@ import SidebarContent from './SidebarContent';
 import SidebarPersonal from './SidebarPersonal';
 import SidebarTopArea from './SidebarTopArea';
 import Body from '../body/Body';
-import dataStore from './../store/lectures';
 
 const styles = {
   contentHeaderMenuLink: {
@@ -73,7 +72,6 @@ class Dashboard extends Component {
 
   componentDidMount() {
     axios.get('/test/1053').then(response => {
-        dataStore = response.data;
         this.setState({
           allClasses: response.data.classes,
           selectedClass: response.data.classes[2]
@@ -82,7 +80,7 @@ class Dashboard extends Component {
   }
 
   selectClass(someClass) {
-     this.setState({selectedClass: someClass})
+     this.setState({selectedClass: someClass, navigation: ''});
   }
 
 //=========================================
@@ -112,7 +110,7 @@ class Dashboard extends Component {
         <SidebarTopArea title={contentHeader}
           class={this.state.selectedClass}
           classes={this.state.allClasses}
-          selectClass={this.selectClass.bind(this)}>>
+          selectClass={this.selectClass.bind(this)}>
 
           <Body navigation={this.state.navigation}
             selectedClass={this.state.selectedClass} />

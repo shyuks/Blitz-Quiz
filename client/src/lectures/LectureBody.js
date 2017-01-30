@@ -4,7 +4,6 @@ import axios from 'axios';
 
 import LectureBodyComponents from './LectureBodyComponents';
 import QuestionsBodyComponents from './lectureQuestions/QuestionsBodyComponents';
-import lectures from './../store/lectures';
 
 class LectureBody extends Component {
   constructor(props) {
@@ -99,6 +98,7 @@ class LectureBody extends Component {
 //=========================================
   render() {
     let item = null;
+
     if(this.state.selectedLecture === null) {
       item = <LectureBodyComponents tests={this.state.tests} 
         selectLectureHandler={this.selectLectureHandler} 

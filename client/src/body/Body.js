@@ -4,17 +4,24 @@ import React, {Component} from 'react';
 import LectureBody from './../lectures/LectureBody';
 import StudentList from './StudentList';
 
-/**
- * NEED TO MAKE THIS STATELESS!!!!!
- */
+
 class Body extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      test: 'state 1',
       currentClass: this.props.selectedClass.className,
       teacher: 'Sara H.'
     };
+
+    this.testStateChange = this.testStateChange.bind(this);
+  }
+
+  testStateChange() {
+    this.setState({
+      test: 'state 2'
+    });
   }
 
   render() {
@@ -31,8 +38,7 @@ class Body extends Component {
     } else if (this.props.navigation === 'Lectures') {
       navigator = (
         <div>
-          <LectureBody teacher={this.state.teacher}
-            selectedClass={this.props.selectedClass} />
+          <LectureBody selectedClass={this.props.selectedClass} />
     	  </div>
       );
     }
