@@ -94,6 +94,7 @@ const cleanTests = clss => {
         Promise.all(tests.map(cleanAnswers)).then(cAnswers => {
           tests.forEach((test, idx) => {
             all.push({
+              id: test.id,
               testName: test.testName,
               type: test.type,
               timeAllowed: test.timeAllowed,
