@@ -15,7 +15,9 @@ const QuestionsBodyComponents = (props) => {
       <QuestionComponents questions={props.questions}
         newQuestions={props.newQuestions}
         handleAddQuestion={props.handleAddQuestion} 
-        handleSubmitNewQuestion={props.handleSubmitNewQuestion}/>
+        handleSubmitNewQuestion={props.handleSubmitNewQuestion}
+        socket={props.socket}
+        classId={props.classId}/>
     </div>
   );
 };

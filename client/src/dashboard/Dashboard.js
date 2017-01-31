@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Sidebar from 'react-sidebar';
 import axios from 'axios';
-import io from 'socket.io-client';
 
 import SidebarContent from './SidebarContent';
 import SidebarPersonal from './SidebarPersonal';
@@ -23,6 +22,7 @@ const styles = {
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       docked: false,
       open: false,
@@ -81,23 +81,12 @@ class Dashboard extends Component {
 
   componentDidMount() {
     axios.get('/test/' + this.state.tId).then(response => {
-        var socket = io('http://localhost:9000', {'forceNew':true });
         this.setState({
           teacher: response.data.teacher,
           allClasses: response.data.classes,
           selectedClass: response.data.classes[2],
-          loaded: true,
-          socket: socket
+          loaded: true
         });
-        socket.on('connect', () => {
-          console.log('Building classroom');
-          let min = this.state.selectedClass;
-          socket.emit('t_createClass', {
-            id: min.id,
-            className: min.className,
-            teacher: this.state.teacher
-        });
-      });
     });
   }
 

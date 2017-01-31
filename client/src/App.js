@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import io from 'socket.io-client';
+let socket = io('http://localhost:9000');
 
 import Login from './Login';
 import Dashboard from './dashboard/Dashboard';
@@ -10,7 +12,6 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       isStudent: true,
       //loggedIn: userSession ? true : false
