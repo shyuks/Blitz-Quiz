@@ -1,65 +1,101 @@
 import React, {Component} from 'react';
 import {Grid, Col, Row} from 'react-bootstrap';
-import io from 'socket.io-client';
 import axios from 'axios';
+import io from 'socket.io-client';
 
 import StudentSidebar from './StudentSidebar';
 import QuestionArea from './QuestionArea';
 
- var socket = io('http://localhost:9000', {'forceNew':true });
-
 class StudentHome extends Component {
   constructor(props) {
     super(props);
-
    
-    
 
     this.state = {
-      id: 0,
+      id: 22,
+      testId: null,
+      avail: [],
       firstName: '',
       lastName: '',
       image: '',
-      questions: [
-        {id:3, type: 'Short Answer', body: 'Who is the best?', answer: 'EJ'}, 
-        {id:4, type: 'Short Answer', body: 'Who is the worst?', answer: 'Hitler'}],
+      questions: [],
       answers: [],
       testName: '',
       type: '',
-      room: ''
+      selectedClass: '3',
+      myClasses: [],
+      possibleClasses: []
     };
   }
 
-  handleAnswer(answerBody, qId) {
+  handleAnswer(e, answerBody, qId) {
+    e.preventDefault();
     let answer = {
       StudentsId: this.state.id,
       QuestionsId: qId,
       answerBody: answerBody,
       isCorrect: 'Pending'
     }
-    //send socket answer
 
     let newQuestions = this.state.questions.slice(1);
     this.setState({questions: newQuestions});
   }
 
-  componentDidMount() {
-    axios.get('/api/info/22').then(resp => {
-      this.setState({
-        student: resp.data.student,
-        classes: resp.data.classes,
-        id: this.props.sId,
-        socket
-      });
-      socket.emit('findClasses', {classes: resp.data.classes});
-    });
-    // axios.get('/api/' + this.props.sId).then(response => {
-    //   // var socket = io('http://localhost:9000', {'forceNew':true });
+  findMyRooms(all, mine) {
+    let temp = [];
+    for (let i of all) {
+      for (let j of mine) {
+        if(i === j) {
+          temp.push(i);
+        }
+      }
+    }
+    this.setState({
+      allRooms: temp
+    })
+  }
 
-    //   // socket.on('connect', () => {
-    //   //   socket.emit('findClasses', {classes: this.state.classes});
-    //   // });
-    // });
+  selectRoom(id, socket) {
+    this.setState({
+      room: id
+    })
+  }
+
+  componentDidMount() {
+    var socket = io.connect('http://localhost:9000');
+    socket.on('connect', () => {
+      socket.emit('newbie');
+    });
+
+    socket.on('init', rooms => {
+      console.log(rooms);
+    });
+
+    socket.on('allRooms', arr => {
+      console.log('ya')
+    });
+
+    socket.on('getQuestion', question => {
+      console.log(question);
+      this.setState({
+        questions: [question]
+      })
+    });
+
+    axios.get('/api/info/' + this.props.sId).then(response => {
+      let a = response.data;
+      let allClasses = [];
+      for (let item of a.classes){
+        allClasses.push(item.id);
+      }
+      this.setState({
+        id: this.props.sId,
+        firstName: a.student.firstName,
+        lastName: a.student.lastName,
+        image: a.student.photo,
+        myClasses: allClasses
+        });
+    }); 
   }
 
   render() {

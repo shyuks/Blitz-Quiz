@@ -1,22 +1,19 @@
 class SocketStorage {
   constructor() {
-    this.classrooms = {};
+    this.rooms = []
+    this.currentQuestions = {}
+  }
+ 
+  getRooms() {
+    return this.rooms;
   }
 
-  addClassroom(room, id, roomname) {
-    this.classrooms[id] = {
-      roomname,
-      classId: room.id,
-      className: room.className,
-      teacherName: room.teacher.lastName,
-      photo: room.teacher.photo
-    }
-    console.log(this.classrooms);
+  setRoom(id){
+    this.rooms.push(id);
   }
 
-  findStudentClasses(classes) {
-    console.log('HEYYYYYYYYY')
-    console.log(this.classrooms)
+  setCurrentQuestion (id, question) {
+    this.currentQuestions[id] = question;
   }
 }
 

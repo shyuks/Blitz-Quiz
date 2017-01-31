@@ -8,6 +8,8 @@ const QuestionComponents = (props) => {
     return (
        <QuestionComponent question={question}
         handleSubmitNewQuestion={props.handleSubmitNewQuestion}
+        socket={props.socket}
+        classId={props.classId}
         number={i}
         key={i} />
     )});

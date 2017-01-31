@@ -6,15 +6,9 @@ import io from 'socket.io-client';
 import LectureBodyComponents from './LectureBodyComponents';
 import QuestionsBodyComponents from './lectureQuestions/QuestionsBodyComponents';
 
-
-
 class LectureBody extends Component {
   constructor(props) {
     super(props);
-    
-    console.log(props);
-    let conn = props.sock.teacher.lastName + props.sock.id;
-    
 
     this.state = {
       toggler: true,
@@ -44,10 +38,19 @@ class LectureBody extends Component {
         foundTest = test;
       }
     }
+    
+    /**
+     * Socket
+     */
+    var socket = io.connect('http://localhost:9000');
+    socket.emit('active');
+
     this.setState({
       selectedTest: foundTest,
       selectedQuestions: foundTest.questions
     });
+
+
   }
 
   handleAddQuestion (e) {
@@ -104,16 +107,18 @@ class LectureBody extends Component {
     this.setState({tests: arr, selectedTest: null, selectedQuestions: []});
   }
 
-  componentDidUpdate() {       
-      console.log('======================================');
-      console.log('TIME FOR A RERENDER!!!!!!');
-      console.log(this.state.tests)
-      console.log('======================================');
-  }
-
   componentWillUnmount() {
     console.log('here')
     console.log(this.props.sock);
+  }
+
+  componentDidMount() {
+    var socket = io.connect('http://localhost:9000');
+    console.log('CONNECTED HERE!!!!!!');
+    socket.emit('t_connect', this.props.classId);
+    this.setState({socket});
+
+
   }
 
 
@@ -134,7 +139,9 @@ class LectureBody extends Component {
         newQuestions={this.state.newQuestions}
         handleDeselectLecture={this.handleDeselectLecture}
         handleAddQuestion={this.handleAddQuestion} 
-        handleSubmitNewQuestion={this.handleSubmitNewQuestion}/>
+        handleSubmitNewQuestion={this.handleSubmitNewQuestion}
+        socket={this.state.socket}
+        classId={this.state.classId}/>
 }
     return (
       <div>
