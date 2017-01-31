@@ -20,6 +20,7 @@ const styles = {
 
 
 const SidebarPersonal = (props) => {
+  let teacher = props.teacher;
   const rootStyle = styles.root;
   return (
     <div style={rootStyle}>
@@ -28,12 +29,12 @@ const SidebarPersonal = (props) => {
           <Media.Left>
             <Image width={64} 
                    height={64} 
-                   src="https://organicthemes.com/demo/profile/files/2012/12/profile_img.png" 
+                   src={teacher.photo }
                    rounded/>
           </Media.Left>
           <Media.Body>
-            <Media.Heading>Jill Summers</Media.Heading>
-            <p>C01005467</p>
+            <Media.Heading>{teacher.firstName} {teacher.lastName}</Media.Heading>
+            <p>{props.tId}</p>
           </Media.Body>
         </Media>
       </div>

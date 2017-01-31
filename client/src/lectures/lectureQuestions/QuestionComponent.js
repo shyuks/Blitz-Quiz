@@ -23,9 +23,12 @@ class QuestionComponent extends Component {
       this.setState({status: 'complete'});
     }
     else if (this.state.status === 'incomplete'){
+      this.props.socket.emit('askQuestion', {
+        question: this.props.question,
+        classId: this.props.classId
+      })
       this.setState({status: 'current'});
     }
-    
   }
 
 //=========================================

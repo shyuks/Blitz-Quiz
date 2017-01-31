@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Sidebar from 'react-sidebar';
 import axios from 'axios';
-import io from 'socket.io-client';
 
 import SidebarContent from './SidebarContent';
 import SidebarPersonal from './SidebarPersonal';
@@ -23,15 +22,17 @@ const styles = {
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       docked: false,
       open: false,
-      teacher: null,
+      teacher: {firstName: 'EJ', lastName: 'Mason', photo: "http://starcasm.net/wp-content/uploads/2015/08/Jared-Fogle-in-Subway-Ad.jpg"},
       allClasses: [],
       selectedClass: {id: 4, className: 'Biology 100'},
       navigation: '',
-      loaded: false
+      loaded: false,
+      tId: props.tId,
+      socket: null
     };
 
     this.handleSideNav = this.handleSideNav.bind(this);
@@ -46,6 +47,10 @@ class Dashboard extends Component {
     this.setState({
       navigation: location
     });
+  }
+
+  backtoLogin() {
+    this.props.logout();
   }
 
   onSetOpen(open) {
@@ -71,27 +76,17 @@ class Dashboard extends Component {
 
   componentWillUnmount() {
     this.state.mql.removeListener(this.mediaQueryChanged.bind(this));
+    console.log('component will unmount');
   }
 
   componentDidMount() {
-    axios.get('/test/1053').then(response => {
-        var socket = io('http://localhost:9000', {'forceNew':true });
+    axios.get('/test/' + this.state.tId).then(response => {
         this.setState({
           teacher: response.data.teacher,
           allClasses: response.data.classes,
           selectedClass: response.data.classes[2],
-          loaded: true,
-          socket: socket
+          loaded: true
         });
-        socket.on('connect', () => {
-          console.log('Building classroom');
-          let min = this.state.selectedClass;
-          socket.emit('t_createClass', {
-            id: min.id,
-            className: min.className,
-            teacher: this.state.teacher
-        });
-      });
     });
   }
 
@@ -103,14 +98,15 @@ class Dashboard extends Component {
 //            Render
 //=========================================
   render() {
-    const sidebar = <SidebarContent handleSideNav={this.handleSideNav} />;
+
+    const sidebar = <SidebarContent tId={this.state.tId} teacher={this.state.teacher} handleSideNav={this.handleSideNav} backtoLogin={this.backtoLogin.bind(this)}/>;
     let min = this.state.selectedClass;
+
     const clssRoom = {
-      id: min.id,
-      className: min.className,
+      id: this.state.selectedClass.id,
+      className: this.state.selectedClass.className,
       teacher: this.state.teacher
     }
-
     const contentHeader = (
       <span>
         {!this.state.docked &&
@@ -133,9 +129,10 @@ class Dashboard extends Component {
             selTests={this.state.selectedClass.tests}
             selStudents={this.state.selectedClass.students}
             classId={this.state.selectedClass.id} 
-            sock={clssRoom}/>
+            sock={clssRoom}
+            tId={this.state.tId}
+            currentClass={this.state.selectedClass}/>
     } 
-
     return (
       <Sidebar {...sidebarProps}>
         <SidebarTopArea title={contentHeader}
@@ -144,7 +141,7 @@ class Dashboard extends Component {
           selectClass={this.selectClass.bind(this)}>
 
           {loadItem}
-
+          
         </SidebarTopArea>
       </Sidebar>
     );

@@ -14,6 +14,7 @@ class QuestionArea extends Component {
   }
 
   handleAnswerChange(e) {
+    e.preventDefault();
     this.setState({answerBody: e.target.value});
   }
 
@@ -29,7 +30,7 @@ class QuestionArea extends Component {
             <FormControl type="text"
               value={this.state.answerBody}
               onChange={this.handleAnswerChange} />
-            <Button onClick={() => this.props.handleAnswer(this.state.answerBody, this.props.question.id)}>
+            <Button onClick={(e) => this.props.handleAnswer(e, this.state.answerBody, this.props.question.id)}>
               Submit
             </Button>
           </FormGroup>

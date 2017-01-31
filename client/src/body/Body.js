@@ -3,16 +3,17 @@ import axios from 'axios';
 
 import LectureBody from './../lectures/LectureBody';
 import StudentList from './StudentList';
+import Dashboard from './Dashboard/Main.js'
 
 
 class Body extends Component {
   constructor(props) {
     super(props);
-
+    console.log('Inside body component', props)
     this.state = {
       tests: this.props.selTests || [],
       students: this.props.selStudents || [],
-      currentClass: 'Biology 100'
+      currentClass: this.props.currentClass
     };
     this.addLecture = this.addLecture.bind(this);
     this.addQuestions = this.addQuestions.bind(this);
@@ -23,8 +24,7 @@ class Body extends Component {
   }
 
   addQuestions() {
-    axios.get('/test/1053').then(res => {
-      console.log('HERE!')
+    axios.get('/test/' + props.tId).then(res => {
       for(let obj of res.data.classes){
         if(obj.id === this.props.classId){
           this.setState({
@@ -35,11 +35,23 @@ class Body extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      tests: nextProps.selTests || [],
+      students: nextProps.selStudents || [],
+      currentClass: nextProps.currentClass
+    })
+  }
+
   render() {
     let navigator = null;
 
     if(this.props.navigation === ''){
-      navigator = null;
+      navigator = (
+        <div>
+          <Dashboard />
+        </div>
+      )
     } else if (this.props.navigation === 'Students') {
       navigator = (
         <div>

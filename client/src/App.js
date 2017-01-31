@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import io from 'socket.io-client';
+let socket = io('http://localhost:9000');
 
 import Login from './Login';
 import Dashboard from './dashboard/Dashboard';
@@ -10,7 +12,6 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       isStudent: true,
       //loggedIn: userSession ? true : false
@@ -23,7 +24,8 @@ class App extends Component {
     teacherAuth (response) {
     this.setState({
       isStudent: false,
-      loggedIn: true
+      loggedIn: true,
+      tId: response.data
     });
   }
 
@@ -34,11 +36,18 @@ class App extends Component {
     })
   }
 
+  logout () {
+    console.log("looogggin out")
+    this.setState({
+      loggedIn: false
+    })
+  }
+
   render() {
     if(this.state.loggedIn && !this.state.isStudent) {
       return (
           <div>
-            <Dashboard />
+            <Dashboard tId={this.state.tId} data={this.state.loggedIn} logout={this.logout.bind(this)}/>
           </div>
         );
     } else if(this.state.loggedIn && this.state.isStudent) {
