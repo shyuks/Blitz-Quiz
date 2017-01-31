@@ -23,7 +23,6 @@ const styles = {
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       docked: false,
       open: false,
@@ -32,7 +31,8 @@ class Dashboard extends Component {
       selectedClass: {id: 4, className: 'Biology 100'},
       navigation: '',
       loaded: false,
-      tId: props.tId
+      tId: props.tId,
+      socket: null
     };
 
     this.handleSideNav = this.handleSideNav.bind(this);
@@ -76,6 +76,7 @@ class Dashboard extends Component {
 
   componentWillUnmount() {
     this.state.mql.removeListener(this.mediaQueryChanged.bind(this));
+    console.log('component will unmount');
   }
 
   componentDidMount() {
@@ -108,14 +109,15 @@ class Dashboard extends Component {
 //            Render
 //=========================================
   render() {
+
     const sidebar = <SidebarContent tId={this.state.tId} teacher={this.state.teacher} handleSideNav={this.handleSideNav} backtoLogin={this.backtoLogin.bind(this)}/>;
     let min = this.state.selectedClass;
+
     const clssRoom = {
-      id: min.id,
-      className: min.className,
+      id: this.state.selectedClass.id,
+      className: this.state.selectedClass.className,
       teacher: this.state.teacher
     }
-
     const contentHeader = (
       <span>
         {!this.state.docked &&
@@ -138,9 +140,10 @@ class Dashboard extends Component {
             selTests={this.state.selectedClass.tests}
             selStudents={this.state.selectedClass.students}
             classId={this.state.selectedClass.id} 
-            sock={clssRoom}/>
+            sock={clssRoom}
+            tId={this.state.tId}
+            currentClass={this.state.selectedClass}/>
     } 
-
     return (
       <Sidebar {...sidebarProps}>
         <SidebarTopArea title={contentHeader}
