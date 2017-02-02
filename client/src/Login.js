@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 import Signup from './Signup';
+import Admin from './Admin'
 import './App.css';
 
 const Style = {
@@ -22,7 +23,7 @@ class Login extends Component {
         teacherPassword: '',
         studentID: '',
         studentPassword: '',
-        signupPage: false
+        adminPage: false
     };
   }
 
@@ -44,7 +45,7 @@ class Login extends Component {
 
   handleSubmitTeacher(event) {
     event.preventDefault();
-    let stateContext = this;  
+    let stateContext = this;
     axios.post('/login/Teacher', {
         params: {
             Id: this.state.teacherID,
@@ -61,33 +62,34 @@ class Login extends Component {
     })
     .catch((error) => {
         console.log(error);
-    });    
+    });
   }
 
-  handleSubmitStudent(event) {  
+  handleSubmitStudent(event) {
     event.preventDefault();
-    let stateContext = this;  
+    let stateContext = this;
     axios.post('/login/Student', {
         params: {
-            ID: this.state.studentID,
+            Id: this.state.studentID,
             password: this.state.studentPassword
         }
     })
-    .then(function (response) {
+    .then((response) => {
         stateContext.setState({
             studentID: '',
             studentPassword: '',
         })
-        stateContext.dashboardViewStudent()
+        console.log(response)
+        stateContext.dashboardViewStudent(response)
     })
-    .catch(function (error) {
+    .catch((error) => {
         console.log(error);
-    });    
-  }  
+    });
+  }
 
-  signupView () {
+  adminPage () {
       this.setState({
-          signupPage: !this.state.signupPage
+          adminPage: !this.state.adminPage
       })
   }
 
@@ -101,10 +103,10 @@ class Login extends Component {
 
   render() {
     const { errors } = this.state
-    if (this.state.signupPage) {
+    if (this.state.adminPage) {
         return (
             <div>
-                {<Signup signupView={this.signupView.bind(this)}/>}
+                <Admin adminPage={this.adminPage.bind(this)}/>
             </div>
         )
     }
@@ -115,7 +117,7 @@ class Login extends Component {
                     <div className="container-fluid">
                         <div className="modal-header">
                             <h3> BlitzQuiz</h3>
-                            <button type="submit" value="Register" className="login loginmodal-submit btn btn-primary" onClick={this.signupView.bind(this)} > Register </button>
+                            <button type="submit" value="Register" className="login loginmodal-submit btn btn-primary" onClick={this.adminPage.bind(this)} > Admin </button>
                         </div>
                     </div>
                 </nav>
@@ -141,7 +143,7 @@ class Login extends Component {
                             <input name="studentPassword" type="password" value={this.state.studentPassword} onChange={this.handleChangeStudent.bind(this)} placeholder="Password" />
                             <input type="submit" value="Login" className="login loginmodal-submit btn btn-primary" />
                         </form>
-                    </div>    
+                    </div>
                 </div>
             </div>
         </div>

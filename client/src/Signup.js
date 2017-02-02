@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Login from './Login'
 
 import './App.css';
 
@@ -12,19 +13,105 @@ const Style = {
 
 class Signup extends Component {
 
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-        firstName: '',
-        lastName: '',
-        password: '',
-        confirmPassword: ''
-    };
-  }
+        this.state = {
+            firstNameTeacher: '',
+            lastNameTeacher: '',
+            passwordTeacher: '',
+            confirmPasswordTeacher: '',
+
+            firstNameStudent: '',
+            lastNameStudent: '',
+            passwordStudent: '',
+            confirmPasswordStudent: '',
+
+            loginView: false
+        };
+    }
+
+    loginView () {
+        this.setState({
+            loginView: !this.state.loginView
+        })
+    }
+
+    handleChangeTeacherRegister(event) {
+        let target = event.target
+        let value = target.value
+        let name = target.name
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handleChangeStudentRegister(event) {
+        let target = event.target
+        let value = target.value
+        let name = target.name
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handleSubmitTeacherRegister(event) {
+        event.preventDefault();
+        let stateContext = this;
+        axios.post('/registerTeacher', {
+            params: {
+                firstNameTeacher: this.state.firstNameTeacher,
+                lastNameTeacher: this.state.lastNameTeacher,
+                passwordTeacher: this.state.passwordTeacher,
+                confirmPasswordTeacher: this.state.confirmPasswordTeacher
+            }
+        })
+        .then((response) => {
+            stateContext.setState({
+                firstNameTeacher: '',
+                lastNameTeacher: '',
+                passwordTeacher: '',
+                confirmPasswordTeacher: ''
+            })
+            stateContext.loginView()
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    handleSubmitStudentRegister(event) {
+        event.preventDefault();
+        let stateContext = this;
+        axios.post('/registerStudent', {
+            params: {
+                firstNameStudent: this.state.firstNameStudent,
+                lastNameStudent: this.state.lastNameStudent,
+                passwordStudent: this.state.passwordStudent,
+                confirmPasswordStudent: this.state.confirmPasswordStudent
+            }
+        })
+        .then((response) => {
+            stateContext.setState({
+                firstNameStudent: '',
+                lastNameStudent: '',
+                passwordStudent: '',
+                confirmPasswordStudent: ''
+            })
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
 
   render() {
-
+  if (this.state.loginView) {
+      return (
+          <div>
+              <Login loginView={this.loginView.bind(this)}/>
+          </div>
+      )
+  }
     return (
         <div style={Style}>
             <div className="row">
@@ -37,65 +124,51 @@ class Signup extends Component {
                     </div>
                 </nav>
             </div>
+
             <div id="login-modal" role="dialog" aria-labelledby="myModalLabel">
                 <div className="modal-dialog">
                     <div className ="loginmodal-container">
                         <h1> Teacher Registration </h1>
-                        <form onSubmit={this.handleSubmitRegister.bind(this)}>
-                            <input name="firstName" type="text" value={this.state.firstName} onChange={this.handleChangeRegister.bind(this)} placeholder="First name"/>
-                            <input name="lastName" type="text" value={this.state.lastName} onChange={this.handleChangeRegister.bind(this)} placeholder="Last name"/>
-                            <input name="password" type="password" value={this.state.password} onChange={this.handleChangeRegister.bind(this)} placeholder="Password"/>
-                            <input name="confirmPassword" type="password" value={this.state.confirmPassword} onChange={this.handleChangeRegister.bind(this)} placeholder="Confirm Password"/>
+                        <form onSubmit={this.handleSubmitTeacherRegister.bind(this)}>
+
+                            <input name="firstNameTeacher" type="text" value={this.state.firstNameTeacher} onChange={this.handleChangeTeacherRegister.bind(this)} placeholder="First name"/>
+
+                            <input name="lastNameTeacher" type="text" value={this.state.lastNameTeacher} onChange={this.handleChangeTeacherRegister.bind(this)} placeholder="Last name"/>
+
+                            <input name="passwordTeacher" type="password" value={this.state.passwordTeacher} onChange={this.handleChangeTeacherRegister.bind(this)} placeholder="Password"/>
+
+                            <input name="confirmPasswordTeacher" type="password" value={this.state.confirmPasswordTeacher} onChange={this.handleChangeTeacherRegister.bind(this)} placeholder="Confirm Password"/>
+
                             <input type="submit" value="Register" className="login loginmodal-submit btn btn-primary"/>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="login-modal" role="dialog" aria-labelledby="myModalLabel">
+                <div className="modal-dialog">
+                    <div className ="loginmodal-container">
+                        <h1> Student Registration </h1>
+                        <form onSubmit={this.handleSubmitStudentRegister.bind(this)}>
+
+                            <input name="firstNameStudent" type="text" value={this.state.firstNameStudent} onChange={this.handleChangeStudentRegister.bind(this)} placeholder="First name"/>
+
+                            <input name="lastNameStudent" type="text" value={this.state.lastNameStudent} onChange={this.handleChangeStudentRegister.bind(this)} placeholder="Last name"/>
+
+                            <input name="passwordStudent" type="password" value={this.state.passwordStudent} onChange={this.handleChangeStudentRegister.bind(this)} placeholder="Password"/>
+
+                            <input name="confirmPasswordStudent" type="password" value={this.state.confirmPasswordStudent} onChange={this.handleChangeStudentRegister.bind(this)} placeholder="Confirm Password"/>
+
+                            <input type="submit" value="Register" className="login loginmodal-submit btn btn-primary"/>
+
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-      
     );
   }
-
-    loginView (event) {
-      this.props.signupView()
-    }
-
-  handleChangeRegister(event) {
-    let target = event.target
-    let value = target.value
-    let name = target.name
-    this.setState({
-        [name]: value
-    });
-  }
-
-  handleSubmitRegister(event) {  
-    event.preventDefault();
-    let stateContext = this;  
-    axios.post('/register', {
-        params: {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            password: this.state.password,
-            confirmPassword: this.state.confirmPassword
-        }
-    })
-    .then(function (response) {
-        stateContext.setState({
-            firstName: '',
-            lastName: '',
-            password: '',
-            confirmPassword: ''
-        })
-        stateContext.loginView()
-    })
-    .catch(function (error) {
-        console.log(error);
-    });          
-  }
-
-
-
 }
 
 export default Signup;
