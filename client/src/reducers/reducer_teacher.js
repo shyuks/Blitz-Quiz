@@ -5,7 +5,7 @@ const INITIAL_STATE = { tId: null };
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
   case TEACHER_LOGIN:
-    return Object.assign({}, state, { tId: action.payload });
+    return {...state, tId: action.payload };
   default:
     return state;
   }
