@@ -1,5 +1,6 @@
 import React from 'react';
 import {Media, Image} from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 //=========================================
 //            Styles
@@ -22,6 +23,7 @@ const styles = {
 const SidebarPersonal = (props) => {
   let teacher = props.teacher;
   const rootStyle = styles.root;
+  console.log('re-rendering in sidebarpersonal');
   return (
     <div style={rootStyle}>
       <div style={styles.header}>
@@ -29,7 +31,7 @@ const SidebarPersonal = (props) => {
           <Media.Left>
             <Image width={64} 
                    height={64} 
-                   src={teacher.photo }
+                   src={teacher.photo}
                    rounded/>
           </Media.Left>
           <Media.Body>
@@ -43,4 +45,14 @@ const SidebarPersonal = (props) => {
   );
 };
 
-export default SidebarPersonal;
+function mapStateToProps(state) {
+  return {
+    teacher: {
+      firstName: state.teacherState.tData.teacher.firstName,
+      lastName: state.teacherState.tData.teacher.lastName,
+      photo: state.teacherState.tData.teacher.photo
+    }
+  }
+}
+
+export default connect(mapStateToProps)(SidebarPersonal);

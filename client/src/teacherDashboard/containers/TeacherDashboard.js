@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { getTeacherData } from '../../actions/teacher_actions';
 import { Link } from 'react-router';
 
-import SidebarContent from '../SidebarContent';
-import SidebarPersonal from '../SidebarPersonal';
-import SidebarTopArea from '../SidebarTopArea';
+import SidebarContent from './SidebarContent';
+import SidebarPersonal from './SidebarPersonal';
+import SidebarTopArea from './SidebarTopArea';
 import Body from '../../body/Body';
 
 
@@ -115,8 +115,8 @@ class TeacherDashboard
     console.log('tdata in render :', this.props.tData)
 
     const sidebar = <SidebarContent 
-      tId={this.state.tId} 
-      teacher={this.state.teacher} 
+      tId={this.props.tId} 
+      teacher={this.props.teacher} 
       handleSideNav={this.handleSideNav} 
       backtoLogin={this.backtoLogin.bind(this)}
     />;
@@ -124,9 +124,9 @@ class TeacherDashboard
     let min = this.state.selectedClass;
 
     const clssRoom = {
-      id: this.state.selectedClass.id,
-      className: this.state.selectedClass.className,
-      teacher: this.state.teacher
+      id: this.props.selectedClass.id,
+      className: this.props.selectedClass.className,
+      teacher: this.props.teacher
     }
     const contentHeader = (
       <span>
@@ -145,20 +145,20 @@ class TeacherDashboard
     };
 
     let loadItem = null;
-    if(this.state.loaded) {
+    // if(this.state.loaded) {
       loadItem = <Body navigation={this.state.navigation}
-            selTests={this.state.selectedClass.tests}
+            selTests={           this.state.selectedClass.tests}
             selStudents={this.state.selectedClass.students}
             classId={this.state.selectedClass.id} 
             sock={clssRoom}
             tId={this.state.tId}
             currentClass={this.state.selectedClass}/>
-    } 
+    // } 
     return (
       <Sidebar {...sidebarProps}>
         <SidebarTopArea title={contentHeader}
-          class={this.state.selectedClass}
-          classes={this.state.allClasses}
+          class={this.props.selectedClass}
+          classes={this.props.allClasses}
           selectClass={this.selectClass.bind(this)}>
 
           {loadItem}
@@ -174,15 +174,16 @@ function mapStateToProps(state) {
     tId: state.teacherState.tId,
     tData: state.teacherState.tData,
     teacher: {
-      firstName: state.teacherState.tData.firstName,
-      lastName: state.teacherState.tData.lastName,
-      photo: state.teacherState.tData.photo
+      firstName: state.teacherState.tData.teacher.firstName,
+      lastName: state.teacherState.tData.teacher.lastName,
+      photo: state.teacherState.tData.teacher.photo
     },
     allClasses: state.teacherState.tData.classes,
     selectedClass: {
-      id: state.teacherState.tData.classes,
-      className: state.teacherState.tData.classes
-    }
+      id: state.teacherState.tData.classes[0].id,
+      className: state.teacherState.tData.classes[0].className
+    },
+    socket: null
   };
 }
 

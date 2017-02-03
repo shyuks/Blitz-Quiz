@@ -9,7 +9,7 @@ import Dashboard from './Dashboard/Main.js'
 class Body extends Component {
   constructor(props) {
     super(props);
-    console.log('Inside body component', props)
+    // console.log('Inside body component', props)
     this.state = {
       tests: this.props.selTests || [],
       students: this.props.selStudents || [],
