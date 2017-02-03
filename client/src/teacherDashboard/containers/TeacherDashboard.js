@@ -1,6 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component, PropTypes } from 'react';
 import Sidebar from 'react-sidebar';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { getTeacherData } from '../../actions/teacher_actions';
+import { Link } from 'react-router';
 
 import SidebarContent from '../SidebarContent';
 import SidebarPersonal from '../SidebarPersonal';
@@ -32,11 +35,15 @@ class TeacherDashboard
       selectedClass: {id: 4, className: 'Biology 100'},
       navigation: '',
       loaded: false,
-      tId: props.tId,
+      tId: 1053,
       socket: null
     };
 
     this.handleSideNav = this.handleSideNav.bind(this);
+  }
+
+  static contextTypes = {
+    router: PropTypes.object
   }
 
 //=========================================
@@ -81,14 +88,19 @@ class TeacherDashboard
   }
 
   componentDidMount() {
-    axios.get('/test/' + this.state.tId).then(response => {
-        this.setState({
-          teacher: response.data.teacher,
-          allClasses: response.data.classes,
-          selectedClass: response.data.classes[2],
-          loaded: true
-        });
-    });
+    this.props.getTeacherData(this.props.tId);
+    // axios.get('/test/' + this.state.tId).then(response => {
+    //     console.log('this is the response: ', response);
+    //     this.setState({
+    //       teacher: response.data.teacher,
+    //       allClasses: response.data.classes,
+    //       selectedClass: response.data.classes[2],
+    //       loaded: true
+    //     });
+    // })
+    //   .catch(err => {
+    //     console.log('error: ', err);
+    //   })
   }
 
   selectClass(someClass) {
@@ -100,7 +112,15 @@ class TeacherDashboard
 //=========================================
   render() {
 
-    const sidebar = <SidebarContent tId={this.state.tId} teacher={this.state.teacher} handleSideNav={this.handleSideNav} backtoLogin={this.backtoLogin.bind(this)}/>;
+    console.log('tdata in render :', this.props.tData)
+
+    const sidebar = <SidebarContent 
+      tId={this.state.tId} 
+      teacher={this.state.teacher} 
+      handleSideNav={this.handleSideNav} 
+      backtoLogin={this.backtoLogin.bind(this)}
+    />;
+
     let min = this.state.selectedClass;
 
     const clssRoom = {
@@ -119,8 +139,8 @@ class TeacherDashboard
 
     const sidebarProps = {
       sidebar: sidebar,
-      docked: this.state.docked,
-      open: this.state.open,
+      docked: true,
+      open: true,
       onSetOpen: this.onSetOpen.bind(this)
     };
 
@@ -149,5 +169,22 @@ class TeacherDashboard
   }
 }
 
-export default TeacherDashboard
+function mapStateToProps(state) {
+  return { 
+    tId: state.teacherState.tId,
+    tData: state.teacherState.tData,
+    teacher: {
+      firstName: state.teacherState.tData.firstName,
+      lastName: state.teacherState.tData.lastName,
+      photo: state.teacherState.tData.photo
+    },
+    allClasses: state.teacherState.tData.classes,
+    selectedClass: {
+      id: state.teacherState.tData.classes,
+      className: state.teacherState.tData.classes
+    }
+  };
+}
+
+export default connect(mapStateToProps, { getTeacherData })(TeacherDashboard)
 ;

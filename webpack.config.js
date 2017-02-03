@@ -33,6 +33,7 @@ module.exports = {
 		    exclude: /node_modules/,
 			  test: SRC_DIR,
 				query: {
+
 					presets: ['es2015', 'react', 'stage-2'],
 						plugins: [
 							"transform-decorators-legacy", 
@@ -40,7 +41,7 @@ module.exports = {
 							"transform-class-properties"
 						]
 				},
-},
+      },
       {
         test: /\.css$/,
         loader: "style-loader!css-loader"
