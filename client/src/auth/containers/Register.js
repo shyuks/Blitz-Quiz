@@ -1,8 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import axios from 'axios';
-import Login from './Login'
+import { adminLogout } from '../../actions/admin_actions';
+import { connect } from 'react-redux';
 
-import './App.css';
+// import Login from './Login'
+
+import '../../App.css';
 
 const Style = {
     backgroundImage: 'url(http://wallpapercave.com/wp/o0a73QI.jpg)',
@@ -11,7 +14,7 @@ const Style = {
     backgroundPosition: "center center"
 };
 
-class Signup extends Component {
+class Register extends Component {
 
     constructor(props) {
         super(props);
@@ -25,18 +28,28 @@ class Signup extends Component {
             firstNameStudent: '',
             lastNameStudent: '',
             passwordStudent: '',
-            confirmPasswordStudent: '',
+            confirmPasswordStudent: ''
 
-            loginView: false
+            // loginView: false
         };
+        this.componentWillMount = this.componentWillMount.bind(this);
     }
 
-    loginView () {
-        this.setState({
-            loginView: !this.state.loginView
-        })
-    }
+  static contextTypes = {
+      router: PropTypes.object
+  }
 
+    // loginView () {
+    //     this.setState({
+    //         loginView: !this.state.loginView
+    //     })
+    // }
+    componentWillMount(){
+      console.log(this.props.adminState);
+      if(!this.props.adminState){
+        this.context.router.push('/admin');
+      }
+    }
     handleChangeTeacherRegister(event) {
         let target = event.target
         let value = target.value
@@ -73,7 +86,7 @@ class Signup extends Component {
                 passwordTeacher: '',
                 confirmPasswordTeacher: ''
             })
-            stateContext.loginView()
+            // stateContext.loginView()
         })
         .catch(function (error) {
             console.log(error);
@@ -103,15 +116,19 @@ class Signup extends Component {
             console.log(error);
         });
     }
+    handleAdminLogout(){
+      this.props.adminLogout();
+      this.context.router.push('/')
+    }
 
   render() {
-  if (this.state.loginView) {
-      return (
-          <div>
-              <Login loginView={this.loginView.bind(this)}/>
-          </div>
-      )
-  }
+  // if (this.state.loginView) {
+  //     return (
+  //         <div>
+  //             <Login loginView={this.loginView.bind(this)}/>
+  //         </div>
+  //     )
+  // }
     return (
         <div style={Style}>
             <div className="row">
@@ -119,7 +136,9 @@ class Signup extends Component {
                     <div className="container-fluid">
                         <div className="modal-header">
                             <h3> BlitzQuiz</h3>
-                            <button type="submit" value="Login" className="login loginmodal-submit btn btn-primary" onClick={this.loginView.bind(this)} > Login </button>
+                            <button  
+                              className="login loginmodal-submit btn btn-primary" 
+                              onClick={this.handleAdminLogout.bind(this)} > Logout </button>
                         </div>
                     </div>
                 </nav>
@@ -171,4 +190,7 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+function mapStateToProps({adminState}){
+  return { adminState }  
+}
+export default connect(mapStateToProps, { adminLogout })(Register);

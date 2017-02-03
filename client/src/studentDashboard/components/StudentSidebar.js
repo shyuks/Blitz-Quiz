@@ -4,7 +4,7 @@ import {Accordion, PanelGroup} from 'react-bootstrap';
 import StudentBadge from './StudentBadge';
 import StudentQuestionBar from './StudentQuestionBar';
 
-import './../App.css';
+import '../../App.css';
 
 const StudentSidebar = (props) => {
   return (

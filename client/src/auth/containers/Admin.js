@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 import axios from 'axios'
-import Login from './Login'
-import Signup from './Signup'
+import { connect } from 'react-redux'
+import { adminLogin, adminLogout } from '../../actions/admin_actions';
+import { Link } from 'react-router';
+// import Login from './Login'
+// import Signup from './Signup'
 
 const Style = {
     backgroundImage: 'url(http://mrsbarkerscs5.files.wordpress.com/2012/10/cropped-cropped-chalkboard-background-e1350959846138.jpg)',
@@ -11,15 +14,19 @@ const Style = {
     left: '0px'
 };
 
-class Admin extends React.Component {
+class Admin extends Component {
     constructor(props) {
         super(props)
         this.state = {
             email: '',
-            password: '',
-            signupView: false
+            password: ''
+            // signupView: false
         }
     }
+
+    static contextTypes = {
+        router: PropTypes.object
+    };
 
     handleSubmitAdmin(event) {
       event.preventDefault();
@@ -31,12 +38,18 @@ class Admin extends React.Component {
           }
       })
       .then((response) => {
-          stateContext.setState({
-              email: '',
-              password: '',
-              signupView: true
-          })
-          console.log('Admin Login Successful!')
+        if (response.data) {
+            this.props.adminLogin(response.data);
+            this.context.router.push('/register');
+        }   else {
+            console.log("Unsuccessful Admin Login");
+        }
+        //   stateContext.setState({
+        //       email: '',
+        //       password: ''
+        //     //   signupView: true
+        //   })
+        //   console.log('Admin Login Successful!')
       })
       .catch((error) => {
           console.log(error);
@@ -50,14 +63,16 @@ class Admin extends React.Component {
       this.setState({[name]: value});
     }
 
+    //add button for back to login
+
     render() {
-        if (this.state.signupView) {
-            return (
-                <div>
-                    <Signup/>
-                </div>
-            )
-        }
+        // if (this.state.signupView) {
+        //     return (
+        //         <div>
+        //             <Signup/>
+        //         </div>
+        //     )
+        // }
         return(
             <div id="login-modal" role="dialog" aria-labelledby="myModalLabel">
                 <div className="modal-dialog">
@@ -72,10 +87,13 @@ class Admin extends React.Component {
                             <input type="submit" value="Login" className="login loginmodal-submit btn btn-primary"/>
                         </form>
                     </div>
+                    <Link to='/' className="login loginmodal-submit btn btn-primary">
+                      Login Portal
+                    </Link>
                 </div>
             </div>
         )
     }
 }
 
-export default Admin
+export default connect(null, { adminLogin })(Admin);

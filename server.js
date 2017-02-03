@@ -46,6 +46,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/test/:userid', (req, res) => {
+  console.log('in get for teacher object');
     let userId = req.params.userid;
     getInitData(userId).then(data =>{
       res.status(200).send(data);
@@ -53,15 +54,19 @@ app.get('/test/:userid', (req, res) => {
 });
 
 // app.get('/test', (req, res) => {
+//   console.log('in here');
 //     seeder();
 //     res.status(200).send('hello');
-    
 // });
 
 app.post('/test', (req, res) => {
     //console.log(req.body);
     res.status(200).send('hello');
     
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'public', 'index.html'))
 });
 
 io.on('connection', (socket) => {

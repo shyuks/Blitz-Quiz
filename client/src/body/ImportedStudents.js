@@ -34,19 +34,19 @@ class ImportedStudents extends Component {
 
     onSelectionChanged (row) {
     selectRow = this.api.getSelectedRows();
-    console.log("currently ", selectRow, " selected")
+    // console.log("currently ", selectRow, " selected")
     this.props.changePhoto(selectRow[0].photo)
   }
 
   onRowDoubleClicked(row) {
-    console.log("doubleclicking working")
+    // console.log("doubleclicking working")
     let selectedRows = this.api.getSelectedRows();
     let temp;
     selectedRows.forEach( function(selectedRow, index) {
         temp = row.indexOf(selectedRows[0])
     });
     this.props.removeStudents(temp, selectedRows[0])
-    console.log("to splice and push: ", selectedRows[0])
+    // console.log("to splice and push: ", selectedRows[0])
     this.api.setRowData(this.props.data)
   }
 
