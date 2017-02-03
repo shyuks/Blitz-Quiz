@@ -4,17 +4,15 @@ import {Accordion, PanelGroup} from 'react-bootstrap';
 import StudentBadge from './StudentBadge';
 import StudentQuestionBar from './StudentQuestionBar';
 
-import '../../App.css';
+import '../.././App.css';
 
-const StudentSidebar = (props) => {
-  return (
+const StudentSidebar = () => (
     <div>
       <PanelGroup className="studentBar">
-        <StudentBadge /> 
-        <StudentQuestionBar questions={props.questions}/>
+        <StudentBadge/> 
+        <StudentQuestionBar/>
       </PanelGroup>
     </div>
-  );
-};
+);
 
 export default StudentSidebar;

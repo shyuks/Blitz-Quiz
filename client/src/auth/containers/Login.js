@@ -184,4 +184,5 @@ class Login extends Component {
   }
 }
 
-export default connect(null, { teacherLogin, getTeacherData })(Login);
+export default connect(null, { teacherLogin, getTeacherData, studentLogin })(Login);
+

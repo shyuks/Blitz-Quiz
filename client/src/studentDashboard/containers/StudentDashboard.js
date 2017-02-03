@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Grid, Col, Row} from 'react-bootstrap';
 import axios from 'axios';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
+import { studentReceivingQuestion, studentLogout } from '../.././actions/student_actions';
 
 import StudentSidebar from '../components/StudentSidebar';
 import QuestionArea from './QuestionArea';
@@ -17,7 +18,6 @@ class StudentDashboard extends Component {
       firstName: '',
       lastName: '',
       image: '',
-      questions: [],
       answers: [],
       testName: '',
       type: '',
@@ -25,19 +25,12 @@ class StudentDashboard extends Component {
       myClasses: [],
       possibleClasses: []
     };
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.componentWillMount = this.componentWillMount.bind(this);
   }
 
-  handleAnswer(e, answerBody, qId) {
-    e.preventDefault();
-    let answer = {
-      StudentsId: this.state.id,
-      QuestionsId: qId,
-      answerBody: answerBody,
-      isCorrect: 'Pending'
-    }
-
-    let newQuestions = this.state.questions.slice(1);
-    this.setState({questions: newQuestions});
+  static contextTypes = {
+    router: PropTypes.object
   }
 
   findMyRooms(all, mine) {
@@ -60,6 +53,12 @@ class StudentDashboard extends Component {
     })
   }
 
+  componentWillMount(){
+    if(!this.props.sId){
+      this.context.router.push('/');
+    }
+  }
+
   componentDidMount() {
     var socket = io.connect('/');
     socket.on('connect', () => {
@@ -75,20 +74,17 @@ class StudentDashboard extends Component {
     });
 
     socket.on('getQuestion', question => {
-      console.log(question);
-      this.setState({
-        questions: [question]
-      })
+      this.props.studentReceivingQuestion(question);
     });
 
     axios.get('/api/info/' + this.props.sId).then(response => {
       let a = response.data;
+      console.log(response);
       let allClasses = [];
       for (let item of a.classes){
         allClasses.push(item.id);
       }
       this.setState({
-        id: this.props.sId,
         firstName: a.student.firstName,
         lastName: a.student.lastName,
         image: a.student.photo,
@@ -97,31 +93,35 @@ class StudentDashboard extends Component {
     }); 
   }
 
+  handleUserLogout(){
+    this.props.studentLogout();
+    this.context.router.push('/');
+  }
+
   render() {
-    let question = null;
-
-    if(this.state.questions.length > 0) {
-      question = (
-        <QuestionArea question={this.state.questions[0]}
-          handleAnswer={this.handleAnswer.bind(this)}/>
-      );
-    }
-
     return (
       <div>
       <Grid fluid={true}>
         <Row>
           <Col xs={4} sm={4} md={4} lg={3}>
-            <StudentSidebar questions={this.state.questions}/>
+            <StudentSidebar/>
           </Col>
           <Col xs={8} sm={8} md={8} lg={9}>
-            {question}
+            <QuestionArea />
           </Col>
         </Row>
+        <button  
+        className="login loginmodal-submit btn btn-primary" 
+      onClick={this.handleUserLogout.bind(this)} > Logout </button>
       </Grid>
       </div>
     );
   }
 }
 
-export default StudentDashboard;
+function mapStateToProps(state){
+  return {sId : state.studentState.sId};
+}
+
+export default connect(mapStateToProps, 
+  {studentReceivingQuestion, studentLogout})(StudentDashboard);
