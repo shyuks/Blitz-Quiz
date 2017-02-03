@@ -1,11 +1,15 @@
 import {
   TEACHER_LOGIN,
-  TEACHER_DATA,
   TEACHER_LOGOUT,
+  TEACHER_DATA,
   NAVIGATE_SIDE
 } from '../actions/teacher_actions';
 
-const INITIAL_STATE = { tId: null, tData: {}, destination: ''};
+const INITIAL_STATE = {
+  tId: null,
+  tData: {},
+  destination: ''
+};
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {

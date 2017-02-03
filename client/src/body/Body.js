@@ -66,7 +66,7 @@ class Body extends Component {
             addLecture={this.addLecture}
             classId={this.props.classId}
             addQuestions={this.addQuestions} 
-            sock={this.props.sock}/>
+            sock={this.props.classId}/>
     	  </div>
       );
     }

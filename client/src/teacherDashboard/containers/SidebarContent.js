@@ -50,7 +50,7 @@ class SidebarContent extends Component {
     const style = styles.sidebar;
 
     return (
-      <SidebarPersonal tId={this.props.tId} teacher={this.props.teacher} style={style}>
+      <SidebarPersonal style={style}>
         <div style={styles.content}>
           <a href="#" 
             style={styles.sidebarLink}
@@ -81,12 +81,7 @@ class SidebarContent extends Component {
 
 function mapStateToProps(state) {
   return {
-    tId: state.teacherState.tId,
-    teacher: {
-      firstName: state.teacherState.tData.teacher.firstName,
-      lastName: state.teacherState.tData.teacher.lastName,
-      photo: state.teacherState.tData.teacher.photo
-    }
+    tData: state.teacherState.tData
   }
 }
 

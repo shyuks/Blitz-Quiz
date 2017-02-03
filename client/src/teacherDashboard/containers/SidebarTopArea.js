@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {DropdownButton, MenuItem} from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 //=========================================
 //            Styles
@@ -19,37 +20,71 @@ const styles = {
 };
 
 
-const SidebarTopArea = (props) => {
-  let currentClass = props.class;
-  let classes = props.classes;
-  let populateClasses = (someClass, i) => {
-   if(someClass === currentClass){
-    return(
-    <MenuItem eventKey={someClass.id} key={i} active> {someClass.className} </MenuItem>
-    );
-    } else {
-      return(
-        <MenuItem eventKey={someClass.id} key={i} onClick={() => {props.selectClass(someClass);}}> {someClass.className} </MenuItem>
-      )
-    }
-  }
-  const rootStyle = styles.root;
-  return (
-    <div style={rootStyle}>
-      <div style={styles.header}>
-        <DropdownButton title={currentClass.className}
-          bsSize="large"
-          id="dropdown-size-large">
+class SidebarTopArea extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedClass: this.props.tData.classes[0]
+    };
 
-          {classes.map((someClass, i) => (
-           populateClasses(someClass, i)
-         ))}
-          
-        </DropdownButton>
+    this.selectClass = this.selectClass.bind(this);
+  }
+
+  selectClass(newClass) {
+    this.setState({
+      selectedClass: newClass
+    })
+  }
+
+  render() {
+    let currentClass = this.state.selectedClass;
+    let classes = this.props.tData.classes;
+
+    let populateClasses = (someClass, i) => {
+    if(someClass === currentClass){
+      return(
+      <MenuItem
+        eventKey={someClass.id}
+        key={i}
+        active>
+          {someClass.className}
+        </MenuItem>
+      );
+      } else {
+        return(
+          <MenuItem
+            eventKey={someClass.id}
+            key={i}
+            onClick={() => {this.selectClass(someClass);}}>
+              {someClass.className}
+            </MenuItem>
+        )
+      }
+    }
+
+    const rootStyle = styles.root;
+  
+    return (
+      <div style={rootStyle}>
+        <div style={styles.header}>
+          <DropdownButton title={currentClass.className}
+            bsSize="large"
+            id="dropdown-size-large">
+
+            {classes.map((someClass, i) => (
+            populateClasses(someClass, i)
+          ))}
+            
+          </DropdownButton>
+        </div>
+        {this.props.children}
       </div>
-      {props.children}
-    </div>
-  );
+    );
+  }
 };
 
-export default SidebarTopArea;
+function mapStateToProps(state) {
+  return { tData: state.teacherState.tData }
+}
+
+export default connect(mapStateToProps)(SidebarTopArea);

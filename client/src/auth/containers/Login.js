@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { teacherLogin } from '../../actions/teacher_actions';
+import { teacherLogin, getTeacherData } from '../../actions/teacher_actions';
 import { studentLogin } from '../../actions/student_actions';
 import { Link } from 'react-router';
 
@@ -32,7 +32,7 @@ class Login extends Component {
   }
 
   static contextTypes = {
-      router: PropTypes.object
+    router: PropTypes.object
   }
 
   handleChangeTeacher(event) {
@@ -61,10 +61,15 @@ class Login extends Component {
             password: this.state.teacherPassword
         }
     })
-    .then((response) => {
+    .then(response => {
         if(response.data) {
-            this.props.teacherLogin(response.data);
-            this.context.router.push('/teacher');
+            this.props.getTeacherData(response.data)
+            .then(resolved => {
+                this.props.teacherLogin(response.data);
+            })
+            .catch(err => {
+              console.log('error in submitTeacher response: ', err);
+            })
         }   else {
             console.log("Unsuccessful Teacher Login");
         }
@@ -75,8 +80,11 @@ class Login extends Component {
         // console.log(response)
         // stateContext.dashboardViewTeacher(response)
     })
+    .then(next => {
+        this.context.router.push('/teacher')
+    })
     .catch((error) => {
-        console.log(error);
+        console.log('error in submitTeacher', error);
     });
   }
 
@@ -176,4 +184,4 @@ class Login extends Component {
   }
 }
 
-export default connect(null, { teacherLogin })(Login);
+export default connect(null, { teacherLogin, getTeacherData })(Login);

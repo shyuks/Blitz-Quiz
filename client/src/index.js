@@ -33,7 +33,7 @@ configureStore().then(store => {
     <Provider store={store}>
       <Router history={browserHistory} routes={routes} />
     </Provider>, document.getElementById('root'));
-}).catch(error=>{console.log(error)});
+}).catch(error=>{console.log('this is the error: ', error)});
 
 
 

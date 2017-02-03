@@ -30,16 +30,18 @@ class TeacherDashboard
     this.state = {
       docked: false,
       open: false,
-      teacher: {firstName: 'EJ', lastName: 'Mason', photo: "http://starcasm.net/wp-content/uploads/2015/08/Jared-Fogle-in-Subway-Ad.jpg"},
-      allClasses: [],
-      selectedClass: {id: 4, className: 'Biology 100'},
-      navigation: '',
+      // teacher: {firstName: 'EJ', lastName: 'Mason', photo: "http://starcasm.net/wp-content/uploads/2015/08/Jared-Fogle-in-Subway-Ad.jpg"},
+      // allClasses: [],
+      // selectedClass: {id: 4, className: 'Biology 100'},
+      // navigation: '',
       loaded: false,
-      tId: 1053,
+      // tId: 1053,
       socket: null
     };
 
-    this.handleSideNav = this.handleSideNav.bind(this);
+    // this.handleSideNav = this.handleSideNav.bind(this);
+    this.componentWillMount = this.componentWillMount.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   static contextTypes = {
@@ -49,46 +51,49 @@ class TeacherDashboard
 //=========================================
 //            Begin Methods
 //=========================================
-  handleSideNav(e, location) {
-    e.preventDefault();
+  // handleSideNav(e, location) {
+  //   e.preventDefault();
 
-    this.setState({
-      navigation: location
-    });
-  }
+  //   this.setState({
+  //     navigation: location
+  //   });
+  // }
 
-  backtoLogin() {
-    this.props.logout();
-  }
+  // backtoLogin() {
+  //   this.props.logout();
+  // }
 
-  onSetOpen(open) {
-    this.setState({open: open});
-  }
+  // onSetOpen(open) {
+  //   this.setState({open: open});
+  // }
 
-  mediaQueryChanged() {
-    this.setState({docked: this.state.mql.matches});
-  }
+  // mediaQueryChanged() {
+  //   this.setState({docked: this.state.mql.matches});
+  // }
 
-  toggleOpen(e) {
-    this.setState({open: !this.state.open});
-    if (e) {
-      e.preventDefault();
+  // toggleOpen(e) {
+  //   this.setState({open: !this.state.open});
+  //   if (e) {
+  //     e.preventDefault();
+  //   }
+  // }
+
+  componentWillMount() {
+  //   const mql = window.matchMedia(`(min-width: 800px)`);
+  //   mql.addListener(this.mediaQueryChanged.bind(this));
+  //   this.setState({mql: mql, docked: mql.matches});
+    if(!this.props.tId) {
+      this.context.router.push('/');
     }
   }
 
-  componentWillMount() {
-    const mql = window.matchMedia(`(min-width: 800px)`);
-    mql.addListener(this.mediaQueryChanged.bind(this));
-    this.setState({mql: mql, docked: mql.matches});
-  }
-
-  componentWillUnmount() {
-    this.state.mql.removeListener(this.mediaQueryChanged.bind(this));
-    console.log('component will unmount');
-  }
+  // componentWillUnmount() {
+  //   this.state.mql.removeListener(this.mediaQueryChanged.bind(this));
+  //   console.log('component will unmount');
+  // }
 
   componentDidMount() {
-    this.props.getTeacherData(this.props.tId);
+    // this.props.getTeacherData(this.props.tId);
     // axios.get('/test/' + this.state.tId).then(response => {
     //     console.log('this is the response: ', response);
     //     this.setState({
@@ -103,66 +108,37 @@ class TeacherDashboard
     //   })
   }
 
-  selectClass(someClass) {
-     this.setState({selectedClass: someClass, navigation: ''});
-  }
+  // selectClass(someClass) {
+  //    this.setState({selectedClass: someClass, navigation: ''});
+  // }
 
 //=========================================
 //            Render
 //=========================================
   render() {
-
-    console.log('tdata in render :', this.props.tData)
-
-    const sidebar = <SidebarContent 
-      tId={this.props.tId} 
-      teacher={this.props.teacher} 
-      handleSideNav={this.handleSideNav} 
-      backtoLogin={this.backtoLogin.bind(this)}
-    />;
-
-    let min = this.state.selectedClass;
-
-    const clssRoom = {
-      id: this.props.selectedClass.id,
-      className: this.props.selectedClass.className,
-      teacher: this.props.teacher
-    }
     const contentHeader = (
       <span>
         {!this.state.docked &&
-         <a onClick={this.toggleOpen.bind(this)} 
-            href="#" 
-            style={styles.contentHeaderMenuLink}>=</a>}
+         <a href="#" style={styles.contentHeaderMenuLink}>=</a>}
         <span> React Sidebar</span>
       </span>);
 
     const sidebarProps = {
-      sidebar: sidebar,
+      sidebar: <SidebarContent />,
       docked: true,
-      open: true,
-      onSetOpen: this.onSetOpen.bind(this)
+      open: true
     };
+    
 
-    let loadItem = null;
-    // if(this.state.loaded) {
-      loadItem = <Body navigation={this.state.navigation}
-            selTests={           this.state.selectedClass.tests}
-            selStudents={this.state.selectedClass.students}
-            classId={this.state.selectedClass.id} 
-            sock={clssRoom}
-            tId={this.state.tId}
-            currentClass={this.state.selectedClass}/>
-    // } 
+
     return (
       <Sidebar {...sidebarProps}>
-        <SidebarTopArea title={contentHeader}
-          class={this.props.selectedClass}
-          classes={this.props.allClasses}
-          selectClass={this.selectClass.bind(this)}>
+        <SidebarTopArea title={contentHeader}>
 
-          {loadItem}
-          
+          <div>
+            hi
+          </div>
+
         </SidebarTopArea>
       </Sidebar>
     );
@@ -172,19 +148,8 @@ class TeacherDashboard
 function mapStateToProps(state) {
   return { 
     tId: state.teacherState.tId,
-    tData: state.teacherState.tData,
-    teacher: {
-      firstName: state.teacherState.tData.teacher.firstName,
-      lastName: state.teacherState.tData.teacher.lastName,
-      photo: state.teacherState.tData.teacher.photo
-    },
-    allClasses: state.teacherState.tData.classes,
-    selectedClass: {
-      id: state.teacherState.tData.classes[0].id,
-      className: state.teacherState.tData.classes[0].className
-    },
-    socket: null
-  };
+    tData: state.teacherState.tData
+  }
 }
 
 export default connect(mapStateToProps, { getTeacherData })(TeacherDashboard)

@@ -21,7 +21,7 @@ const styles = {
 
 
 const SidebarPersonal = (props) => {
-  let teacher = props.teacher;
+  let teacher = props.tData.teacher;
   const rootStyle = styles.root;
   console.log('re-rendering in sidebarpersonal');
   return (
@@ -46,13 +46,7 @@ const SidebarPersonal = (props) => {
 };
 
 function mapStateToProps(state) {
-  return {
-    teacher: {
-      firstName: state.teacherState.tData.teacher.firstName,
-      lastName: state.teacherState.tData.teacher.lastName,
-      photo: state.teacherState.tData.teacher.photo
-    }
-  }
+  return { tId: state.teacherState.tId, tData: state.teacherState.tData }
 }
 
 export default connect(mapStateToProps)(SidebarPersonal);
