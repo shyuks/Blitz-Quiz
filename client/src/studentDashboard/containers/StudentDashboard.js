@@ -3,10 +3,10 @@ import {Grid, Col, Row} from 'react-bootstrap';
 import axios from 'axios';
 import io from 'socket.io-client';
 
-import StudentSidebar from './StudentSidebar';
+import StudentSidebar from '../components/StudentSidebar';
 import QuestionArea from './QuestionArea';
 
-class StudentHome extends Component {
+class StudentDashboard extends Component {
   constructor(props) {
     super(props);
    
@@ -125,4 +125,4 @@ class StudentHome extends Component {
   }
 }
 
-export default StudentHome;
+export default StudentDashboard;

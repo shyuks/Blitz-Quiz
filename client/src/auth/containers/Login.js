@@ -1,9 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { teacherLogin } from '../../actions/teacher_actions';
+import { studentLogin } from '../../actions/student_actions';
+import { Link } from 'react-router';
 
-import Signup from './Signup';
-import Admin from './Admin'
-import './App.css';
+// import Signup from './Signup';
+// import Admin from './Admin'
+import '../../App.css';
 
 const Style = {
     backgroundImage: 'url(http://mrsbarkerscs5.files.wordpress.com/2012/10/cropped-cropped-chalkboard-background-e1350959846138.jpg)',
@@ -22,9 +26,13 @@ class Login extends Component {
         teacherID: '',
         teacherPassword: '',
         studentID: '',
-        studentPassword: '',
-        adminPage: false
+        studentPassword: ''
+        // adminPage: false
     };
+  }
+
+  static contextTypes = {
+      router: PropTypes.object
   }
 
   handleChangeTeacher(event) {
@@ -46,6 +54,7 @@ class Login extends Component {
   handleSubmitTeacher(event) {
     event.preventDefault();
     let stateContext = this;
+
     axios.post('/login/Teacher', {
         params: {
             Id: this.state.teacherID,
@@ -53,12 +62,18 @@ class Login extends Component {
         }
     })
     .then((response) => {
-        stateContext.setState({
-            teacherID: '',
-            teacherPassword: ''
-        })
-        console.log(response)
-        stateContext.dashboardViewTeacher(response)
+        if(response.data) {
+            this.props.teacherLogin(response.data);
+            this.context.router.push('/teacher');
+        }   else {
+            console.log("Unsuccessful Teacher Login");
+        }
+        // stateContext.setState({
+        //     teacherID: '',
+        //     teacherPassword: ''
+        // })
+        // console.log(response)
+        // stateContext.dashboardViewTeacher(response)
     })
     .catch((error) => {
         console.log(error);
@@ -68,6 +83,7 @@ class Login extends Component {
   handleSubmitStudent(event) {
     event.preventDefault();
     let stateContext = this;
+
     axios.post('/login/Student', {
         params: {
             Id: this.state.studentID,
@@ -75,31 +91,38 @@ class Login extends Component {
         }
     })
     .then((response) => {
-        stateContext.setState({
-            studentID: '',
-            studentPassword: '',
-        })
-        console.log(response)
-        stateContext.dashboardViewStudent(response)
+      if (response.data) {
+        this.props.studentLogin(response.data);
+        this.context.router.push('/student');
+      } else {
+        console.log("Unsuccessful Student Login");
+      }
+        // stateContext.setState({
+        //     studentID: '',
+        //     studentPassword: '',
+        // })
+        // console.log(response)
+        // stateContext.dashboardViewStudent(response)
     })
     .catch((error) => {
         console.log(error);
     });
   }
 
-  adminPage () {
-      this.setState({
-          adminPage: !this.state.adminPage
-      })
-  }
+//   handleAdminRedirect() {
+//     this.context.router.push('/register');
+    //   this.setState({
+    //       adminPage: !this.state.adminPage
+    //   })
+//   }
 
-  dashboardViewTeacher (response) {
-    this.props.teacherAuth(response)
-  }
+//   dashboardViewTeacher (response) {
+//     this.props.teacherAuth(response)
+//   }
 
-  dashboardViewStudent () {
-      this.props.studentAuth()
-  }
+//   dashboardViewStudent () {
+//       this.props.studentAuth()
+//   }
 
   render() {
     const { errors } = this.state
@@ -117,7 +140,9 @@ class Login extends Component {
                     <div className="container-fluid">
                         <div className="modal-header">
                             <h3> BlitzQuiz</h3>
-                            <button type="submit" value="Register" className="login loginmodal-submit btn btn-primary" onClick={this.adminPage.bind(this)} > Admin </button>
+                            <Link to='/admin' className="login loginmodal-submit btn btn-primary">
+                                Admin
+                            </Link>
                         </div>
                     </div>
                 </nav>
@@ -151,4 +176,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(null, { teacherLogin })(Login);

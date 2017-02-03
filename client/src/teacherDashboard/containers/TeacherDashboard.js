@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import Sidebar from 'react-sidebar';
 import axios from 'axios';
 
-import SidebarContent from './SidebarContent';
-import SidebarPersonal from './SidebarPersonal';
-import SidebarTopArea from './SidebarTopArea';
-import Body from '../body/Body';
+import SidebarContent from '../SidebarContent';
+import SidebarPersonal from '../SidebarPersonal';
+import SidebarTopArea from '../SidebarTopArea';
+import Body from '../../body/Body';
 
 
 const styles = {
@@ -19,7 +19,8 @@ const styles = {
   },
 };
 
-class Dashboard extends Component {
+class TeacherDashboard
+ extends Component {
   constructor(props) {
     super(props);
     
@@ -148,4 +149,5 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default TeacherDashboard
+;
