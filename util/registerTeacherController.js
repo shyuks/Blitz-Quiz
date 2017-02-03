@@ -1,16 +1,17 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./../db/config');
+const bcrypt = require('bcrypt-nodejs')
 
 const Teacher = require('./../models/teachers.model');
 
 const addTeacher = (req, res) => {
   const data = req.body.params;
-  if((data.password === data.confirmPassword) && data.firstName && data.lastName){
-    console.log(data.firstName, data.lastName, data.password)
+  if((data.passwordTeacher === data.confirmPasswordTeacher) && data.firstNameTeacher && data.lastNameTeacher){
+    console.log(data.firstNameTeacher, data.lastNameTeacher, data.passwordTeacher)
     Teacher.create({
-      firstName: data.firstName,
-      lastName: data.lastName,
-      password: data.password,
+      firstName: data.firstNameTeacher,
+      lastName: data.lastNameTeacher,
+      password: bcrypt.hashSync(data.passwordTeacher),
       photo: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg'
     })
     .then((user) => {
@@ -24,5 +25,6 @@ const addTeacher = (req, res) => {
     console.log("Please make sure you have input your information correctly")
   }
 }
+
 
 module.exports = addTeacher;

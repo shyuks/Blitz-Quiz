@@ -2,17 +2,16 @@ import React, {Component} from 'react';
 import {Grid, Col, Row} from 'react-bootstrap';
 import axios from 'axios';
 import io from 'socket.io-client';
+import { connect } from 'react-redux';
 
-import StudentSidebar from './StudentSidebar';
+import StudentSidebar from '../components/StudentSidebar';
 import QuestionArea from './QuestionArea';
 
-class StudentHome extends Component {
+class StudentDashboard extends Component {
   constructor(props) {
     super(props);
-   
 
     this.state = {
-      id: 22,
       testId: null,
       avail: [],
       firstName: '',
@@ -62,7 +61,7 @@ class StudentHome extends Component {
   }
 
   componentDidMount() {
-    var socket = io.connect('http://localhost:9000');
+    var socket = io.connect('/');
     socket.on('connect', () => {
       socket.emit('newbie');
     });
@@ -125,4 +124,4 @@ class StudentHome extends Component {
   }
 }
 
-export default StudentHome;
+export default StudentDashboard;

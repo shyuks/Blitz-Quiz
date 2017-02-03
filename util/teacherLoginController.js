@@ -1,12 +1,12 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./../db/config');
-
+const bcrypt = require('bcrypt-nodejs')
 const Teacher = require('./../models/teachers.model');
 
 const teacherAuth = (req, res) => {
     Teacher.findById(req.body.params.Id)
     .then((teacher) => {
-        if(teacher.password === req.body.params.password) {
+        if(bcrypt.compareSync(req.body.params.password, teacher.password)) {
           console.log("login successful")
           req.session.regenerate(() => {
             req.session.Id = req.body.params.Id;
@@ -15,7 +15,7 @@ const teacherAuth = (req, res) => {
             // req.session.save()
             console.log("session saved?")
             res.send(session)
-          });           
+          });
         } else {
             console.log("invalid credentials")
         }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {PageHeader, Form, FormGroup, FormControl, Button} from 'react-bootstrap';
 
-import './../App.css';
+import '../../App.css';
 
 class QuestionArea extends Component {
   constructor(props) {
