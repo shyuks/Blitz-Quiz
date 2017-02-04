@@ -25,9 +25,6 @@ class AvailableStudents extends Component {
   constructor(props){
     super(props);
 
-  this.onGridReady = this.onGridReady.bind(this);
-  this.onSelectionChanged = this.onSelectionChanged.bind(this);
-  this.onRowDoubleClicked = this.onRowDoubleClicked.bind(this);
   }
 
   onGridReady(params) {
@@ -57,9 +54,9 @@ class AvailableStudents extends Component {
       return (
         <div id="myGrid" className="ag-fresh" style={styles}>
           <AgGridReact              
-              onGridReady = {this.onGridReady}
-              onSelectionChanged={this.onSelectionChanged(this.props.data)}
-              onRowDoubleClicked={this.onRowDoubleClicked(this.props.data)}
+              onGridReady = {this.onGridReady.bind(this)}
+              onSelectionChanged={this.onSelectionChanged.bind(this, this.props.data)}
+              onRowDoubleClicked={this.onRowDoubleClicked.bind(this, this.props.data)}
               columnDefs={columns}
               rowData={this.props.data}
               rowSelection="single"
