@@ -42,6 +42,7 @@ class MainBody extends Component {
         </div>
       );
     } else if (this.props.destination === 'Lectures') {
+      console.log('selectedclass in lectures : ', this.props.selectedClass);
       navigator = (
         <div>
           <LectureDashboard />
@@ -59,7 +60,8 @@ class MainBody extends Component {
 
 function mapStateToProps(state) {
   return {
-    destination: state.teacherState.destination
+    destination: state.teacherState.destination,
+    selectedClass: state.teacherState.selectedClass
   };
 }
 

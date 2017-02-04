@@ -29,13 +29,12 @@ class SidebarTopArea extends Component {
   }
 
   handleClassSelect(newClass) {
-    console.log(newClass)
     this.props.selectClass(newClass);
     this.props.navigateSidebar('');
-    console.log(this.props.selectedClass);
   }
 
   render() {
+    console.log(this.props.tData);
     let currentClass = this.props.selectedClass || this.props.tData.classes[0];
     let classes = this.props.tData.classes;
 

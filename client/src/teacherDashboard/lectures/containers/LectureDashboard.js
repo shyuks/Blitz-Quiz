@@ -13,7 +13,7 @@ class LectureDashboard extends Component {
 
     this.state = {
       toggler: true,
-      tests: [],
+      tests: this.props.selectedClass.tests || [],
       selectedTest: null,
       selectedQuestions: [],
       newQuestions: []
@@ -25,7 +25,7 @@ class LectureDashboard extends Component {
     this.handleAddQuestion = this.handleAddQuestion.bind(this);
     this.handleSubmitNewQuestion = this.handleSubmitNewQuestion.bind(this);
     this.addQuestions = this.addQuestions.bind(this);
-    this.addLecture = this.addLecture.bind(this);
+    this.handleAddLecture = this.handleAddLecture.bind(this);
   }
 
 //=========================================
@@ -34,22 +34,46 @@ class LectureDashboard extends Component {
   componentWillMount() {
     var socket = io.connect('/');
     console.log('CONNECTED HERE!!!!!!');
-    socket.emit('t_connect', this.props.classId);
+    socket.emit('t_connect', this.props.selectedClass.id);
     this.setState({socket});
   }
   
   componentWillUnmount() {
-    const sock = {
-      id: this.props.selectedClass.id,
-      className: this.props.selectedClass.className,
-      teacher: this.props.tData.teacher
-    }
-    console.log('here')
-    console.log(sock);
+    // const sock = {
+    //   id: this.props.selectedClass.id,
+    //   className: this.props.selectedClass.className,
+    //   teacher: this.props.tData.teacher
+    // }
+    // console.log('here')
+    // console.log(sock);
   }
 
-  addLecture(arr) {
-    // this.setState({tests: arr});
+  handleAddLecture(testName) {
+    var newTest = {
+      testName: testName,
+      type: 'Lecture',
+      classId: this.props.selectedClass.id,
+      answers: [],
+      questions: []
+    };
+
+    axios.post('/test/new', newTest).then(res => {
+      console.log('New Lecture sent to server!');
+    })
+    .catch(err => {
+      console.log('error in sending new lecture to server: ', err);
+    })
+
+    let newLectureList = this.state.tests.slice();
+    newLectureList.unshift(newTest);
+    updateTests();
+    this.setState({tests: newLectureList, selectedTest: null, selectedQuestions: []});
+  }
+
+  updateTests() {
+    axios.get('/classes/classTest'+this.props.selectedClass.id).then(res => {
+      console.log(res);
+    })
   }
 
   addQuestions() {
@@ -68,9 +92,7 @@ class LectureDashboard extends Component {
   selectLectureHandler (e, id) {
     e.preventDefault();
     let foundTest = null;
-    for (let test of this.state.tests) {
-      console.log('found');
-      console.log(test);
+    for (let test of this.props.selectedClass.tests) {
       if (test.id === id) {
         foundTest = test;
       }
@@ -131,13 +153,13 @@ class LectureDashboard extends Component {
 //            Render
 //=========================================
   render() {
-    console.log(this.props.tests);
     let item = null;
     if(this.state.selectedTest === null) {
       item = <LectureBody tests={this.state.tests} 
-        selectLectureHandler={this.selectLectureHandler}/>;
+        selectLectureHandler={this.selectLectureHandler}
+        handleAddLecture={this.handleAddLecture}/>;
     } else {
-      item = <QuestionsBody questions={this.state.selectedQuestions}
+      item = <QuestionsBody questions={this.props.selectedQuestions}
         lecture={this.state.selectedTest}
         newQuestions={this.state.newQuestions}
         handleDeselectLecture={this.handleDeselectLecture}
@@ -161,4 +183,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default LectureDashboard;
+export default connect(mapStateToProps)(LectureDashboard);

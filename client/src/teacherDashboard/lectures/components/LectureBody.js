@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {ListGroup, ListGroupItem, Glyphicon} from 'react-bootstrap';
 
-import LectureList from './LectureList';
+import Lecture from './Lecture';
 import InsertLecture from './InsertLecture';
 
 import './../../../App.css';
@@ -17,18 +17,6 @@ class LectureBody extends Component {
     this.revertButton = this.revertButton.bind(this);
   }
 
-  handleQuestionChange(e) {
-    this.setState({ lectureName: e.target.value });
-  }
-
-  handleKeyPress(e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      this.props.handleAddLecture(this.state.lectureName);
-      this.props.revertButton();
-    }
-  }
-
   handleNewClick(e) {
     e.preventDefault();
     this.setState({renderAdd: false});
@@ -39,24 +27,33 @@ class LectureBody extends Component {
   }
 
   render() {
-    let button =  <ListGroupItem href="#" onClick={this.handleNewClick}>
-                    <Glyphicon glyph="plus" /> Add New Lecture
-                  </ListGroupItem>
+    let button = <ListGroupItem href="#" onClick={this.handleNewClick}>
+                   <Glyphicon glyph="plus" /> Add New Lecture
+                 </ListGroupItem>
 
     let txtBox = <InsertLecture 
                     handleAddLecture={this.props.handleAddLecture}
                     revertButton={this.revertButton}
                   />
+                  
+    let lecturesList = this.props.tests.map((test, i) => 
+                        <Lecture test={test}
+                          selectLectureHandler={this.props.selectLectureHandler}
+                          key={i} />)
 
-    let component = (this.state.renderAdd) ? button : txtBox; 
+    let addLecture = (this.state.renderAdd) ? button : txtBox; 
 
     return(
       <div>
+
         <ListGroup>
-          {component}
+          {addLecture}
         </ListGroup>
-        <Lecture tests={this.props.tests}
-          selectLectureHandler={this.props.selectLectureHandler}/>
+
+        <ListGroup>
+          {lecturesList}
+        </ListGroup>
+
       </div>
     );
   }
