@@ -21,17 +21,14 @@ class StudentList extends Component {
     this.removeStudents = this.removeStudents.bind(this);
   }
 
-  componentDidMount() {
-  }
-
   serverRequest() {
     axios.get('/api/students').then(data => {
       var arr = data.data.map((student, index) => {
         return {
           id: student.id, 
           firstName: student.firstName,
-          lastName: student.lastName,
-          photo: student.photo
+          lastName: student.lastName
+          // photo: student.photo
         }
       })
       this.setState({
@@ -42,6 +39,11 @@ class StudentList extends Component {
       console.log('error in student list component did mount', err);
     });
   }
+
+  componentDidMount() {
+    this.serverRequest();
+  }
+
 
 
   addStudents(index, row) {
@@ -62,12 +64,12 @@ class StudentList extends Component {
     })
   }
 
-  changePhoto (newPhoto) {
-    this.setState({
-      photo: newPhoto
-    })
-    // console.log(this.state.photo)
-  }
+  // changePhoto (newPhoto) {
+  //   this.setState({
+  //     photo: newPhoto
+  //   })
+  //   // console.log(this.state.photo)
+  // }
 
   render() {
     return (
@@ -75,14 +77,12 @@ class StudentList extends Component {
         <div className="col-sm-8">
           <ImportedStudents
             data={this.state.importedStudents}
-            removeStudents={this.removeStudents.bind(this)}
-            changePhoto={this.changePhoto.bind(this)}
+            removeStudents={this.removeStudents}
           />
           
           <AvailableStudents
             data={this.state.availableStudents}
-            addStudents={this.addStudents.bind(this)}
-            changePhoto={this.changePhoto.bind(this)}
+            addStudents={this.addStudents}
           />
 
         </div>

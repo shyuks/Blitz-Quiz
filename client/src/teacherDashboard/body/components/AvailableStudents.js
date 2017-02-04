@@ -10,8 +10,7 @@ const columns = [{
                     children: [
                       { headerName: 'Student Id', field: 'id', width: 100 }, 
                       { headerName: 'First Name', field: 'firstName', width: 350 },
-                      { headerName: 'Last Name', field: 'lastName', width: 350 },
-                      { headerName: 'photo', field: 'photo', width: 300, hide: true }
+                      { headerName: 'Last Name', field: 'lastName', width: 350 }
                    ]
                   }]
 
@@ -24,10 +23,11 @@ const styles = {
 
 class AvailableStudents extends Component {
   constructor(props){
-    super(props)
-    this.state = {
-      
-    }
+    super(props);
+
+  this.onGridReady = this.onGridReady.bind(this);
+  this.onSelectionChanged = this.onSelectionChanged.bind(this);
+  this.onRowDoubleClicked = this.onRowDoubleClicked.bind(this);
   }
 
   onGridReady(params) {
@@ -40,7 +40,6 @@ class AvailableStudents extends Component {
     // console.log(currRows)
     selectRow = this.api.getSelectedRows();
     // console.log("currently ", selectRow, " selected")
-    this.props.changePhoto(selectRow[0].photo)
   }
 
   onRowDoubleClicked(row) {
@@ -58,9 +57,9 @@ class AvailableStudents extends Component {
       return (
         <div id="myGrid" className="ag-fresh" style={styles}>
           <AgGridReact              
-              onGridReady = {this.onGridReady.bind(this)}
-              onSelectionChanged={this.onSelectionChanged.bind(this, this.props.data)}
-              onRowDoubleClicked={this.onRowDoubleClicked.bind(this, this.props.data)}
+              onGridReady = {this.onGridReady}
+              onSelectionChanged={this.onSelectionChanged(this.props.data)}
+              onRowDoubleClicked={this.onRowDoubleClicked(this.props.data)}
               columnDefs={columns}
               rowData={this.props.data}
               rowSelection="single"
