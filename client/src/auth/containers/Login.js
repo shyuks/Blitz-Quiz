@@ -5,8 +5,6 @@ import { teacherLogin, getTeacherData } from '../../actions/teacher_actions';
 import { studentLogin } from '../../actions/student_actions';
 import { Link } from 'react-router';
 
-// import Signup from './Signup';
-// import Admin from './Admin'
 import '../../App.css';
 
 const Style = {
@@ -17,7 +15,6 @@ const Style = {
     left: '0px'
 };
 
-
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +24,6 @@ class Login extends Component {
         teacherPassword: '',
         studentID: '',
         studentPassword: ''
-        // adminPage: false
     };
   }
 
@@ -73,12 +69,6 @@ class Login extends Component {
         }   else {
             console.log("Unsuccessful Teacher Login");
         }
-        // stateContext.setState({
-        //     teacherID: '',
-        //     teacherPassword: ''
-        // })
-        // console.log(response)
-        // stateContext.dashboardViewTeacher(response)
     })
     .then(next => {
         this.context.router.push('/teacher')
@@ -105,32 +95,11 @@ class Login extends Component {
       } else {
         console.log("Unsuccessful Student Login");
       }
-        // stateContext.setState({
-        //     studentID: '',
-        //     studentPassword: '',
-        // })
-        // console.log(response)
-        // stateContext.dashboardViewStudent(response)
     })
     .catch((error) => {
         console.log(error);
     });
   }
-
-//   handleAdminRedirect() {
-//     this.context.router.push('/register');
-    //   this.setState({
-    //       adminPage: !this.state.adminPage
-    //   })
-//   }
-
-//   dashboardViewTeacher (response) {
-//     this.props.teacherAuth(response)
-//   }
-
-//   dashboardViewStudent () {
-//       this.props.studentAuth()
-//   }
 
   render() {
     const { errors } = this.state

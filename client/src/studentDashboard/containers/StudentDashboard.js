@@ -4,6 +4,7 @@ import axios from 'axios';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { studentReceivingQuestion, studentLogout } from '../.././actions/student_actions';
+import Sidebar from 'react-sidebar';
 
 import StudentSidebar from '../components/StudentSidebar';
 import QuestionArea from './QuestionArea';
@@ -78,17 +79,13 @@ class StudentDashboard extends Component {
     });
 
     axios.get('/api/info/' + this.props.sId).then(response => {
+      
       let a = response.data;
-      console.log(response);
-      let allClasses = [];
-      for (let item of a.classes){
-        allClasses.push(item.id);
-      }
       this.setState({
         firstName: a.student.firstName,
         lastName: a.student.lastName,
         image: a.student.photo,
-        myClasses: allClasses
+        myClasses: a.classes
         });
     }); 
   }
@@ -104,15 +101,21 @@ class StudentDashboard extends Component {
       <Grid fluid={true}>
         <Row>
           <Col xs={4} sm={4} md={4} lg={3}>
-            <StudentSidebar/>
+            <StudentSidebar 
+            firstName={this.state.firstName} 
+            lastName={this.state.lastName} 
+            image={this.state.image} 
+            classes={this.state.myClasses}/>
           </Col>
           <Col xs={8} sm={8} md={8} lg={9}>
-            <QuestionArea />
+            { this.props.sQuestion.hasOwnProperty('body') 
+            ? <QuestionArea question={this.props.sQuestion}/> 
+            : <div></div>}
           </Col>
         </Row>
         <button  
         className="login loginmodal-submit btn btn-primary" 
-      onClick={this.handleUserLogout.bind(this)} > Logout </button>
+         onClick={this.handleUserLogout.bind(this)} > Logout </button>
       </Grid>
       </div>
     );
@@ -120,7 +123,7 @@ class StudentDashboard extends Component {
 }
 
 function mapStateToProps(state){
-  return {sId : state.studentState.sId};
+  return {sId : state.studentState.sId, sQuestion : state.studentState.sQuestion };
 }
 
 export default connect(mapStateToProps, 

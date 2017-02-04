@@ -39,12 +39,11 @@ class QuestionArea extends Component {
   }
 
   render() {
-    if(this.props.question[0]){
-      let question = this.props.question.body + '  ';
-      let type = this.props.question.type;
+      // let question = this.props.question.body + '  ';
+      // let type = this.props.question.type;
       return (
         <div className="questionArea">
-          <PageHeader>{question}<small>{type}</small></PageHeader>
+          <PageHeader>{'question'}<small>{'type'}</small></PageHeader>
           <Form>
             <FormGroup>
               <FormControl type="text"
@@ -57,16 +56,6 @@ class QuestionArea extends Component {
           </Form>
         </div>
       );
-    } else {
-      return (
-        <div></div>
-      )
-    } 
   }
 }
-
-function mapStateToProps(state){
-  return { question: state.studentState.studentQuestions, sId: state.studentState.sId};
-}
-
-export default connect(mapStateToProps, { handleStudentAnswer })(QuestionArea);
+export default QuestionArea;

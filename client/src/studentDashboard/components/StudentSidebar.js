@@ -6,11 +6,11 @@ import StudentQuestionBar from './StudentQuestionBar';
 
 import '../.././App.css';
 
-const StudentSidebar = () => (
+const StudentSidebar = ({firstName, lastName, image, classes}) => (
     <div>
       <PanelGroup className="studentBar">
-        <StudentBadge/> 
-        <StudentQuestionBar/>
+        <StudentBadge firstname={firstName} lastname={lastName} image={image}/> 
+        <StudentQuestionBar classes={classes}/>
       </PanelGroup>
     </div>
 );
