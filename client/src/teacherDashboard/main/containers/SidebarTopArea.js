@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {DropdownButton, MenuItem} from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { selectClass } from '../../../actions/teacher_actions';
+import { selectClass, navigateSidebar } from '../../../actions/teacher_actions';
 
 //=========================================
 //            Styles
@@ -30,6 +30,7 @@ class SidebarTopArea extends Component {
 
   handleClassSelect(newClass) {
     this.props.selectClass(newClass);
+    this.props.navigateSidebar('');
   }
 
   render() {
@@ -83,4 +84,4 @@ function mapStateToProps(state) {
   return { tData: state.teacherState.tData, selectedClass: state.teacherState.selectedClass }
 }
 
-export default connect(mapStateToProps, { selectClass })(SidebarTopArea);
+export default connect(mapStateToProps, { selectClass, navigateSidebar })(SidebarTopArea);

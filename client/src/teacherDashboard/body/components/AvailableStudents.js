@@ -44,7 +44,6 @@ class AvailableStudents extends Component {
   }
 
   onRowDoubleClicked(row) {
-    console.log("doubleclicking working")
     let selectedRows = this.api.getSelectedRows();
     let temp;
     selectedRows.forEach( function(selectedRow, index) {

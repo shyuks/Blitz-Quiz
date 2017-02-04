@@ -41,6 +41,8 @@ app.use(bodyParser.json());
 //=========================================
 //          Routes
 //=========================================
+const router = require('./router/router')(app);
+
 app.get('/', (req, res) => {
   res.status(200).send('Hello World!');
 });
@@ -65,6 +67,7 @@ app.post('/test', (req, res) => {
     
 });
 
+
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client', 'public', 'index.html'))
 });
@@ -86,7 +89,6 @@ initDatabase().then(() => {
   });
 });
 
-const router = require('./router/router')(app);
 
 module.exports = app;
 
