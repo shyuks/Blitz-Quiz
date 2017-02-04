@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {ListGroupItem, Form, FormGroup, FormControl, ControlLabel, Button, Glyphicon} from 'react-bootstrap';
 
-import './../App.css';
+import './../../App.css';
 
 class InsertLectureText extends Component {
   constructor(props) {

@@ -12,7 +12,7 @@ import {
   Button,
   ControlLabel} from 'react-bootstrap';
 
-import './../../App.css';
+import '../../../App.css';
 
 class NewQuestion extends Component {
   constructor(props) {

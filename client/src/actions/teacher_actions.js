@@ -4,6 +4,7 @@ export const TEACHER_LOGIN = 'TEACHER_LOGIN';
 export const TEACHER_LOGOUT = 'TEACHER_LOGOUT';
 export const TEACHER_DATA = 'TEACHER_DATA';
 export const NAVIGATE_SIDE = 'NAVIGATE_SIDE';
+export const SELECT_CLASS = 'SELECT_CLASS';
 
 export function teacherLogin(tId) {  
   return {
@@ -32,5 +33,12 @@ export function navigateSidebar(location) {
   return {
     type: NAVIGATE_SIDE,
     payload: location
+  };
+}
+
+export function selectClass(newClass) {
+  return {
+    type: SELECT_CLASS,
+    payload: newClass
   };
 }

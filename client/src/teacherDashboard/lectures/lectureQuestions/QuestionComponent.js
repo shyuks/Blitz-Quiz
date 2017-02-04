@@ -3,7 +3,7 @@ import {ListGroupItem, Panel, Media, Button} from 'react-bootstrap';
 
 import NewQuestion from './NewQuestion';
 
-import './../../App.css';
+import './../../../App.css';
 
 class QuestionComponent extends Component {
   constructor(props) {
