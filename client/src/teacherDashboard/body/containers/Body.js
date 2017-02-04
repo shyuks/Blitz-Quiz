@@ -62,7 +62,7 @@ class Body extends Component {
     } else if (this.props.destination === 'Students') {
       navigator = (
         <div>
-          <StudentList currentClass={this.props.selectedClass}/>
+          <StudentList />
         </div>
       );
     } else if (this.props.destination === 'Lectures') {
