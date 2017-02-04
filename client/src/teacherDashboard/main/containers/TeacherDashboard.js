@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 
 import SidebarContent from './SidebarContent';
 import SidebarTopArea from './SidebarTopArea';
-import Body from '../../body/containers/Body';
+import MainBody from './MainBody';
 
 
 const styles = {
@@ -134,7 +134,7 @@ class TeacherDashboard
         <SidebarTopArea title={contentHeader}>
 
           <div>
-            <Body />
+            <MainBody />
           </div>
 
         </SidebarTopArea>

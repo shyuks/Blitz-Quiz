@@ -7,7 +7,7 @@ const todos = {
 }
 
 
-class BodyDashboard extends Component {
+class HomeDashboard extends Component {
   constructor(props) {
     super(props);
 
@@ -31,4 +31,4 @@ class BodyDashboard extends Component {
 
 }
 
-export default BodyDashboard;
+export default HomeDashboard;

@@ -2,31 +2,68 @@ import React, {Component} from 'react';
 import {ListGroup, ListGroupItem} from 'react-bootstrap';
 import axios from 'axios';
 import io from 'socket.io-client';
+import { connect } from 'react-redux';
 
-import LectureBodyComponents from './LectureBodyComponents';
-import QuestionsBodyComponents from './lectureQuestions/QuestionsBodyComponents';
+import LectureBody from '../components/LectureBody';
+import QuestionsBody from '../components/QuestionsBody';
 
-class LectureBody extends Component {
+class LectureDashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       toggler: true,
-      tests: this.props.tests || [],
+      tests: [],
       selectedTest: null,
       selectedQuestions: [],
       newQuestions: []
     };
+    this.componentWillMount = this.componentWillMount.bind(this);
+    this.componentWillUnmount = this.componentWillUnmount.bind(this);
     this.selectLectureHandler = this.selectLectureHandler.bind(this);
     this.handleDeselectLecture = this.handleDeselectLecture.bind(this);
     this.handleAddQuestion = this.handleAddQuestion.bind(this);
     this.handleSubmitNewQuestion = this.handleSubmitNewQuestion.bind(this);
-    this.handleAddLecture = this.handleAddLecture.bind(this);
+    this.addQuestions = this.addQuestions.bind(this);
+    this.addLecture = this.addLecture.bind(this);
   }
 
 //=========================================
 //            Begin Methods
 //=========================================
+  componentWillMount() {
+    var socket = io.connect('/');
+    console.log('CONNECTED HERE!!!!!!');
+    socket.emit('t_connect', this.props.classId);
+    this.setState({socket});
+  }
+  
+  componentWillUnmount() {
+    const sock = {
+      id: this.props.selectedClass.id,
+      className: this.props.selectedClass.className,
+      teacher: this.props.tData.teacher
+    }
+    console.log('here')
+    console.log(sock);
+  }
+
+  addLecture(arr) {
+    // this.setState({tests: arr});
+  }
+
+  addQuestions() {
+    axios.get('/test/' + this.props.tId).then(res => {
+      for(let obj of res.data.classes){
+        if(obj.id === this.props.classId){
+          // this.setState({
+          //   tests: obj.tests
+          // });
+        }
+      }
+    });
+  }
+
   //Needs to go to base questions and get the selectedQuestions
   selectLectureHandler (e, id) {
     e.preventDefault();
@@ -71,7 +108,7 @@ class LectureBody extends Component {
       status: 'incomplete', 
       testId: this.state.selectedTest.id};
     axios.post('/test/question', obj).then(res => {
-      this.props.addQuestions();
+      this.addQuestions();
     });
     
     let arr = this.state.selectedQuestions.concat([obj]);
@@ -90,51 +127,17 @@ class LectureBody extends Component {
     this.setState({selectedTest: null, selectedQuestions: []});
   }
 
-  handleAddLecture(testName) {
-    var newTest = {
-      testName: testName,
-      type: 'Lecture',
-      classId: this.props.classId,
-      answers: [],
-      questions: []
-    };
-    axios.post('/test/new', newTest).then(res => {
-      console.log('New Lecture sent to server!');
-    });
-    let arr = this.state.tests.slice();
-    arr.unshift(newTest);
-    this.props.addLecture(arr);
-    this.setState({tests: arr, selectedTest: null, selectedQuestions: []});
-  }
-
-  componentWillUnmount() {
-    console.log('here')
-    console.log(this.props.sock);
-  }
-
-  componentDidMount() {
-    var socket = io.connect('http://localhost:9000');
-    console.log('CONNECTED HERE!!!!!!');
-    socket.emit('t_connect', this.props.classId);
-    this.setState({socket});
-
-
-  }
-
-
 //=========================================
 //            Render
 //=========================================
   render() {
-    console.log('HERE ARE THE TESTS!')
     console.log(this.props.tests);
     let item = null;
     if(this.state.selectedTest === null) {
-      item = <LectureBodyComponents tests={this.state.tests} 
-        selectLectureHandler={this.selectLectureHandler} 
-        handleAddLecture = {this.handleAddLecture}/>;
+      item = <LectureBody tests={this.state.tests} 
+        selectLectureHandler={this.selectLectureHandler}/>;
     } else {
-      item = <QuestionsBodyComponents questions={this.state.selectedQuestions}
+      item = <QuestionsBody questions={this.state.selectedQuestions}
         lecture={this.state.selectedTest}
         newQuestions={this.state.newQuestions}
         handleDeselectLecture={this.handleDeselectLecture}
@@ -151,4 +154,11 @@ class LectureBody extends Component {
   }
 }
 
-export default LectureBody;
+function mapStateToProps(state) {
+  return { 
+    tData: state.teacherState.tData,
+    selectedClass: state.teacherState.selectedClass
+  }
+}
+
+export default LectureDashboard;
