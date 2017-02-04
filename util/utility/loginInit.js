@@ -6,6 +6,7 @@ const Class = require('./../../models/classes.model');
 const Student = require('./../../models/students.model');
 
 const createInitialObject = (teacherId) => {
+  console.log('creating object');
   return new Promise((resolve, reject) => {
     const obj = {teacher: {}};
     
@@ -15,9 +16,11 @@ const createInitialObject = (teacherId) => {
       obj.teacher.photo = teacher.photo;
       return getClasses(teacher);
     }).then(classes => {
+      console.log('in classes');
       return cleanClasses(classes); 
     }).then(cleaned => {
       obj.classes = cleaned;
+      console.log('final resolve :', obj);
       resolve(obj);
     });
   });

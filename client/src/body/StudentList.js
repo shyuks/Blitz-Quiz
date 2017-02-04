@@ -40,7 +40,7 @@ class StudentList extends Component {
       })
     })
     .catch(function (error) {
-      console.log(error);
+      console.log('error in student list component did mount');
     });
   }
 
@@ -80,7 +80,7 @@ class StudentList extends Component {
     this.setState({
       photo: newPhoto
     })
-    console.log(this.state.photo)
+    // console.log(this.state.photo)
   }
 
 
