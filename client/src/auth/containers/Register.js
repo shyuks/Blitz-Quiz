@@ -45,7 +45,6 @@ class Register extends Component {
     //     })
     // }
     componentWillMount(){
-      console.log(this.props.adminState);
       if(!this.props.adminState){
         this.context.router.push('/admin');
       }

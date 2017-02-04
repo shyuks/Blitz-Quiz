@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import {PageHeader, Form, FormGroup, FormControl, Button} from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { handleStudentAnswer } from '../../actions/student_actions'
+import axios from 'axios';
 
-import '../../App.css';
+import '../.././App.css';
 
 class QuestionArea extends Component {
   constructor(props) {
@@ -18,26 +21,41 @@ class QuestionArea extends Component {
     this.setState({answerBody: e.target.value});
   }
 
-  render() {
-    let question = this.props.question.body + '  ';
-    let type = this.props.question.type;
+  handleAnswer() {
+    let answer = {
+      StudentsId: this.props.sId,
+      QuestionsId: this.props.question[0].id,
+      answerBody: this.state.answerBody,
+      isCorrect : 'Pending'
+    };
 
-    return (
-      <div className="questionArea">
-        <PageHeader>{question}<small>{type}</small></PageHeader>
-        <Form>
-          <FormGroup>
-            <FormControl type="text"
-              value={this.state.answerBody}
-              onChange={this.handleAnswerChange} />
-            <Button onClick={(e) => this.props.handleAnswer(e, this.state.answerBody, this.props.question.id)}>
-              Submit
-            </Button>
-          </FormGroup>
-        </Form>
-      </div>
-    );
+    axios.post('/', answer)
+    .then(result => {
+      this.props.handleStudentAnswer();
+    })
+    .catch(error=>{
+      console.log(error);
+    })
+  }
+
+  render() {
+      // let question = this.props.question.body + '  ';
+      // let type = this.props.question.type;
+      return (
+        <div className="questionArea">
+          <PageHeader>{'question'}<small>{'type'}</small></PageHeader>
+          <Form>
+            <FormGroup>
+              <FormControl type="text"
+                value={this.state.answerBody}
+                onChange={this.handleAnswerChange} />
+              <Button onClick={this.handleAnswer}>
+                Submit
+              </Button>
+            </FormGroup>
+          </Form>
+        </div>
+      );
   }
 }
-
 export default QuestionArea;

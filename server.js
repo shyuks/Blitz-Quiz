@@ -41,9 +41,12 @@ app.use(bodyParser.json());
 //=========================================
 //          Routes
 //=========================================
+const router = require('./router/router')(app);
+
 app.get('/', (req, res) => {
   res.status(200).send('Hello World!');
 });
+
 
 app.get('/test/:userid', (req, res) => {
   console.log('in get for teacher object');
@@ -86,7 +89,7 @@ initDatabase().then(() => {
   });
 });
 
-const router = require('./router/router')(app);
+
 
 module.exports = app;
 
