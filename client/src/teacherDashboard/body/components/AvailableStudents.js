@@ -23,6 +23,12 @@ const styles = {
 
 
 class AvailableStudents extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      
+    }
+  }
 
   onGridReady(params) {
     this.api = params.api;

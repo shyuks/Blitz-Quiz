@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import ImportedStudents from './ImportedStudents';
-import AvailableStudents from './AvailableStudents';
-import StudentPhoto from './StudentPhoto';
+import ImportedStudents from '../components/ImportedStudents';
+import AvailableStudents from '../components/AvailableStudents';
+import StudentPhoto from '../components/StudentPhoto';
 import axios from 'axios'
 
 let arr;
@@ -46,13 +46,23 @@ class StudentList extends Component {
 
   render() {
     return (
-        <div className= "row">
+        <div className="row">
           <div className="col-sm-8">
-            <ImportedStudents data={this.state.importedStudents} removeStudents={this.removeStudents.bind(this)} changePhoto ={this.changePhoto.bind(this)}/>
-            <AvailableStudents data={this.state.availableStudents} addStudents={this.addStudents.bind(this)} changePhoto ={this.changePhoto.bind(this)}/>
+            <ImportedStudents
+              data={this.state.importedStudents}
+              removeStudents={this.removeStudents.bind(this)}
+              changePhoto={this.changePhoto.bind(this)}
+            />
+            
+            <AvailableStudents
+              data={this.state.availableStudents}
+              addStudents={this.addStudents.bind(this)}
+              changePhoto={this.changePhoto.bind(this)}
+            />
+
           </div>
           <div className="col-sm-4">
-            <StudentPhoto photo= {this.state.photo} />
+            <StudentPhoto photo={this.state.photo} />
           </div>
         </div>
     )
